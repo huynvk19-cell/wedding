@@ -16,7 +16,7 @@ window.WEDDING_CONFIG = {
   /* ---------- 1. THÔNG TIN CHUNG ---------- */
   meta: {
     // Hiện trên tab trình duyệt và khi chia sẻ Zalo/Facebook
-    siteTitle: 'Minh Quân ❤ Thảo Vy — Save The Date',
+    siteTitle: 'Văn Huy ❤ Ngọc Hiếu — Save The Date',
     description: 'Trân trọng kính mời bạn đến chung vui trong ngày hạnh phúc của chúng mình.',
     // Ảnh hiện ra khi dán link lên Facebook/Zalo (nên 1200x630)
     shareImage: 'assets/images/share.jpg',
@@ -26,28 +26,30 @@ window.WEDDING_CONFIG = {
   /* ---------- 2. CÔ DÂU & CHÚ RỂ ---------- */
   couple: {
     groom: {
-      shortName: 'Minh Quân',
-      fullName: 'Nguyễn Minh Quân',
+      shortName: 'Văn Huy',
+      fullName: 'Nguyễn Văn Huy',
       role: 'Chú rể',
+      title: 'Đại hoàng tử',          // danh xưng vui, hiện dưới tên
       photo: 'assets/images/groom.jpg',
       quote: 'Anh sẽ nắm tay em, đi hết những mùa còn lại của cuộc đời.',
-      father: 'Ông Nguyễn Văn Hùng',
-      mother: 'Bà Trần Thị Lan',
-      address: 'Số 12, Đường Lê Lợi, P. Bến Nghé, Q.1, TP. Hồ Chí Minh',
+      father: 'Ông Nguyễn Văn Lượng',
+      mother: 'Bà Nguyễn Thị Bé',
+      address: '',
       // Để '' nếu không muốn hiện nút mạng xã hội
-      facebook: 'https://facebook.com/',
+      facebook: '',
       instagram: ''
     },
     bride: {
-      shortName: 'Thảo Vy',
-      fullName: 'Lê Thảo Vy',
+      shortName: 'Ngọc Hiếu',
+      fullName: 'Nguyễn Ngọc Hiếu',
       role: 'Cô dâu',
+      title: 'Trưởng công chúa',      // danh xưng vui, hiện dưới tên
       photo: 'assets/images/bride.jpg',
       quote: 'Cảm ơn anh đã đến, và ở lại thật lâu trong đời em.',
-      father: 'Ông Lê Quang Minh',
-      mother: 'Bà Phạm Thị Hoa',
-      address: 'Số 88, Đường Nguyễn Huệ, P. Tân An, TP. Cần Thơ',
-      facebook: 'https://facebook.com/',
+      father: 'Ông Nguyễn Công Nhân',
+      mother: 'Bà Nguyễn Thị Ngọc Ánh',
+      address: '',
+      facebook: '',
       instagram: ''
     },
     // Thứ tự hiện tên ngoài bìa: 'groom-first' hoặc 'bride-first'
@@ -58,8 +60,8 @@ window.WEDDING_CONFIG = {
   cover: {
     eyebrow: 'Save The Date',
     photo: 'assets/images/cover.jpg',
-    dateText: '20 . 12 . 2026',
-    lunarText: 'Nhằm ngày 03 tháng 11 năm Bính Ngọ',
+    dateText: '16 . 09 . 2026',
+    lunarText: 'Nhằm ngày 06 tháng 08 năm Bính Ngọ',
     openButton: 'Mở thiệp cưới',
     // Lời chào riêng cho từng khách: gửi link kèm ?guest=Anh Tuấn
     guestGreeting: 'Thân mời'
@@ -77,14 +79,14 @@ window.WEDDING_CONFIG = {
       'Chúng mình đã đi cùng nhau qua rất nhiều mùa, và hôm nay, chúng mình muốn ' +
       'bắt đầu một hành trình mới — cùng một mái nhà. Sẽ thật trọn vẹn nếu có bạn ' +
       'ở đó, cùng chúng mình cất tiếng cười trong ngày trọng đại.',
-    signature: 'Minh Quân & Thảo Vy'
+    signature: 'Văn Huy & Ngọc Hiếu'
   },
 
   /* ---------- 5. ĐẾM NGƯỢC ---------- */
   countdown: {
     heading: 'Đếm ngược ngày hạnh phúc',
     // ĐỊNH DẠNG: 'YYYY-MM-DDTHH:mm:ss' (giờ Việt Nam)
-    targetDate: '2026-12-20T11:00:00',
+    targetDate: '2026-09-16T18:00:00',
     labels: { days: 'Ngày', hours: 'Giờ', minutes: 'Phút', seconds: 'Giây' },
     finishedText: 'Hôm nay là ngày chúng mình về chung một nhà ❤'
   },
@@ -95,25 +97,25 @@ window.WEDDING_CONFIG = {
     subheading: 'Một hành trình nhỏ, kể bằng vài cột mốc',
     items: [
       {
-        date: 'Tháng 09, 2019',
+        date: '08 . 03 . 2024',
         title: 'Lần đầu gặp nhau',
-        text: 'Một buổi chiều Sài Gòn mưa bất chợt, hai người trú chung một mái hiên và câu chuyện bắt đầu từ đó.',
+        text: 'Một đêm không mây ở bãi biển trung tâm Vũng Tàu. Biển, gió và một người lạ — để rồi sau đó không còn lạ nữa.',
         photo: 'assets/images/story-1.jpg'
       },
       {
-        date: 'Tháng 02, 2021',
-        title: 'Chính thức yêu',
-        text: 'Sau rất nhiều tin nhắn lúc nửa đêm và những chuyến đi không hẹn trước, chúng mình quyết định đi chung một đường.',
+        date: '21 . 03 . 2024',
+        title: 'Chính thức yêu nhau',
+        text: 'Mười ba ngày sau đêm biển ấy, chúng mình quyết định đi chung một đường.',
         photo: 'assets/images/story-2.jpg'
       },
       {
-        date: 'Tháng 06, 2024',
+        date: 'Tháng 04 . 2024',
         title: 'Chuyến đi đầu tiên',
-        text: 'Đà Lạt sương mù, một tách cà phê và lời hứa sẽ cùng nhau đi thật nhiều nơi nữa.',
+        text: 'Chuyến đi đầu tiên của hai đứa, và cũng là lần thứ hai chúng mình đến Vũng Tàu — nơi mọi thứ đã bắt đầu.',
         photo: 'assets/images/story-3.jpg'
       },
       {
-        date: 'Tháng 04, 2026',
+        date: 'Tháng 05 . 2024',
         title: 'Lời cầu hôn',
         text: 'Không pháo hoa, không đông người — chỉ có một chiếc nhẫn, một câu hỏi và một cái gật đầu.',
         photo: 'assets/images/story-4.jpg'
@@ -123,41 +125,19 @@ window.WEDDING_CONFIG = {
 
   /* ---------- 7. CÁC SỰ KIỆN ---------- */
   events: {
-    heading: 'Sự kiện cưới',
+    heading: 'Tiệc cưới',
     subheading: 'Rất mong được đón tiếp bạn',
     items: [
-      {
-        name: 'Lễ Vu Quy',
-        side: 'Nhà gái',
-        time: '09:00',
-        date: 'Chủ Nhật, 20 / 12 / 2026',
-        lunar: 'Ngày 03 tháng 11 năm Bính Ngọ',
-        venue: 'Tư gia nhà gái',
-        address: 'Số 88, Đường Nguyễn Huệ, P. Tân An, TP. Cần Thơ',
-        mapUrl: 'https://maps.google.com/?q=Nguyen+Hue+Can+Tho',
-        // Link Google Maps nhúng (Chia sẻ > Nhúng bản đồ > copy src). Để '' để ẩn bản đồ.
-        mapEmbed: ''
-      },
-      {
-        name: 'Lễ Thành Hôn',
-        side: 'Nhà trai',
-        time: '11:00',
-        date: 'Chủ Nhật, 20 / 12 / 2026',
-        lunar: 'Ngày 03 tháng 11 năm Bính Ngọ',
-        venue: 'Tư gia nhà trai',
-        address: 'Số 12, Đường Lê Lợi, P. Bến Nghé, Q.1, TP. Hồ Chí Minh',
-        mapUrl: 'https://maps.google.com/?q=Le+Loi+Quan+1+HCM',
-        mapEmbed: ''
-      },
       {
         name: 'Tiệc Cưới',
         side: 'Nhà hàng',
         time: '18:00',
-        date: 'Chủ Nhật, 20 / 12 / 2026',
-        lunar: 'Ngày 03 tháng 11 năm Bính Ngọ',
-        venue: 'Trung tâm Hội nghị Riverside Palace',
-        address: '360D Bến Vân Đồn, P.1, Q.4, TP. Hồ Chí Minh',
-        mapUrl: 'https://maps.google.com/?q=Riverside+Palace+Ben+Van+Don',
+        date: 'Thứ Tư, 16 / 09 / 2026',
+        lunar: 'Nhằm ngày 06 tháng 08 năm Bính Ngọ',
+        venue: 'Nhà hàng Long Phụng 4',
+        address: 'Đường vào cáp treo (bãi đất đỏ cũ), Phú Quốc',
+        mapUrl: 'https://www.google.com/maps/search/?api=1&query=Nh%C3%A0%20h%C3%A0ng%20Long%20Ph%E1%BB%A5ng%204%20Ph%C3%BA%20Qu%E1%BB%91c',
+        // Link Google Maps nhúng (Chia sẻ > Nhúng bản đồ > copy src). Để '' để ẩn bản đồ.
         mapEmbed: ''
       }
     ],
@@ -165,10 +145,10 @@ window.WEDDING_CONFIG = {
     calendar: {
       show: true,
       label: 'Thêm vào lịch của bạn',
-      title: 'Lễ cưới Minh Quân & Thảo Vy',
-      start: '2026-12-20T18:00:00',
-      end: '2026-12-20T21:00:00',
-      location: 'Riverside Palace, 360D Bến Vân Đồn, Q.4, TP.HCM'
+      title: 'Lễ cưới Văn Huy & Ngọc Hiếu',
+      start: '2026-09-16T18:00:00',
+      end: '2026-09-16T21:00:00',
+      location: 'Nhà hàng Long Phụng 4, đường vào cáp treo (bãi đất đỏ cũ), Phú Quốc'
     }
   },
 
@@ -193,7 +173,7 @@ window.WEDDING_CONFIG = {
   rsvp: {
     show: true,
     heading: 'Xác nhận tham dự',
-    subheading: 'Vui lòng phản hồi trước ngày 10 / 12 / 2026',
+    subheading: 'Vui lòng phản hồi trước ngày 05 / 09 / 2026',
     // CÁCH GỬI DỮ LIỆU — chọn 1 trong 3:
     //   'none'   : chỉ hiện lời cảm ơn, không gửi đi đâu (mặc định, dùng để xem thử)
     //   'form'   : gửi vào Google Form (điền formAction + các entry.xxx bên dưới)
@@ -204,7 +184,6 @@ window.WEDDING_CONFIG = {
       name: 'entry.111111',
       phone: 'entry.222222',
       attend: 'entry.333333',
-      guests: 'entry.444444',
       side: 'entry.555555',
       wish: 'entry.666666'
     },
@@ -231,33 +210,7 @@ window.WEDDING_CONFIG = {
     ]
   },
 
-  /* ---------- 11. MỪNG CƯỚI ---------- */
-  gift: {
-    show: true,
-    heading: 'Hộp mừng cưới',
-    subheading: 'Sự hiện diện của bạn là món quà quý nhất. Nếu ở xa, bạn có thể gửi lời chúc qua đây.',
-    accounts: [
-      {
-        label: 'Chú rể',
-        bank: 'Vietcombank',
-        number: '0123456789',
-        holder: 'NGUYEN MINH QUAN',
-        // Ảnh QR của bạn (VietQR / ảnh chụp QR ngân hàng)
-        qr: 'assets/images/qr-groom.jpg'
-      },
-      {
-        label: 'Cô dâu',
-        bank: 'Techcombank',
-        number: '9876543210',
-        holder: 'LE THAO VY',
-        qr: 'assets/images/qr-bride.jpg'
-      }
-    ],
-    copyText: 'Sao chép số tài khoản',
-    copiedText: 'Đã sao chép!'
-  },
-
-  /* ---------- 12. NHẠC NỀN ---------- */
+  /* ---------- 11. NHẠC NỀN ---------- */
   music: {
     show: true,
     // Chép file .mp3 vào assets/music/ rồi sửa đường dẫn
@@ -267,15 +220,15 @@ window.WEDDING_CONFIG = {
     title: 'Nhạc nền'
   },
 
-  /* ---------- 13. LỜI KẾT ---------- */
+  /* ---------- 12. LỜI KẾT ---------- */
   footer: {
     heading: 'Cảm ơn bạn',
     text: 'Sự hiện diện của bạn là niềm vinh hạnh lớn nhất của gia đình chúng mình.',
-    names: 'Minh Quân & Thảo Vy',
-    date: '20 . 12 . 2026'
+    names: 'Văn Huy & Ngọc Hiếu',
+    date: '16 . 09 . 2026'
   },
 
-  /* ---------- 14. GIAO DIỆN ---------- */
+  /* ---------- 13. GIAO DIỆN ---------- */
   theme: {
     // Đổi tông màu tại đây nếu muốn
     burgundy: '#6E1621',   // đỏ đô chủ đạo

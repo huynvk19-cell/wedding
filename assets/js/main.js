@@ -122,6 +122,7 @@
       '<div class="person__photo"><img src="' + esc(p.photo) + '" alt="' + esc(p.fullName) + '" loading="lazy"></div>' +
       '<p class="person__role">' + esc(p.role) + '</p>' +
       '<h3 class="person__name">' + esc(p.fullName) + '</h3>' +
+      (p.title ? '<p class="person__title">' + esc(p.title) + '</p>' : '') +
       (p.quote ? '<p class="person__quote">“' + esc(p.quote) + '”</p>' : '') +
       '<div class="person__parents"><b>Gia đình</b>' +
         (p.father ? '<span>' + esc(p.father) + '</span>' : '') +
@@ -318,7 +319,6 @@
         name: $('#rsvpName').value.trim(),
         phone: $('#rsvpPhone').value.trim(),
         attend: $('#rsvpAttend').value,
-        guests: $('#rsvpGuests').value,
         side: $('#rsvpSide').value,
         wish: $('#rsvpWish').value.trim()
       };
@@ -399,50 +399,7 @@
   }
 
   /* ---------------------------------------------------------
-     10. Mừng cưới
-     --------------------------------------------------------- */
-  function buildGift() {
-    var g = C.gift || {};
-    if (!g.show) return;
-    $('#sec-gift').hidden = false;
-    text('giftHeading', g.heading);
-    text('giftSub', g.subheading);
-
-    $('#gifts').innerHTML = (g.accounts || []).map(function (a) {
-      return '<div class="gift">' +
-        '<p class="gift__label">' + esc(a.label) + '</p>' +
-        (a.qr ? '<img class="gift__qr" src="' + esc(a.qr) + '" alt="Mã QR ' + esc(a.bank) + '" loading="lazy">' : '') +
-        '<p class="gift__bank">' + esc(a.bank) + '</p>' +
-        '<p class="gift__num">' + esc(a.number) + '</p>' +
-        '<p class="gift__holder">' + esc(a.holder) + '</p>' +
-        '<button class="gift__copy" type="button" data-num="' + esc(a.number) + '">' +
-          esc(g.copyText || 'Sao chép') + '</button>' +
-      '</div>';
-    }).join('');
-
-    $('#gifts').addEventListener('click', function (ev) {
-      var btn = ev.target.closest('.gift__copy');
-      if (!btn) return;
-      var num = btn.getAttribute('data-num');
-      var flash = function () {
-        var old = btn.textContent;
-        btn.textContent = g.copiedText || 'Đã sao chép!';
-        btn.classList.add('is-copied');
-        setTimeout(function () { btn.textContent = old; btn.classList.remove('is-copied'); }, 1800);
-      };
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(num).then(flash).catch(flash);
-      } else {
-        var ta = document.createElement('textarea');
-        ta.value = num; document.body.appendChild(ta); ta.select();
-        try { document.execCommand('copy'); } catch (e) {}
-        document.body.removeChild(ta); flash();
-      }
-    });
-  }
-
-  /* ---------------------------------------------------------
-     11. Footer
+     10. Footer
      --------------------------------------------------------- */
   function buildFooter() {
     var f = C.footer || {};
@@ -452,7 +409,7 @@
   }
 
   /* ---------------------------------------------------------
-     12. Nhạc nền
+     11. Nhạc nền
      --------------------------------------------------------- */
   var music = { play: function () {} };
   function buildMusic() {
@@ -489,7 +446,7 @@
   }
 
   /* ---------------------------------------------------------
-     13. Chấm điều hướng
+     12. Chấm điều hướng
      --------------------------------------------------------- */
   function buildNavDots() {
     if (!(C.theme || {}).navDots) return;
@@ -501,8 +458,7 @@
       ['sec-events', 'Sự kiện'],
       ['sec-gallery', 'Album'],
       ['sec-rsvp', 'Xác nhận'],
-      ['sec-wishes', 'Lưu bút'],
-      ['sec-gift', 'Mừng cưới']
+      ['sec-wishes', 'Lưu bút']
     ].filter(function (it) {
       var el = document.getElementById(it[0]);
       return el && !el.hidden;
@@ -527,7 +483,7 @@
   }
 
   /* ---------------------------------------------------------
-     14. Cánh hoa rơi
+     13. Cánh hoa rơi
      --------------------------------------------------------- */
   function buildPetals() {
     if (!(C.theme || {}).petals) return;
@@ -551,7 +507,7 @@
   }
 
   /* ---------------------------------------------------------
-     15. Hiệu ứng xuất hiện khi cuộn
+     14. Hiệu ứng xuất hiện khi cuộn
      --------------------------------------------------------- */
   function initReveal() {
     var els = $$('.reveal');
@@ -568,7 +524,7 @@
   }
 
   /* ---------------------------------------------------------
-     16. Mở thiệp
+     15. Mở thiệp
      --------------------------------------------------------- */
   function initOpen() {
     $('#openBtn').addEventListener('click', function () {
@@ -594,7 +550,6 @@
   buildGallery();
   buildRsvp();
   buildWishes();
-  buildGift();
   buildFooter();
   buildMusic();
   buildNavDots();

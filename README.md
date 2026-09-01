@@ -32,8 +32,7 @@ thật, giữ nguyên tên file** là thiệp tự động cập nhật, không 
 | `groom.jpg` | Ảnh chú rể | dọc, 800 × 1000 |
 | `bride.jpg` | Ảnh cô dâu | dọc, 800 × 1000 |
 | `story-1.jpg` → `story-4.jpg` | Ảnh các cột mốc trong "Chuyện chúng mình" | ngang, 1000 × 750 |
-| `gallery-1.jpg` → `gallery-8.jpg` | Album cưới | dọc, 900 × 1100 |
-| `qr-groom.jpg`, `qr-bride.jpg` | Mã QR ngân hàng | vuông, 600 × 600 |
+| `gallery-1.jpg` → `gallery-8.jpg` | Album cưới (thêm/bớt bao nhiêu tuỳ ý) | **ảnh dọc**, 900 × 1100 |
 | `share.jpg` | Ảnh hiện ra khi dán link lên Facebook/Zalo | 1200 × 630 |
 
 Hoặc nếu muốn đặt tên khác, bạn chép ảnh vào `assets/images/` rồi sửa đường
@@ -48,7 +47,7 @@ photo: 'assets/images/anh-cuoi-cua-toi.jpg'
 
 ### Bước 2 — Sửa thông tin trong `assets/js/config.js`
 
-File được chia thành 14 mục có chú thích tiếng Việt rõ ràng:
+File được chia thành 13 mục có chú thích tiếng Việt rõ ràng:
 
 1. **meta** — tiêu đề, mô tả, ảnh chia sẻ
 2. **couple** — tên, ảnh, cha mẹ, địa chỉ hai bên
@@ -56,30 +55,78 @@ File được chia thành 14 mục có chú thích tiếng Việt rõ ràng:
 4. **intro** — lời mở đầu
 5. **countdown** — ngày giờ để đếm ngược
 6. **story** — các cột mốc tình yêu (thêm/bớt tuỳ ý)
-7. **events** — Lễ Vu Quy / Lễ Thành Hôn / Tiệc Cưới + bản đồ
+7. **events** — thông tin tiệc cưới + bản đồ
 8. **gallery** — danh sách ảnh album
 9. **rsvp** — form xác nhận tham dự
 10. **wishes** — sổ lưu bút
-11. **gift** — số tài khoản + mã QR mừng cưới
-12. **music** — nhạc nền
-13. **footer** — lời kết
-14. **theme** — màu sắc, hiệu ứng
+11. **music** — nhạc nền
+12. **footer** — lời kết
+13. **theme** — màu sắc, hiệu ứng
 
 Ví dụ đổi tên và ngày cưới:
 
 ```js
 couple: {
-  groom: { shortName: 'Văn Nam', fullName: 'Trần Văn Nam', ... },
-  bride: { shortName: 'Mai Anh', fullName: 'Đỗ Mai Anh', ... }
+  groom: { shortName: 'Văn Huy',  fullName: 'Nguyễn Văn Huy',  title: 'Đại hoàng tử',    ... },
+  bride: { shortName: 'Ngọc Hiếu', fullName: 'Nguyễn Ngọc Hiếu', title: 'Trưởng công chúa', ... }
 },
 cover: {
-  dateText: '15 . 03 . 2027',
-  lunarText: 'Nhằm ngày 08 tháng 02 năm Đinh Mùi'
+  dateText: '16 . 09 . 2026',
+  lunarText: 'Nhằm ngày 06 tháng 08 năm Bính Ngọ'
 },
 countdown: {
-  targetDate: '2027-03-15T11:00:00'   // định dạng YYYY-MM-DDTHH:mm:ss
+  targetDate: '2026-09-16T18:00:00'   // định dạng YYYY-MM-DDTHH:mm:ss
 }
 ```
+
+### Bước 2b — Thêm ảnh vào album (nhiều hơn 8 ảnh)
+
+Album không giới hạn số ảnh. Có **hai cách**:
+
+**Cách A — chỉ thay ảnh, không sửa code (dễ nhất)**
+
+Đặt tên ảnh của bạn đúng như tên có sẵn rồi chép đè vào `assets/images/`:
+`gallery-1.jpg`, `gallery-2.jpg`, … `gallery-8.jpg`. Xong, không cần mở file nào cả.
+
+**Cách B — thêm ảnh thứ 9, 10, 11…**
+
+1. Chép ảnh vào `assets/images/`, ví dụ `gallery-9.jpg`, `gallery-10.jpg`
+2. Mở `assets/js/config.js`, tìm mục `gallery`, thêm dòng mới vào danh sách:
+
+```js
+gallery: {
+  photos: [
+    { src: 'assets/images/gallery-1.jpg', caption: 'Khoảnh khắc 01' },
+    ...
+    { src: 'assets/images/gallery-8.jpg', caption: 'Khoảnh khắc 08' },
+    { src: 'assets/images/gallery-9.jpg',  caption: 'Khoảnh khắc 09' },
+    { src: 'assets/images/gallery-10.jpg', caption: 'Khoảnh khắc 10' }
+  ]
+}
+```
+
+**Ba quy tắc dễ sai:**
+
+- Mỗi dòng kết thúc bằng dấu phẩy `,` — **trừ dòng cuối cùng** thì không có dấu phẩy.
+- Tên file phải **khớp chính xác**, kể cả chữ hoa/thường và đuôi `.jpg` / `.png`.
+- Không dùng dấu tiếng Việt và khoảng trắng trong tên file. Dùng `anh-cuoi-01.jpg`,
+  đừng dùng `ảnh cưới 01.jpg`.
+
+**Muốn bớt ảnh?** Xoá cả dòng đó đi. Lưới sẽ tự sắp xếp lại, không để lỗ trống.
+
+**Kích thước ảnh album:** nên dùng **ảnh dọc** (khổ 3:4 hoặc 4:5, ví dụ 900 × 1200).
+Trên điện thoại album xếp 2 cột theo khổ dọc, nên ảnh ngang sẽ bị cắt bớt hai bên.
+
+**Ảnh ở các chỗ khác** (bìa, cô dâu, chú rể, câu chuyện) không cộng thêm được —
+mỗi chỗ đúng một ảnh. Muốn đổi thì sửa đường dẫn ngay tại mục đó trong `config.js`:
+
+```js
+couple: { groom: { photo: 'assets/images/anh-chu-re.jpg' } }
+story:  { items: [ { photo: 'assets/images/ky-niem-01.jpg' } ] }
+```
+
+Riêng **Chuyện chúng mình** thì thêm/bớt được cột mốc: mỗi cột mốc là một khối
+`{ date, title, text, photo }` trong `story.items`.
 
 ### Bước 3 — Thêm nhạc nền (không bắt buộc)
 
@@ -106,7 +153,6 @@ Nếu chưa có file nhạc, nút nhạc sẽ **tự động ẩn** — thiệp 
 | **Album + xem ảnh lớn** | Bấm ảnh để phóng to, vuốt/bấm mũi tên hoặc phím ←/→, Esc để đóng |
 | **RSVP** | Gửi về Google Form hoặc API riêng (xem dưới) |
 | **Sổ lưu bút** | Khách viết lời chúc, hiển thị ngay |
-| **Mừng cưới** | Mã QR + nút sao chép số tài khoản 1 chạm |
 | **Cánh hoa rơi** | Nhẹ nhàng, tắt được trong `theme.petals` |
 | **Tự tắt hiệu ứng** | Tôn trọng cài đặt "giảm chuyển động" của máy khách |
 
