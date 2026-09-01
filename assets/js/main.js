@@ -23,11 +23,12 @@
      --------------------------------------------------------- */
   function applyTheme() {
     var t = C.theme || {}, root = document.documentElement.style;
-    if (t.burgundy) root.setProperty('--burgundy', t.burgundy);
-    if (t.red)      root.setProperty('--red', t.red);
-    if (t.cream)    root.setProperty('--cream', t.cream);
-    if (t.ink)      root.setProperty('--ink', t.ink);
-    if (t.gold)     root.setProperty('--gold', t.gold);
+    if (t.deep)   root.setProperty('--deep', t.deep);
+    if (t.accent) root.setProperty('--accent', t.accent);
+    if (t.cream)  root.setProperty('--cream', t.cream);
+    if (t.ink)    root.setProperty('--ink', t.ink);
+    if (t.gold)   root.setProperty('--gold', t.gold);
+    if (t.sand)   root.setProperty('--sand', t.sand);
 
     var m = C.meta || {};
     document.title = m.siteTitle || document.title;
@@ -119,7 +120,6 @@
         '</div>';
     }
     return '<div class="person reveal" data-delay="' + delay + '">' +
-      '<div class="person__photo"><img src="' + esc(p.photo) + '" alt="' + esc(p.fullName) + '" loading="lazy"></div>' +
       '<p class="person__role">' + esc(p.role) + '</p>' +
       '<h3 class="person__name">' + esc(p.fullName) + '</h3>' +
       (p.title ? '<p class="person__title">' + esc(p.title) + '</p>' : '') +
@@ -133,6 +133,15 @@
   }
 
   function buildCouple() {
+    /* Một ảnh chung cho cả mục — bỏ trống trong config thì phần này thuần chữ */
+    var photo = $('#couplePhoto');
+    if (C.couple.photo) {
+      photo.innerHTML = '<img src="' + esc(C.couple.photo) + '" alt="' +
+        esc(pairNames()) + '" loading="lazy">';
+    } else {
+      photo.remove();
+    }
+
     var g = personHtml(C.couple.groom, 1);
     var b = personHtml(C.couple.bride, 2);
     var divider = '<div class="couple__divider reveal"><i></i><span class="couple__heart">&amp;</span><i></i></div>';

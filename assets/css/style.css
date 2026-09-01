@@ -1,18 +1,22 @@
 /* ============================================================
-   MINIMALISM ĐỎ ĐÔ — Wedding Invitation
-   Bảng màu & typography tối giản, tông đỏ burgundy trên nền kem
+   THIỆP CƯỚI — TÔNG XANH BIỂN
+   Tối giản, tông xanh biển sâu trên nền cát ngà —
+   bảng màu lấy từ ảnh cưới ở biển Phú Quốc
    ============================================================ */
 
 :root{
-  --burgundy:#6E1621;
-  --red:#96202E;
-  --cream:#FBF6EF;
-  --cream-2:#F5EDE2;
-  --ink:#2A2422;
-  --ink-soft:#6B615C;
-  --gold:#B98A44;
-  --line:rgba(110,22,33,.18);
-  --shadow:0 18px 50px -24px rgba(42,36,34,.45);
+  /* Bảng màu lấy từ ảnh cưới ở biển Phú Quốc:
+     xanh biển sâu · xanh nước · cát ngà · vàng cát ấm */
+  --deep:#2A4257;        /* xanh biển sâu — chủ đạo, nền các mảng tối */
+  --accent:#3F657E;      /* xanh biển vừa — nhãn nhỏ, chi tiết nhấn */
+  --cream:#F4F1EA;       /* cát ngà — nền chính */
+  --cream-2:#E7E2D8;     /* cát đậm hơn — nền xen kẽ */
+  --ink:#232E36;
+  --ink-soft:#5B666E;
+  --gold:#CFAF74;        /* vàng cát SÁNG — chỉ dùng trên nền tối */
+  --sand:#7E6030;        /* vàng cát ĐẬM — chỉ dùng trên nền sáng */
+  --line:rgba(42,66,87,.20);
+  --shadow:0 18px 50px -24px rgba(35,46,54,.42);
 
   --serif:'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --display:'Playfair Display', Georgia, serif;
@@ -51,14 +55,14 @@ button{font-family:inherit;cursor:pointer}
 .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
 .section{padding:clamp(64px,10vw,120px) 0;position:relative}
 .section--tint{background:var(--cream-2)}
-.section--dark{background:var(--burgundy);color:var(--cream)}
+.section--dark{background:var(--deep);color:var(--cream)}
 
 .eyebrow{
   font-family:var(--sans);
   font-size:.72rem;
   letter-spacing:.36em;
   text-transform:uppercase;
-  color:var(--red);
+  color:var(--accent);
   font-weight:500;
   margin:0 0 14px;
 }
@@ -70,7 +74,7 @@ button{font-family:inherit;cursor:pointer}
   font-size:clamp(2rem,5.2vw,3.15rem);
   line-height:1.18;
   margin:0 0 16px;
-  color:var(--burgundy);
+  color:var(--deep);
 }
 .section--dark .title{color:var(--cream)}
 
@@ -96,7 +100,7 @@ button{font-family:inherit;cursor:pointer}
 }
 .rule i{
   width:7px;height:7px;transform:rotate(45deg);
-  background:var(--red);display:block;flex:none;
+  background:var(--accent);display:block;flex:none;
 }
 .section--dark .rule::before,.section--dark .rule::after{background:rgba(251,246,239,.28)}
 .section--dark .rule i{background:var(--gold)}
@@ -105,25 +109,25 @@ button{font-family:inherit;cursor:pointer}
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:10px;
   padding:14px 34px;
-  border:1px solid var(--burgundy);
-  background:var(--burgundy);
+  border:1px solid var(--deep);
+  background:var(--deep);
   color:var(--cream);
   font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;
   text-decoration:none;border-radius:2px;
   transition:background .35s ease,color .35s ease,transform .35s ease;
 }
-.btn:hover{background:transparent;color:var(--burgundy);transform:translateY(-2px)}
-.btn--ghost{background:transparent;color:var(--burgundy)}
-.btn--ghost:hover{background:var(--burgundy);color:var(--cream)}
+.btn:hover{background:transparent;color:var(--deep);transform:translateY(-2px)}
+.btn--ghost{background:transparent;color:var(--deep)}
+.btn--ghost:hover{background:var(--deep);color:var(--cream)}
 .btn--light{border-color:var(--cream);background:transparent;color:var(--cream)}
-.btn--light:hover{background:var(--cream);color:var(--burgundy)}
+.btn--light:hover{background:var(--cream);color:var(--deep)}
 
 /* ============================================================
    1. BÌA THIỆP (overlay mở thiệp)
    ============================================================ */
 .cover{
   position:fixed;inset:0;z-index:200;
-  background:var(--burgundy);
+  background:var(--deep);
   display:grid;place-items:center;
   text-align:center;
   padding:var(--pad);
@@ -133,12 +137,13 @@ button{font-family:inherit;cursor:pointer}
 
 .cover__bg{
   position:absolute;inset:0;
-  background-size:cover;background-position:center;
-  opacity:.28;filter:grayscale(.35);
+  background-size:cover;
+  background-position:center 34%;   /* để hai người nằm dưới khung chữ, không bị chữ đè lên */
+  opacity:.62;
 }
 .cover__veil{
   position:absolute;inset:0;
-  background:radial-gradient(120% 90% at 50% 40%, rgba(110,22,33,.55), rgba(58,10,16,.94));
+  background:radial-gradient(120% 95% at 50% 32%, rgba(42,66,87,.34), rgba(18,32,44,.90));
 }
 .cover__inner{position:relative;z-index:2;color:var(--cream);max-width:640px}
 
@@ -202,14 +207,18 @@ button{font-family:inherit;cursor:pointer}
   overflow:hidden;
 }
 .hero__bg{
-  position:absolute;inset:0;background-size:cover;background-position:center;
+  position:absolute;inset:0;background-size:cover;
+  background-position:center 64%;   /* ảnh chụp dọc: canh xuống để không cắt mất hai người */
   transform:scale(1.06);
   animation:kenburns 22s ease-in-out infinite alternate;
 }
 @keyframes kenburns{from{transform:scale(1.02)}to{transform:scale(1.12)}}
 .hero::after{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(42,36,34,.42),rgba(110,22,33,.5));
+  background:
+    /* quầng tối mềm ngay sau khối chữ — giữ ảnh vẫn sáng ở rìa */
+    radial-gradient(58% 42% at 50% 46%, rgba(14,26,37,.46), rgba(14,26,37,0) 70%),
+    linear-gradient(180deg,rgba(20,33,45,.44) 0%,rgba(22,37,50,.52) 52%,rgba(16,28,40,.72) 100%);
 }
 .hero__inner{position:relative;z-index:2;color:#fff;max-width:760px}
 .hero__eyebrow{
@@ -221,7 +230,7 @@ button{font-family:inherit;cursor:pointer}
   font-size:clamp(2.4rem,8.5vw,4.6rem);line-height:1.12;margin:0;
   text-shadow:0 2px 30px rgba(0,0,0,.3);
 }
-.hero__amp{display:block;font-family:var(--script);font-size:.55em;color:#F2D9A8;margin:4px 0}
+.hero__amp{display:block;font-family:var(--script);font-size:.55em;color:#E4CE9C;margin:4px 0}
 .hero__date{
   margin:26px 0 0;font-family:var(--serif);
   font-size:clamp(1rem,3vw,1.3rem);letter-spacing:.32em;
@@ -240,77 +249,91 @@ button{font-family:inherit;cursor:pointer}
 .intro__lines{
   font-family:var(--serif);font-style:italic;
   font-size:clamp(1.25rem,3.4vw,1.75rem);
-  line-height:1.85;color:var(--burgundy);margin:0 0 30px;
+  line-height:1.85;color:var(--deep);margin:0 0 30px;
 }
 .intro__msg{
   max-width:660px;margin:0 auto 26px;color:var(--ink-soft);
 }
 .intro__sign{
   font-family:var(--script);font-size:clamp(1.6rem,4vw,2.1rem);
-  color:var(--red);margin:0;
+  color:var(--accent);margin:0;
 }
 
 /* ============================================================
    4. CÔ DÂU & CHÚ RỂ
+   Bố cục thuần chữ, cân đối hai bên — không dùng hai ảnh chân dung
+   riêng nữa. Có thể thêm MỘT ảnh chung ở trên qua couple.photo.
    ============================================================ */
-.couple{
-  display:grid;grid-template-columns:1fr auto 1fr;
-  gap:clamp(20px,4vw,52px);align-items:start;
+.couple__photo{
+  margin:0 auto clamp(44px,7vw,72px);
+  max-width:min(660px,100%);
+  position:relative;
 }
-.couple__divider{
-  align-self:center;display:flex;flex-direction:column;align-items:center;gap:14px;
-  color:var(--red);
+.couple__photo img{
+  width:100%;height:auto;display:block;
+  border-radius:2px;
+  box-shadow:var(--shadow);
 }
-.couple__divider i{width:1px;height:clamp(60px,12vw,130px);background:var(--line);display:block}
-.couple__heart{font-family:var(--script);font-size:2.4rem;color:var(--red);line-height:1}
+/* khung mảnh lệch nhẹ — chi tiết trang trí duy nhất của mục này */
+.couple__photo::after{
+  content:'';position:absolute;inset:14px -14px -14px 14px;
+  border:1px solid var(--line);border-radius:2px;z-index:-1;
+}
 
-.person{text-align:center}
-.person__photo{
-  position:relative;width:min(280px,72vw);margin:0 auto 26px;
-  aspect-ratio:4/5;
+.couple{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:clamp(24px,5vw,64px);
+  align-items:stretch;
+  max-width:900px;margin:0 auto;
 }
-.person__photo img{
-  width:100%;height:100%;object-fit:cover;
-  border-radius:190px 190px 6px 6px;   /* dáng vòm cổng — nét đặc trưng minimal */
-  filter:saturate(.94);
+
+/* Vạch dọc mảnh với dấu & ở giữa */
+.couple__divider{
+  display:flex;flex-direction:column;align-items:center;gap:18px;
 }
-.person__photo::after{
-  content:'';position:absolute;inset:12px -12px -12px 12px;
-  border:1px solid var(--line);
-  border-radius:190px 190px 6px 6px;
-  z-index:-1;
+.couple__divider i{flex:1;width:1px;background:var(--line);display:block;min-height:28px}
+.couple__heart{
+  font-family:var(--script);font-size:clamp(2rem,4.5vw,2.6rem);
+  color:var(--sand);line-height:1;flex:none;
 }
+
+.person{text-align:center;display:flex;flex-direction:column}
 .person__role{
-  font-size:.68rem;letter-spacing:.34em;text-transform:uppercase;
-  color:var(--red);margin:0 0 8px;
+  font-size:.66rem;letter-spacing:.34em;text-transform:uppercase;
+  color:var(--accent);margin:0 0 12px;
 }
 .person__name{
   font-family:var(--display);font-weight:400;
-  font-size:clamp(1.5rem,3.6vw,2rem);color:var(--burgundy);margin:0 0 14px;
+  font-size:clamp(1.6rem,4vw,2.15rem);color:var(--deep);
+  margin:0 0 6px;line-height:1.2;text-wrap:balance;
 }
 .person__title{
-  font-family:var(--script);font-size:1.3rem;color:var(--gold);
-  margin:-8px 0 14px;line-height:1.3;
+  font-family:var(--script);font-size:clamp(1.2rem,2.6vw,1.45rem);
+  color:var(--sand);margin:0 0 20px;line-height:1.3;
 }
 .person__quote{
-  font-family:var(--serif);font-style:italic;font-size:1.06rem;
-  color:var(--ink-soft);margin:0 auto 18px;max-width:320px;
+  font-family:var(--serif);font-style:italic;font-size:1.08rem;
+  color:var(--ink-soft);margin:0 auto 24px;max-width:330px;
 }
 .person__parents{
-  border-top:1px solid var(--line);padding-top:16px;margin-top:6px;
-  font-size:.92rem;color:var(--ink-soft);
+  border-top:1px solid var(--line);padding-top:18px;
+  margin-top:auto;                       /* đẩy khối gia đình xuống đáy để hai bên thẳng hàng */
+  font-size:.95rem;color:var(--ink-soft);
 }
-.person__parents b{display:block;font-weight:500;color:var(--ink);font-size:.68rem;
-  letter-spacing:.26em;text-transform:uppercase;margin-bottom:8px}
-.person__parents span{display:block}
+.person__parents b{
+  display:block;font-weight:500;color:var(--accent);font-size:.64rem;
+  letter-spacing:.28em;text-transform:uppercase;margin-bottom:10px;
+}
+.person__parents span{display:block;line-height:1.9}
 .person__addr{font-size:.86rem;color:var(--ink-soft);margin-top:10px;font-style:italic}
-.person__social{display:flex;gap:12px;justify-content:center;margin-top:14px}
+.person__social{display:flex;gap:12px;justify-content:center;margin-top:16px}
 .person__social a{
   width:34px;height:34px;border:1px solid var(--line);border-radius:50%;
-  display:grid;place-items:center;color:var(--red);text-decoration:none;
+  display:grid;place-items:center;color:var(--accent);text-decoration:none;
   transition:.3s;
 }
-.person__social a:hover{background:var(--burgundy);color:var(--cream);border-color:var(--burgundy)}
+.person__social a:hover{background:var(--deep);color:var(--cream);border-color:var(--deep)}
 
 /* ============================================================
    5. ĐẾM NGƯỢC
@@ -352,7 +375,7 @@ button{font-family:inherit;cursor:pointer}
 }
 .tl:last-child{margin-bottom:0}
 .tl__dot{
-  width:11px;height:11px;background:var(--red);transform:rotate(45deg);
+  width:11px;height:11px;background:var(--accent);transform:rotate(45deg);
   margin:0 auto;position:relative;z-index:2;
   outline:6px solid var(--cream);
 }
@@ -363,11 +386,11 @@ button{font-family:inherit;cursor:pointer}
 }
 .tl__body .tl__date{
   font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;
-  color:var(--red);margin:0 0 8px;
+  color:var(--accent);margin:0 0 8px;
 }
 .tl__body h3{
   font-family:var(--display);font-weight:400;
-  font-size:clamp(1.25rem,3vw,1.6rem);color:var(--burgundy);margin:0 0 10px;
+  font-size:clamp(1.25rem,3vw,1.6rem);color:var(--deep);margin:0 0 10px;
 }
 .tl__body p{margin:0;color:var(--ink-soft);font-size:.96rem}
 .tl:nth-child(odd) .tl__photo{grid-column:1;text-align:right}
@@ -390,15 +413,15 @@ button{font-family:inherit;cursor:pointer}
 .event:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
 .event__side{
   font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;
-  color:var(--gold);margin:0 0 10px;
+  color:var(--sand);margin:0 0 10px;
 }
 .event__name{
   font-family:var(--display);font-weight:400;
-  font-size:clamp(1.35rem,3vw,1.7rem);color:var(--burgundy);margin:0 0 18px;
+  font-size:clamp(1.35rem,3vw,1.7rem);color:var(--deep);margin:0 0 18px;
 }
 .event__time{
   font-family:var(--display);font-size:2.5rem;line-height:1;
-  color:var(--red);margin:0 0 6px;
+  color:var(--accent);margin:0 0 6px;
 }
 .event__date{font-family:var(--serif);font-size:1.05rem;margin:0}
 .event__lunar{font-family:var(--serif);font-style:italic;font-size:.86rem;color:var(--ink-soft);margin:4px 0 18px}
@@ -428,9 +451,9 @@ button{font-family:inherit;cursor:pointer}
 .gallery__item img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
 .gallery__item:hover img{transform:scale(1.06)}
 .gallery__item::after{
-  content:'';position:absolute;inset:0;background:rgba(110,22,33,0);transition:.4s;
+  content:'';position:absolute;inset:0;background:rgba(42,66,87,0);transition:.4s;
 }
-.gallery__item:hover::after{background:rgba(110,22,33,.16)}
+.gallery__item:hover::after{background:rgba(42,66,87,.18)}
 /* Nhịp điệu lưới trên máy tính: ô đầu và ô thứ 6 cao gấp đôi */
 .gallery__item:nth-child(1),
 .gallery__item:nth-child(6){grid-row:span 2}
@@ -450,7 +473,7 @@ button{font-family:inherit;cursor:pointer}
 
 /* Lightbox */
 .lightbox{
-  position:fixed;inset:0;z-index:300;background:rgba(30,10,14,.94);
+  position:fixed;inset:0;z-index:300;background:rgba(16,28,38,.95);
   display:none;place-items:center;padding:clamp(16px,4vw,48px);
 }
 .lightbox.is-open{display:grid}
@@ -461,7 +484,7 @@ button{font-family:inherit;cursor:pointer}
   color:var(--cream);width:46px;height:46px;border-radius:50%;
   font-size:1.2rem;display:grid;place-items:center;transition:.3s;
 }
-.lightbox__btn:hover{background:var(--cream);color:var(--burgundy)}
+.lightbox__btn:hover{background:var(--cream);color:var(--deep)}
 .lightbox__close{top:24px;right:24px}
 .lightbox__prev{left:clamp(10px,3vw,32px);top:50%;transform:translateY(-50%)}
 .lightbox__next{right:clamp(10px,3vw,32px);top:50%;transform:translateY(-50%)}
@@ -475,7 +498,7 @@ button{font-family:inherit;cursor:pointer}
 .field{display:grid;gap:7px;text-align:left}
 .field label{
   font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;
-  color:var(--red);font-weight:500;
+  color:var(--accent);font-weight:500;
 }
 .section--dark .field label{color:var(--gold)}
 .field input,.field select,.field textarea{
@@ -485,7 +508,7 @@ button{font-family:inherit;cursor:pointer}
 }
 .field textarea{min-height:120px;resize:vertical}
 .field input:focus,.field select:focus,.field textarea:focus{
-  outline:0;border-color:var(--red);box-shadow:0 0 0 3px rgba(150,32,46,.1);
+  outline:0;border-color:var(--accent);box-shadow:0 0 0 3px rgba(63,101,126,.16);
 }
 .form__submit{justify-self:center;margin-top:8px}
 .form__note{
@@ -493,7 +516,7 @@ button{font-family:inherit;cursor:pointer}
 }
 .form__success{
   display:none;text-align:center;font-family:var(--serif);font-style:italic;
-  font-size:1.16rem;color:var(--burgundy);
+  font-size:1.16rem;color:var(--deep);
   border:1px solid var(--line);padding:26px;border-radius:3px;background:#fff;
 }
 .form__success.is-shown{display:block}
@@ -516,14 +539,14 @@ button{font-family:inherit;cursor:pointer}
 .wish__text{margin:14px 0 12px;color:var(--ink-soft);font-family:var(--serif);
   font-size:1.06rem;font-style:italic}
 .wish__name{
-  margin:0;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--red);
+  margin:0;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);
 }
 
 /* ============================================================
    10. FOOTER
    ============================================================ */
 .footer{
-  background:var(--burgundy);color:var(--cream);text-align:center;
+  background:var(--deep);color:var(--cream);text-align:center;
   padding:clamp(64px,10vw,110px) var(--pad);
 }
 .footer__names{
@@ -546,7 +569,7 @@ button{font-family:inherit;cursor:pointer}
 .music-btn{
   position:fixed;left:20px;bottom:20px;z-index:150;
   width:48px;height:48px;border-radius:50%;
-  background:var(--burgundy);border:1px solid var(--gold);
+  background:var(--deep);border:1px solid var(--gold);
   color:var(--cream);display:none;place-items:center;
   box-shadow:var(--shadow);transition:transform .3s;
 }
@@ -566,17 +589,17 @@ button{font-family:inherit;cursor:pointer}
 @media (min-width:1024px){.navdots.is-shown{display:flex}}
 .navdots a{
   width:8px;height:8px;border-radius:50%;
-  border:1px solid var(--red);background:transparent;
+  border:1px solid var(--accent);background:transparent;
   transition:.3s;position:relative;
 }
 .navdots a::after{
   content:attr(data-label);
   position:absolute;right:18px;top:50%;transform:translateY(-50%);
   white-space:nowrap;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--burgundy);opacity:0;transition:.3s;pointer-events:none;
+  color:var(--deep);opacity:0;transition:.3s;pointer-events:none;
 }
 .navdots a:hover::after{opacity:1}
-.navdots a.is-active{background:var(--red);transform:scale(1.35)}
+.navdots a.is-active{background:var(--accent);transform:scale(1.35)}
 
 /* ============================================================
    12. CÁNH HOA RƠI + HIỆU ỨNG XUẤT HIỆN
@@ -585,7 +608,7 @@ button{font-family:inherit;cursor:pointer}
 .petal{
   position:absolute;top:-8vh;
   width:10px;height:10px;border-radius:60% 0 60% 0;
-  background:var(--red);opacity:.18;
+  background:var(--accent);opacity:.18;
   animation:fall linear infinite;
 }
 @keyframes fall{
@@ -603,9 +626,11 @@ button{font-family:inherit;cursor:pointer}
    13. MOBILE
    ============================================================ */
 @media (max-width:820px){
-  .couple{grid-template-columns:1fr;gap:44px}
-  .couple__divider{flex-direction:row;gap:16px}
-  .couple__divider i{width:60px;height:1px}
+  .couple{grid-template-columns:1fr;gap:36px;max-width:420px}
+  .couple__divider{flex-direction:row;gap:16px;min-height:0}
+  .couple__divider i{width:auto;flex:1;height:1px;min-height:0}
+  .person__parents{margin-top:0}
+  .couple__photo{margin-bottom:40px}
 
   .timeline::before{left:14px}
   .tl{grid-template-columns:29px 1fr;gap:16px;align-items:start}

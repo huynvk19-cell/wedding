@@ -25,16 +25,17 @@ window.WEDDING_CONFIG = {
 
   /* ---------- 2. CÔ DÂU & CHÚ RỂ ---------- */
   couple: {
+    // Một ảnh chung cho cả mục "Hai chúng mình".
+    // Để '' nếu không muốn ảnh — phần này vẫn đẹp khi chỉ có chữ.
+    photo: '',
     groom: {
       shortName: 'Văn Huy',
       fullName: 'Nguyễn Văn Huy',
       role: 'Chú rể',
       title: 'Đại hoàng tử',          // danh xưng vui, hiện dưới tên
-      photo: 'assets/images/groom.jpg',
       quote: 'Anh sẽ nắm tay em, đi hết những mùa còn lại của cuộc đời.',
       father: 'Ông Nguyễn Văn Lượng',
       mother: 'Bà Nguyễn Thị Bé',
-      address: '',
       // Để '' nếu không muốn hiện nút mạng xã hội
       facebook: '',
       instagram: ''
@@ -44,11 +45,9 @@ window.WEDDING_CONFIG = {
       fullName: 'Nguyễn Ngọc Hiếu',
       role: 'Cô dâu',
       title: 'Trưởng công chúa',      // danh xưng vui, hiện dưới tên
-      photo: 'assets/images/bride.jpg',
       quote: 'Cảm ơn anh đã đến, và ở lại thật lâu trong đời em.',
       father: 'Ông Nguyễn Công Nhân',
       mother: 'Bà Nguyễn Thị Ngọc Ánh',
-      address: '',
       facebook: '',
       instagram: ''
     },
@@ -230,12 +229,14 @@ window.WEDDING_CONFIG = {
 
   /* ---------- 13. GIAO DIỆN ---------- */
   theme: {
-    // Đổi tông màu tại đây nếu muốn
-    burgundy: '#6E1621',   // đỏ đô chủ đạo
-    red: '#96202E',        // đỏ nhấn
-    cream: '#FBF6EF',      // nền kem
-    ink: '#2A2422',        // chữ
-    gold: '#B98A44',       // ánh kim
+    // Bảng màu lấy từ ảnh cưới ở biển Phú Quốc.
+    // Đổi tông màu tại đây nếu muốn.
+    deep: '#2A4257',       // xanh biển sâu — màu chủ đạo
+    accent: '#3F657E',     // xanh biển vừa — màu nhấn
+    cream: '#F4F1EA',      // cát ngà — nền
+    ink: '#232E36',        // chữ
+    gold: '#CFAF74',       // vàng cát sáng — dùng trên nền tối
+    sand: '#7E6030',       // vàng cát đậm — dùng trên nền sáng
     // Hiệu ứng cánh hoa rơi nhẹ
     petals: true,
     // Menu điều hướng dạng chấm bên phải

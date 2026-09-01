@@ -1,8 +1,8 @@
-# Thiệp cưới online — Minimalism Đỏ Đô
+# Thiệp cưới online — tông xanh biển
 
-Thiệp cưới một trang, phong cách tối giản tông **đỏ đô + kem**, chạy được trên
-mọi điện thoại và máy tính. Không cần cài đặt, không cần build — chỉ là
-HTML/CSS/JS thuần.
+Thiệp cưới một trang, phong cách tối giản tông **xanh biển sâu + cát ngà**,
+bảng màu lấy từ chính ảnh cưới ở biển Phú Quốc. Chạy được trên mọi điện thoại
+và máy tính. Không cần cài đặt, không cần build — chỉ là HTML/CSS/JS thuần.
 
 ## Xem thử
 
@@ -28,9 +28,7 @@ thật, giữ nguyên tên file** là thiệp tự động cập nhật, không 
 
 | Tên file | Dùng ở đâu | Kích thước gợi ý |
 |---|---|---|
-| `cover.jpg` | Ảnh bìa + ảnh nền màn hình đầu | dọc, 1600 × 2000 |
-| `groom.jpg` | Ảnh chú rể | dọc, 800 × 1000 |
-| `bride.jpg` | Ảnh cô dâu | dọc, 800 × 1000 |
+| `cover.jpg` | Ảnh bìa + ảnh nền màn hình đầu | **dọc**, 1200 × 1800 |
 | `story-1.jpg` → `story-4.jpg` | Ảnh các cột mốc trong "Chuyện chúng mình" | ngang, 1000 × 750 |
 | `gallery-1.jpg` → `gallery-8.jpg` | Album cưới (thêm/bớt bao nhiêu tuỳ ý) | **ảnh dọc**, 900 × 1100 |
 | `share.jpg` | Ảnh hiện ra khi dán link lên Facebook/Zalo | 1200 × 630 |
@@ -117,12 +115,24 @@ gallery: {
 **Kích thước ảnh album:** nên dùng **ảnh dọc** (khổ 3:4 hoặc 4:5, ví dụ 900 × 1200).
 Trên điện thoại album xếp 2 cột theo khổ dọc, nên ảnh ngang sẽ bị cắt bớt hai bên.
 
-**Ảnh ở các chỗ khác** (bìa, cô dâu, chú rể, câu chuyện) không cộng thêm được —
-mỗi chỗ đúng một ảnh. Muốn đổi thì sửa đường dẫn ngay tại mục đó trong `config.js`:
+**Mục "Hai chúng mình"** mặc định chỉ có chữ, không ảnh — cân đối và trang nhã.
+Nếu muốn thêm **một** ảnh chung ở trên phần đó:
 
 ```js
-couple: { groom: { photo: 'assets/images/anh-chu-re.jpg' } }
-story:  { items: [ { photo: 'assets/images/ky-niem-01.jpg' } ] }
+couple: {
+  photo: 'assets/images/anh-chung.jpg',   // để '' nếu không muốn ảnh
+  ...
+}
+```
+
+Nên chọn ảnh **khác ảnh bìa** cho đỡ trùng lặp. Ảnh ngang (3:2) hợp nhất ở đây.
+
+**Ảnh ở các chỗ khác** (bìa, câu chuyện) mỗi chỗ đúng một ảnh.
+Muốn đổi thì sửa đường dẫn ngay tại mục đó trong `config.js`:
+
+```js
+cover: { photo: 'assets/images/anh-bia.jpg' }
+story: { items: [ { photo: 'assets/images/ky-niem-01.jpg' } ] }
 ```
 
 Riêng **Chuyện chúng mình** thì thêm/bớt được cột mốc: mỗi cột mốc là một khối
@@ -202,12 +212,17 @@ trong `src="..."` rồi dán vào `mapEmbed` của sự kiện tương ứng.
 
 ```js
 theme: {
-  burgundy: '#6E1621',   // màu chủ đạo
-  red:      '#96202E',   // màu nhấn
-  cream:    '#FBF6EF',   // nền
-  gold:     '#B98A44'    // ánh kim
+  deep:   '#2A4257',   // xanh biển sâu — màu chủ đạo, nền các mảng tối
+  accent: '#3F657E',   // xanh biển vừa — nhãn nhỏ, chi tiết nhấn
+  cream:  '#F4F1EA',   // cát ngà — nền chính
+  gold:   '#CFAF74',   // vàng cát SÁNG — chỉ dùng trên nền tối
+  sand:   '#7E6030'    // vàng cát ĐẬM — chỉ dùng trên nền sáng
 }
 ```
+
+Bảng màu này lấy trực tiếp từ ảnh cưới ở biển Phú Quốc. Nếu bạn đổi màu,
+nhớ giữ `gold` sáng và `sand` đậm — hai màu này dùng ở hai loại nền khác nhau,
+đổi lộn sẽ khiến chữ khó đọc.
 
 ---
 
