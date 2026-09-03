@@ -114,7 +114,7 @@ window.WEDDING_CONFIG = {
         photo: 'assets/images/story-2.jpg'
       },
       {
-        date: 'Tháng 04 . 2024',
+        date: 'Tháng 08 . 2024',
         title: 'Chuyến đi đầu tiên',
         text: 'Chuyến đi đầu tiên của hai đứa, và cũng là lần thứ hai chúng mình đến Vũng Tàu — nơi mọi thứ đã bắt đầu.',
         photo: 'assets/images/story-3.jpg'
@@ -167,7 +167,11 @@ window.WEDDING_CONFIG = {
       { src: 'assets/images/album-2.jpg', caption: 'Anh dõi theo từng bước chân em' },
       { src: 'assets/images/album-3.jpg', caption: 'Nhìn nhau, chỉ vậy thôi cũng đủ' },
       { src: 'assets/images/album-4.jpg', caption: 'Một tấm hình chụp vội' },
-      { src: 'assets/images/album-5.jpg', caption: 'Voan bay trong gió biển' }
+      { src: 'assets/images/album-5.jpg', caption: 'Voan bay trong gió biển' },
+      { src: 'assets/images/album-6.jpg', caption: 'Anh giữ voan cho em' },
+      { src: 'assets/images/album-7.jpg', caption: 'Sau lớp voan mỏng' },
+      { src: 'assets/images/album-8.jpg', caption: 'Reo lên giữa trời biển' },
+      { src: 'assets/images/album-9.jpg', caption: 'Cùng đi về phía cuối bờ' }
     ]
   },
 

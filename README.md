@@ -31,7 +31,7 @@ thật, giữ nguyên tên file** là thiệp tự động cập nhật, không 
 | `cover.jpg` | Ảnh nền màn hình đầu (toàn cảnh) | **dọc**, 1600 × 2400 |
 | `cover-card.jpg` | Ảnh trong khung ở màn hình bìa — cắt cao hơn ngang eo | **dọc 4:5**, 1100 × 1375 |
 | `story-1.jpg` → `story-4.jpg` | Ảnh các cột mốc trong "Chuyện chúng mình" | ngang, 1000 × 750 |
-| `album-1.jpg` → `album-5.jpg` | Album cưới Coverflow (thêm/bớt tuỳ ý) | **ảnh dọc 2:3**, 800 × 1200 |
+| `album-1.jpg` → `album-9.jpg` | Album cưới Coverflow (thêm/bớt tuỳ ý) | ảnh **ngang hay dọc đều được** |
 | `share.jpg` | Ảnh hiện ra khi dán link lên Facebook/Zalo | 1200 × 630 |
 
 Hoặc nếu muốn đặt tên khác, bạn chép ảnh vào `assets/images/` rồi sửa đường
@@ -121,8 +121,8 @@ gallery: {
 
 **Chú thích ảnh** (`caption`) hiện ngay dưới ảnh đang xem — viết gì cũng được.
 
-**Kích thước ảnh album:** dùng **ảnh dọc khổ 2:3** (ví dụ 800 × 1200). Album chạy
-kiểu Coverflow 3D nên mọi ảnh dùng chung một khổ; ảnh ngang sẽ bị cắt hai bên.
+**Kích thước ảnh album:** ảnh ngang hay dọc đều dùng được, **không bị cắt xén**.
+Các tấm được xếp cùng chiều cao, bề ngang tự theo tỉ lệ gốc của từng ảnh.
 
 **Album hợp nhất với 5–9 ảnh.** Nhiều hơn vẫn chạy nhưng khách phải vuốt lâu.
 
@@ -174,7 +174,7 @@ Nếu chưa có file nhạc, nút nhạc sẽ **tự động ẩn** — thiệp 
 | **Timeline chuyện tình** | So le trái/phải trên máy tính, dọc gọn trên điện thoại |
 | **Bản đồ** | Nút mở Google Maps + tuỳ chọn nhúng bản đồ ngay trong thiệp |
 | **Thêm vào lịch** | Nút tạo sự kiện Google Calendar |
-| **Album Coverflow 3D** | Kiểu Apple Cover Flow: vuốt ngang, bấm mũi tên, phím ←/→, hoặc bấm chấm tròn. Bấm ảnh giữa để xem lớn |
+| **Album Coverflow 3D** | Kiểu Apple Cover Flow. Vuốt ngang thì cả dãy ảnh chạy theo ngón tay rồi bám vào ảnh gần nhất. Còn có nút mũi tên, phím ←/→, chấm tròn. Bấm ảnh giữa để xem lớn |
 | **RSVP** | Gửi về Google Form hoặc API riêng (xem dưới) |
 | **Sổ lưu bút** | Khách viết lời chúc, hiển thị ngay |
 | **Cánh hoa rơi** | Nhẹ nhàng, tắt được trong `theme.petals` |

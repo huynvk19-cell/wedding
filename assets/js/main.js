@@ -275,7 +275,10 @@
   }
 
   /* ---------------------------------------------------------
-     7. Album — Coverflow 3D (kiểu Apple) + xem ảnh lớn
+     7. Album — Coverflow 3D (kiểu Apple)
+     Nhận mọi khổ ảnh: các tấm cùng CHIỀU CAO, bề ngang theo đúng
+     tỉ lệ gốc nên ảnh ngang và ảnh dọc đứng cạnh nhau đều không bị cắt.
+     Vuốt ngang thì cả dãy ảnh chạy theo ngón tay rồi bám vào ảnh gần nhất.
      --------------------------------------------------------- */
   function buildGallery() {
     var g = C.gallery || {};
@@ -301,84 +304,116 @@
 
     var items = $$('.cf__item', stage);
     var dots  = $$('.cf__dot', dotsEl);
-    var cur   = Math.floor(photos.length / 2);   /* mở ở ảnh giữa cho cân */
+    var cur   = Math.floor(photos.length / 2);
+    var frac  = 0;                     /* độ lệch khi đang vuốt, tính theo số ảnh */
 
-    /* Xếp các ảnh trong không gian 3D quanh ảnh đang chọn */
+    /* Ảnh mới tải xong thì bề ngang mới biết được -> xếp lại */
+    $$('.cf__item img', stage).forEach(function (im) {
+      if (!im.complete) im.addEventListener('load', function () { layout(); });
+    });
+
+    function centerWidth() {
+      var el = items[Math.max(0, Math.min(items.length - 1, Math.round(cur + frac)))];
+      return (el && el.offsetWidth) || 200;
+    }
+
     function layout() {
-      var w = stage.clientWidth || 600;
-      /* điện thoại: ảnh chiếm phần lớn bề ngang cho dễ nhìn */
-      var itemW = Math.max(150, Math.min(320, w * (w < 560 ? 0.52 : 0.40)));
-      stage.style.setProperty('--cf-w', itemW + 'px');
+      var sw = stage.clientWidth || 600;
+      var sh = stage.clientHeight || 400;
+      /* chiều cao chung cho mọi tấm, chừa chỗ cho ảnh ngang không quá to */
+      var h = Math.min(sh * 0.92, sw * (sw < 560 ? 0.78 : 0.62));
+      stage.style.setProperty('--cf-h', Math.round(h) + 'px');
+      /* ảnh ngang không được tràn khỏi khung */
+      stage.style.setProperty('--cf-maxw', Math.round(sw * 0.80) + 'px');
 
-      var firstGap = itemW * 0.58;   /* khoảng cách từ ảnh giữa ra ảnh kề */
-      var stepGap  = itemW * 0.30;   /* các ảnh xa hơn xếp chồng sát lại */
+      var wc = centerWidth();
+      var first = wc * 0.60;           /* ảnh kề cách tâm bao nhiêu */
+      var step  = wc * 0.28;           /* các ảnh xa hơn xếp chồng sát lại */
 
       items.forEach(function (el, i) {
-        var off = i - cur, abs = Math.abs(off), sign = off < 0 ? -1 : 1;
-        var shown = abs <= 3;
-        var x   = off === 0 ? 0 : sign * (firstGap + (abs - 1) * stepGap);
-        var rot = off === 0 ? 0 : -sign * 52;
-        var sc  = Math.max(0.60, 1 - abs * 0.11);
+        var off  = i - cur - frac;
+        var abs  = Math.abs(off);
+        var sign = off < 0 ? -1 : 1;
+        var near = Math.min(abs, 1);   /* 0..1 — cho vuốt mượt, không nhảy bậc */
+        var shown = abs <= 3.6;
+
+        var x   = sign * (near * first + Math.max(0, abs - 1) * step);
+        var rot = -sign * near * 52;
+        var sc  = Math.max(0.58, 1 - Math.min(abs, 3) * 0.11);
 
         el.style.transform = 'translate(-50%,-50%) translateX(' + x.toFixed(1) + 'px) ' +
-                             'rotateY(' + rot + 'deg) scale(' + sc.toFixed(3) + ')';
-        el.style.zIndex = String(50 - abs);
-        el.style.opacity = shown ? (abs === 0 ? 1 : abs === 1 ? 0.92 : 0.5) : 0;
+                             'rotateY(' + rot.toFixed(1) + 'deg) scale(' + sc.toFixed(3) + ')';
+        el.style.zIndex  = String(Math.round(100 - abs * 10));
+        el.style.opacity = shown ? (abs <= 1 ? (1 - abs * 0.08).toFixed(2)
+                                             : Math.max(0, 0.92 - (abs - 1) * 0.3).toFixed(2)) : '0';
         el.style.pointerEvents = shown ? 'auto' : 'none';
-        el.classList.toggle('is-active', off === 0);
-        el.setAttribute('aria-selected', off === 0 ? 'true' : 'false');
-        el.tabIndex = off === 0 ? 0 : -1;
+        el.classList.toggle('is-active', abs < 0.5);
+        el.setAttribute('aria-selected', abs < 0.5 ? 'true' : 'false');
+        el.tabIndex = abs < 0.5 ? 0 : -1;
       });
 
-      dots.forEach(function (d, i) { d.classList.toggle('is-active', i === cur); });
-      capEl.textContent = (photos[cur] && photos[cur].caption) || '';
+      var shownIdx = Math.max(0, Math.min(photos.length - 1, Math.round(cur + frac)));
+      dots.forEach(function (d, i) { d.classList.toggle('is-active', i === shownIdx); });
+      capEl.textContent = (photos[shownIdx] && photos[shownIdx].caption) || '';
     }
 
     function go(i) {
       cur = Math.max(0, Math.min(photos.length - 1, i));
+      frac = 0;
       layout();
     }
 
-    /* --- Điều khiển --- */
+    /* --- Nút, chấm, bàn phím --- */
     $('#cfPrev').addEventListener('click', function () { go(cur - 1); });
     $('#cfNext').addEventListener('click', function () { go(cur + 1); });
     dotsEl.addEventListener('click', function (ev) {
       var d = ev.target.closest('.cf__dot');
       if (d) go(parseInt(d.getAttribute('data-i'), 10));
     });
-
     stage.addEventListener('keydown', function (ev) {
       if (ev.key === 'ArrowLeft')  { ev.preventDefault(); go(cur - 1); }
       if (ev.key === 'ArrowRight') { ev.preventDefault(); go(cur + 1); }
       if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); openLb(cur); }
     });
 
-    /* Kéo/vuốt ngang */
-    var dragX = null, dragged = false;
+    /* --- Vuốt ngang: dãy ảnh chạy theo ngón tay, nhả ra thì bám ảnh gần nhất --- */
+    var dragging = false, startX = 0, moved = false, dragUnit = 200;
+
     stage.addEventListener('pointerdown', function (ev) {
-      dragX = ev.clientX; dragged = false;
+      dragging = true; startX = ev.clientX; moved = false; frac = 0;
+      dragUnit = Math.max(60, centerWidth() * 0.6);   /* chốt một lần, giữ nguyên cả cú kéo */
+      /* bắt con trỏ để ngón tay/chuột đi ra ngoài khung vẫn theo được */
+      try { stage.setPointerCapture(ev.pointerId); } catch (e) {}
+      stage.classList.add('is-dragging');
     });
+
     stage.addEventListener('pointermove', function (ev) {
-      if (dragX === null) return;
-      if (Math.abs(ev.clientX - dragX) > 8) dragged = true;
+      if (!dragging) return;
+      var dx = ev.clientX - startX;
+      if (Math.abs(dx) > 6) moved = true;
+      frac = -dx / dragUnit;                   /* vuốt sang trái -> sang ảnh sau */
+      frac = Math.max(-cur - 0.55, Math.min(photos.length - 1 - cur + 0.55, frac));
+      layout();
     });
-    function endDrag(ev) {
-      if (dragX === null) return;
-      var dx = ev.clientX - dragX;
-      dragX = null;
-      if (Math.abs(dx) > 42) go(cur + (dx < 0 ? 1 : -1));
+
+    function release(ev) {
+      if (!dragging) return;
+      dragging = false;
+      stage.classList.remove('is-dragging');
+      try { stage.releasePointerCapture(ev.pointerId); } catch (e) {}
+      go(cur + Math.round(frac));
     }
-    stage.addEventListener('pointerup', endDrag);
-    stage.addEventListener('pointercancel', function () { dragX = null; });
+    stage.addEventListener('pointerup', release);
+    stage.addEventListener('pointercancel', release);
 
     stage.addEventListener('click', function (ev) {
       var btn = ev.target.closest('.cf__item');
-      if (!btn || dragged) return;               /* vừa kéo thì không tính là bấm */
+      if (!btn || moved) return;               /* vừa vuốt thì không tính là bấm */
       var i = parseInt(btn.getAttribute('data-i'), 10);
       if (i === cur) openLb(i); else go(i);
     });
 
-    window.addEventListener('resize', layout);
+    window.addEventListener('resize', function () { layout(); });
 
     /* --- Xem ảnh lớn --- */
     var lb = $('#lightbox'), img = $('#lbImg'), cap = $('#lbCap'), lbI = 0;
@@ -394,7 +429,7 @@
     }
     function closeLb() {
       lb.classList.remove('is-open'); document.body.classList.remove('is-locked');
-      go(lbI);                                   /* đóng lại thì coverflow theo đúng ảnh vừa xem */
+      go(lbI);
     }
     $('#lbClose').addEventListener('click', closeLb);
     $('#lbPrev').addEventListener('click', function () { show(lbI - 1); });

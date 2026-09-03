@@ -530,9 +530,17 @@ body.is-opened .hero__bg{
 /* ============================================================
    8. ALBUM — Coverflow 3D
    ============================================================ */
-.cf{position:relative}
+.cf{
+  position:relative;
+  /* các tấm ở xa nhô ra ngoài mép -> cắt theo chiều ngang để trang không
+     bị kéo ngang; clip không tạo vùng cuộn nên bóng phản chiếu vẫn còn */
+  overflow-x:clip;
+}
+@supports not (overflow-x:clip){
+  .cf{overflow-x:hidden}
+}
 .cf__stage{
-  --cf-w:260px;
+  --cf-h:400px;
   position:relative;
   height:clamp(380px,60vw,540px);
   perspective:1500px;
@@ -540,23 +548,33 @@ body.is-opened .hero__bg{
   transform-style:preserve-3d;
   outline:none;
   touch-action:pan-y;            /* vuốt ngang cho coverflow, dọc vẫn cuộn trang */
+  cursor:grab;
 }
+.cf__stage.is-dragging{cursor:grabbing}
+/* đang vuốt thì bỏ hiệu ứng chuyển động để ảnh bám sát ngón tay */
+.cf__stage.is-dragging .cf__item{transition:none}
 .cf__stage:focus-visible{
   outline:2px solid var(--accent);outline-offset:8px;border-radius:28px;
 }
 
 .cf__item{
   position:absolute;left:50%;top:42%;
-  width:var(--cf-w);aspect-ratio:2/3;
+  /* CHIỀU CAO chung cho mọi tấm, bề ngang tự theo tỉ lệ gốc của từng ảnh —
+     nên ảnh ngang và ảnh dọc đứng cạnh nhau đều không bị cắt */
+  height:var(--cf-h);width:auto;
   margin:0;padding:0;border:0;background:none;
   transform:translate(-50%,-50%);
   transition:transform .62s cubic-bezier(.22,.61,.36,1), opacity .45s ease;
   cursor:pointer;will-change:transform;
   -webkit-tap-highlight-color:transparent;
+  /* pan-y: cuộn dọc vẫn thuộc về trang, vuốt ngang thuộc về album */
+  touch-action:pan-y;
 }
 .cf__item img{
-  width:100%;height:100%;object-fit:cover;
+  height:100%;width:auto;display:block;
+  max-width:var(--cf-maxw,86vw);object-fit:contain;
   border-radius:20px;
+  -webkit-user-drag:none;
   box-shadow:0 24px 55px -20px rgba(20,34,46,.55);
   /* bóng phản chiếu dưới ảnh — nét đặc trưng của coverflow */
   -webkit-box-reflect:below 8px linear-gradient(transparent 76%, rgba(255,255,255,.18));
