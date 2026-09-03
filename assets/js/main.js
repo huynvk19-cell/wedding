@@ -632,11 +632,13 @@
      --------------------------------------------------------- */
   function initOpen() {
     $('#openBtn').addEventListener('click', function () {
-      $('#cover').classList.add('is-open');
-      document.body.classList.remove('is-locked');
-      music.play();
+      var cover = $('#cover');
       window.scrollTo({ top: 0 });
-      setTimeout(function () { $('#cover').remove(); }, 1000);
+      cover.classList.add('is-open');          /* khối chữ trôi lên rồi tan */
+      document.body.classList.remove('is-locked');
+      document.body.classList.add('is-opened'); /* màn hình đầu hiện lên sau */
+      music.play();
+      setTimeout(function () { cover.remove(); }, 1600);
     });
   }
 
