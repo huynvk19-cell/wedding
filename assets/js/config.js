@@ -59,6 +59,9 @@ window.WEDDING_CONFIG = {
   cover: {
     eyebrow: 'Save The Date',
     photo: 'assets/images/cover.jpg',
+    // Ảnh riêng cho khung ở màn hình bìa — cắt cao hơn ngang eo để
+    // thấy rõ hai người. Để '' thì khung bìa dùng lại ảnh photo ở trên.
+    cardPhoto: 'assets/images/cover-card.jpg',
     dateText: '16 . 09 . 2026',
     lunarText: 'Nhằm ngày 06 tháng 08 năm Bính Ngọ',
     openButton: 'Mở thiệp cưới',
@@ -98,13 +101,16 @@ window.WEDDING_CONFIG = {
       {
         date: '08 . 03 . 2024',
         title: 'Lần đầu gặp nhau',
-        text: 'Một đêm không mây ở bãi biển trung tâm Vũng Tàu. Biển, gió và một người lạ — để rồi sau đó không còn lạ nữa.',
+        text: 'Bầu trời đêm Vũng Tàu... Một chút biển, một chút gió, một chút duyên, ' +
+              'hai người lạ vô tình gặp gỡ — để rồi sau đó không còn từ lạ.',
         photo: 'assets/images/story-1.jpg'
       },
       {
         date: '21 . 03 . 2024',
         title: 'Chính thức yêu nhau',
-        text: 'Mười ba ngày sau đêm biển ấy, chúng mình quyết định đi chung một đường.',
+        text: 'Chẳng biết từ lúc nào những cuộc trò chuyện trở thành điều mong đợi, ' +
+              'những lần gặp nhau trở thành niềm vui. Và một ngày, chúng mình nhận ra ' +
+              '“lỡ yêu mất rùii...”',
         photo: 'assets/images/story-2.jpg'
       },
       {

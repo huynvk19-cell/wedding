@@ -76,11 +76,14 @@
      --------------------------------------------------------- */
   function buildCover() {
     var cv = C.cover || {};
-    if (cv.photo) {
-      $('#coverImg').src = cv.photo;
+    /* Khung bìa dùng ảnh đã cắt cao hơn ngang eo nếu có, để hai người
+       hiện rõ trong khung nhỏ; không có thì dùng lại ảnh toàn cảnh. */
+    var cardSrc = cv.cardPhoto || cv.photo;
+    if (cardSrc) {
+      $('#coverImg').src = cardSrc;
       $('#coverImg').alt = pairNames();
       /* quầng sáng dùng lại chính bức ảnh, làm nhoè phía sau tấm hình */
-      $('#coverGlow').style.backgroundImage = 'url("' + cv.photo + '")';
+      $('#coverGlow').style.backgroundImage = 'url("' + cardSrc + '")';
     }
 
     text('coverEyebrow', cv.eyebrow);

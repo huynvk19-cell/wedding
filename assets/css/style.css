@@ -165,8 +165,8 @@ button{font-family:inherit;cursor:pointer}
 /* --- Tấm ảnh --- */
 .cover__photo{
   position:relative;margin:0;flex:none;
-  width:min(72vw, 38vh, 300px);
-  aspect-ratio:2/3;                      /* đúng khổ ảnh gốc, không cắt xén */
+  width:min(76vw, 44vh, 330px);
+  aspect-ratio:4/5;                      /* khớp khổ ảnh cover-card.jpg */
   transition:
     transform 1.25s cubic-bezier(.28,.66,.3,1),
     opacity .52s ease-out;
@@ -244,7 +244,7 @@ button{font-family:inherit;cursor:pointer}
     gap:clamp(44px,5vw,72px);
     width:auto;
   }
-  .cover__photo{width:min(32vw,320px)}
+  .cover__photo{width:min(34vw,340px)}
   .cover__text{text-align:left;max-width:420px}
   .cover__meta::before{left:0;transform:none}
   .cover__names{font-size:clamp(2.4rem,4vw,3.3rem)}
@@ -253,7 +253,7 @@ button{font-family:inherit;cursor:pointer}
 /* Điện thoại màn hình thấp: bóp lại cho vừa một màn, khỏi phải cuộn bìa */
 @media (max-height:720px) and (max-width:899px){
   .cover{padding:12px}
-  .cover__photo{width:min(58vw, 34vh, 240px)}
+  .cover__photo{width:min(62vw, 40vh, 260px)}
   .cover__card{gap:16px}
   .cover__eyebrow{margin-bottom:12px}
   .cover__meta{margin-top:16px;padding-top:14px}
@@ -465,7 +465,8 @@ body.is-opened .hero__bg{
 }
 .tl:last-child{margin-bottom:0}
 .tl__dot{
-  width:11px;height:11px;background:var(--accent);transform:rotate(45deg);
+  width:11px;height:11px;border-radius:999px;   /* tròn, đồng bộ với các chi tiết khác */
+  background:var(--accent);
   margin:0 auto;position:relative;z-index:2;
   outline:6px solid var(--cream);
 }

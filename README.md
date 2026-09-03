@@ -28,7 +28,8 @@ thật, giữ nguyên tên file** là thiệp tự động cập nhật, không 
 
 | Tên file | Dùng ở đâu | Kích thước gợi ý |
 |---|---|---|
-| `cover.jpg` | Ảnh bìa + ảnh nền màn hình đầu | **dọc**, 1200 × 1800 |
+| `cover.jpg` | Ảnh nền màn hình đầu (toàn cảnh) | **dọc**, 1600 × 2400 |
+| `cover-card.jpg` | Ảnh trong khung ở màn hình bìa — cắt cao hơn ngang eo | **dọc 4:5**, 1100 × 1375 |
 | `story-1.jpg` → `story-4.jpg` | Ảnh các cột mốc trong "Chuyện chúng mình" | ngang, 1000 × 750 |
 | `album-1.jpg` → `album-5.jpg` | Album cưới Coverflow (thêm/bớt tuỳ ý) | **ảnh dọc 2:3**, 800 × 1200 |
 | `share.jpg` | Ảnh hiện ra khi dán link lên Facebook/Zalo | 1200 × 630 |
@@ -141,7 +142,10 @@ Nên chọn ảnh **khác ảnh bìa** cho đỡ trùng lặp. Ảnh ngang (3:2)
 Muốn đổi thì sửa đường dẫn ngay tại mục đó trong `config.js`:
 
 ```js
-cover: { photo: 'assets/images/anh-bia.jpg' }
+cover: {
+  photo:     'assets/images/anh-bia.jpg',        // ảnh nền toàn cảnh
+  cardPhoto: 'assets/images/anh-bia-cat.jpg'     // ảnh trong khung bìa; để '' thì dùng lại photo
+}
 story: { items: [ { photo: 'assets/images/ky-niem-01.jpg' } ] }
 ```
 
