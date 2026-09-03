@@ -125,7 +125,21 @@
         <p class="subtitle reveal" id="gallerySub"></p>
         <div class="rule reveal"><i></i></div>
       </div>
-      <div class="gallery reveal" id="gallery"></div>
+      <div class="cf reveal" id="cf">
+        <div class="cf__stage" id="cfStage" role="listbox" tabindex="0"
+             aria-label="Album cưới — dùng phím mũi tên trái phải để xem"></div>
+        <p class="cf__caption" id="cfCaption"></p>
+        <div class="cf__controls">
+          <button class="cf__nav" id="cfPrev" type="button" aria-label="Ảnh trước">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="cf__dots" id="cfDots"></div>
+          <button class="cf__nav" id="cfNext" type="button" aria-label="Ảnh sau">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <p class="cf__hint">Vuốt ngang hoặc bấm vào ảnh để xem lớn</p>
+      </div>
     </div>
   </section>
 

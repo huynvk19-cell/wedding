@@ -259,7 +259,7 @@
   }
 
   /* ---------------------------------------------------------
-     7. Album + lightbox
+     7. Album — Coverflow 3D (kiểu Apple) + xem ảnh lớn
      --------------------------------------------------------- */
   function buildGallery() {
     var g = C.gallery || {};
@@ -267,36 +267,131 @@
     text('gallerySub', g.subheading);
 
     var photos = g.photos || [];
-    $('#gallery').innerHTML = photos.map(function (p, i) {
-      return '<button class="gallery__item" type="button" data-i="' + i + '" aria-label="' + esc(p.caption || ('Ảnh ' + (i + 1))) + '">' +
-        '<img src="' + esc(p.src) + '" alt="' + esc(p.caption || '') + '" loading="lazy"></button>';
+    if (!photos.length) { $('#cf').remove(); return; }
+
+    var stage = $('#cfStage'), capEl = $('#cfCaption'), dotsEl = $('#cfDots');
+
+    stage.innerHTML = photos.map(function (p, i) {
+      return '<button class="cf__item" type="button" data-i="' + i + '" role="option" ' +
+        'aria-label="' + esc(p.caption || ('Ảnh ' + (i + 1))) + '">' +
+        '<img src="' + esc(p.src) + '" alt="' + esc(p.caption || '') + '" draggable="false">' +
+        '</button>';
     }).join('');
 
-    var lb = $('#lightbox'), img = $('#lbImg'), cap = $('#lbCap'), cur = 0;
+    dotsEl.innerHTML = photos.map(function (p, i) {
+      return '<button class="cf__dot" type="button" data-i="' + i +
+             '" aria-label="Ảnh ' + (i + 1) + '"></button>';
+    }).join('');
+
+    var items = $$('.cf__item', stage);
+    var dots  = $$('.cf__dot', dotsEl);
+    var cur   = Math.floor(photos.length / 2);   /* mở ở ảnh giữa cho cân */
+
+    /* Xếp các ảnh trong không gian 3D quanh ảnh đang chọn */
+    function layout() {
+      var w = stage.clientWidth || 600;
+      /* điện thoại: ảnh chiếm phần lớn bề ngang cho dễ nhìn */
+      var itemW = Math.max(150, Math.min(320, w * (w < 560 ? 0.52 : 0.40)));
+      stage.style.setProperty('--cf-w', itemW + 'px');
+
+      var firstGap = itemW * 0.58;   /* khoảng cách từ ảnh giữa ra ảnh kề */
+      var stepGap  = itemW * 0.30;   /* các ảnh xa hơn xếp chồng sát lại */
+
+      items.forEach(function (el, i) {
+        var off = i - cur, abs = Math.abs(off), sign = off < 0 ? -1 : 1;
+        var shown = abs <= 3;
+        var x   = off === 0 ? 0 : sign * (firstGap + (abs - 1) * stepGap);
+        var rot = off === 0 ? 0 : -sign * 52;
+        var sc  = Math.max(0.60, 1 - abs * 0.11);
+
+        el.style.transform = 'translate(-50%,-50%) translateX(' + x.toFixed(1) + 'px) ' +
+                             'rotateY(' + rot + 'deg) scale(' + sc.toFixed(3) + ')';
+        el.style.zIndex = String(50 - abs);
+        el.style.opacity = shown ? (abs === 0 ? 1 : abs === 1 ? 0.92 : 0.5) : 0;
+        el.style.pointerEvents = shown ? 'auto' : 'none';
+        el.classList.toggle('is-active', off === 0);
+        el.setAttribute('aria-selected', off === 0 ? 'true' : 'false');
+        el.tabIndex = off === 0 ? 0 : -1;
+      });
+
+      dots.forEach(function (d, i) { d.classList.toggle('is-active', i === cur); });
+      capEl.textContent = (photos[cur] && photos[cur].caption) || '';
+    }
+
+    function go(i) {
+      cur = Math.max(0, Math.min(photos.length - 1, i));
+      layout();
+    }
+
+    /* --- Điều khiển --- */
+    $('#cfPrev').addEventListener('click', function () { go(cur - 1); });
+    $('#cfNext').addEventListener('click', function () { go(cur + 1); });
+    dotsEl.addEventListener('click', function (ev) {
+      var d = ev.target.closest('.cf__dot');
+      if (d) go(parseInt(d.getAttribute('data-i'), 10));
+    });
+
+    stage.addEventListener('keydown', function (ev) {
+      if (ev.key === 'ArrowLeft')  { ev.preventDefault(); go(cur - 1); }
+      if (ev.key === 'ArrowRight') { ev.preventDefault(); go(cur + 1); }
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); openLb(cur); }
+    });
+
+    /* Kéo/vuốt ngang */
+    var dragX = null, dragged = false;
+    stage.addEventListener('pointerdown', function (ev) {
+      dragX = ev.clientX; dragged = false;
+    });
+    stage.addEventListener('pointermove', function (ev) {
+      if (dragX === null) return;
+      if (Math.abs(ev.clientX - dragX) > 8) dragged = true;
+    });
+    function endDrag(ev) {
+      if (dragX === null) return;
+      var dx = ev.clientX - dragX;
+      dragX = null;
+      if (Math.abs(dx) > 42) go(cur + (dx < 0 ? 1 : -1));
+    }
+    stage.addEventListener('pointerup', endDrag);
+    stage.addEventListener('pointercancel', function () { dragX = null; });
+
+    stage.addEventListener('click', function (ev) {
+      var btn = ev.target.closest('.cf__item');
+      if (!btn || dragged) return;               /* vừa kéo thì không tính là bấm */
+      var i = parseInt(btn.getAttribute('data-i'), 10);
+      if (i === cur) openLb(i); else go(i);
+    });
+
+    window.addEventListener('resize', layout);
+
+    /* --- Xem ảnh lớn --- */
+    var lb = $('#lightbox'), img = $('#lbImg'), cap = $('#lbCap'), lbI = 0;
 
     function show(i) {
-      cur = (i + photos.length) % photos.length;
-      img.src = photos[cur].src;
-      img.alt = photos[cur].caption || '';
-      cap.textContent = photos[cur].caption || '';
+      lbI = (i + photos.length) % photos.length;
+      img.src = photos[lbI].src;
+      img.alt = photos[lbI].caption || '';
+      cap.textContent = photos[lbI].caption || '';
     }
-    function open(i) { show(i); lb.classList.add('is-open'); document.body.classList.add('is-locked'); }
-    function close() { lb.classList.remove('is-open'); document.body.classList.remove('is-locked'); }
-
-    $('#gallery').addEventListener('click', function (ev) {
-      var btn = ev.target.closest('.gallery__item');
-      if (btn) open(parseInt(btn.getAttribute('data-i'), 10));
-    });
-    $('#lbClose').addEventListener('click', close);
-    $('#lbPrev').addEventListener('click', function () { show(cur - 1); });
-    $('#lbNext').addEventListener('click', function () { show(cur + 1); });
-    lb.addEventListener('click', function (ev) { if (ev.target === lb) close(); });
+    function openLb(i) {
+      show(i); lb.classList.add('is-open'); document.body.classList.add('is-locked');
+    }
+    function closeLb() {
+      lb.classList.remove('is-open'); document.body.classList.remove('is-locked');
+      go(lbI);                                   /* đóng lại thì coverflow theo đúng ảnh vừa xem */
+    }
+    $('#lbClose').addEventListener('click', closeLb);
+    $('#lbPrev').addEventListener('click', function () { show(lbI - 1); });
+    $('#lbNext').addEventListener('click', function () { show(lbI + 1); });
+    lb.addEventListener('click', function (ev) { if (ev.target === lb) closeLb(); });
     document.addEventListener('keydown', function (ev) {
       if (!lb.classList.contains('is-open')) return;
-      if (ev.key === 'Escape') close();
-      if (ev.key === 'ArrowLeft') show(cur - 1);
-      if (ev.key === 'ArrowRight') show(cur + 1);
+      if (ev.key === 'Escape') closeLb();
+      if (ev.key === 'ArrowLeft') show(lbI - 1);
+      if (ev.key === 'ArrowRight') show(lbI + 1);
     });
+
+    layout();
   }
 
   /* ---------------------------------------------------------

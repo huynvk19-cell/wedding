@@ -30,7 +30,7 @@ thật, giữ nguyên tên file** là thiệp tự động cập nhật, không 
 |---|---|---|
 | `cover.jpg` | Ảnh bìa + ảnh nền màn hình đầu | **dọc**, 1200 × 1800 |
 | `story-1.jpg` → `story-4.jpg` | Ảnh các cột mốc trong "Chuyện chúng mình" | ngang, 1000 × 750 |
-| `gallery-1.jpg` → `gallery-8.jpg` | Album cưới (thêm/bớt bao nhiêu tuỳ ý) | **ảnh dọc**, 900 × 1100 |
+| `album-1.jpg` → `album-5.jpg` | Album cưới Coverflow (thêm/bớt tuỳ ý) | **ảnh dọc 2:3**, 800 × 1200 |
 | `share.jpg` | Ảnh hiện ra khi dán link lên Facebook/Zalo | 1200 × 630 |
 
 Hoặc nếu muốn đặt tên khác, bạn chép ảnh vào `assets/images/` rồi sửa đường
@@ -84,21 +84,21 @@ Album không giới hạn số ảnh. Có **hai cách**:
 **Cách A — chỉ thay ảnh, không sửa code (dễ nhất)**
 
 Đặt tên ảnh của bạn đúng như tên có sẵn rồi chép đè vào `assets/images/`:
-`gallery-1.jpg`, `gallery-2.jpg`, … `gallery-8.jpg`. Xong, không cần mở file nào cả.
+`album-1.jpg`, `album-2.jpg`, … `album-5.jpg`. Xong, không cần mở file nào cả.
 
-**Cách B — thêm ảnh thứ 9, 10, 11…**
+**Cách B — thêm ảnh thứ 6, 7, 8…**
 
-1. Chép ảnh vào `assets/images/`, ví dụ `gallery-9.jpg`, `gallery-10.jpg`
+1. Chép ảnh vào `assets/images/`, ví dụ `album-6.jpg`, `album-7.jpg`
 2. Mở `assets/js/config.js`, tìm mục `gallery`, thêm dòng mới vào danh sách:
 
 ```js
 gallery: {
   photos: [
-    { src: 'assets/images/gallery-1.jpg', caption: 'Khoảnh khắc 01' },
+    { src: 'assets/images/album-1.jpg', caption: 'Nắm tay nhau trên bờ cát' },
     ...
-    { src: 'assets/images/gallery-8.jpg', caption: 'Khoảnh khắc 08' },
-    { src: 'assets/images/gallery-9.jpg',  caption: 'Khoảnh khắc 09' },
-    { src: 'assets/images/gallery-10.jpg', caption: 'Khoảnh khắc 10' }
+    { src: 'assets/images/album-5.jpg', caption: 'Cùng bước về phía trước' },
+    { src: 'assets/images/album-6.jpg', caption: 'Chú thích của bạn' },
+    { src: 'assets/images/album-7.jpg', caption: 'Chú thích của bạn' }
   ]
 }
 ```
@@ -112,8 +112,12 @@ gallery: {
 
 **Muốn bớt ảnh?** Xoá cả dòng đó đi. Lưới sẽ tự sắp xếp lại, không để lỗ trống.
 
-**Kích thước ảnh album:** nên dùng **ảnh dọc** (khổ 3:4 hoặc 4:5, ví dụ 900 × 1200).
-Trên điện thoại album xếp 2 cột theo khổ dọc, nên ảnh ngang sẽ bị cắt bớt hai bên.
+**Chú thích ảnh** (`caption`) hiện ngay dưới ảnh đang xem — viết gì cũng được.
+
+**Kích thước ảnh album:** dùng **ảnh dọc khổ 2:3** (ví dụ 800 × 1200). Album chạy
+kiểu Coverflow 3D nên mọi ảnh dùng chung một khổ; ảnh ngang sẽ bị cắt hai bên.
+
+**Album hợp nhất với 5–9 ảnh.** Nhiều hơn vẫn chạy nhưng khách phải vuốt lâu.
 
 **Mục "Hai chúng mình"** mặc định chỉ có chữ, không ảnh — cân đối và trang nhã.
 Nếu muốn thêm **một** ảnh chung ở trên phần đó:
@@ -160,7 +164,7 @@ Nếu chưa có file nhạc, nút nhạc sẽ **tự động ẩn** — thiệp 
 | **Timeline chuyện tình** | So le trái/phải trên máy tính, dọc gọn trên điện thoại |
 | **Bản đồ** | Nút mở Google Maps + tuỳ chọn nhúng bản đồ ngay trong thiệp |
 | **Thêm vào lịch** | Nút tạo sự kiện Google Calendar |
-| **Album + xem ảnh lớn** | Bấm ảnh để phóng to, vuốt/bấm mũi tên hoặc phím ←/→, Esc để đóng |
+| **Album Coverflow 3D** | Kiểu Apple Cover Flow: vuốt ngang, bấm mũi tên, phím ←/→, hoặc bấm chấm tròn. Bấm ảnh giữa để xem lớn |
 | **RSVP** | Gửi về Google Form hoặc API riêng (xem dưới) |
 | **Sổ lưu bút** | Khách viết lời chúc, hiển thị ngay |
 | **Cánh hoa rơi** | Nhẹ nhàng, tắt được trong `theme.petals` |
@@ -218,6 +222,13 @@ theme: {
   gold:   '#CFAF74',   // vàng cát SÁNG — chỉ dùng trên nền tối
   sand:   '#7E6030'    // vàng cát ĐẬM — chỉ dùng trên nền sáng
 }
+```
+
+Ngoài ra trong `style.css` còn `--bronze: #524019` (đồng đậm) dùng riêng cho chữ
+nằm trên tấm kính mờ ở bìa và màn hình đầu — kính khá sáng nên chữ phải đậm hơn
+mới đọc rõ.
+
+```
 ```
 
 Bảng màu này lấy trực tiếp từ ảnh cưới ở biển Phú Quốc. Nếu bạn đổi màu,

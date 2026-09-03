@@ -42,7 +42,7 @@ window.WEDDING_CONFIG = {
     },
     bride: {
       shortName: 'Ngọc Hiếu',
-      fullName: 'Nguyễn Ngọc Hiếu',
+      fullName: 'Nguyễn Thị Ngọc Hiếu',
       role: 'Cô dâu',
       title: 'Trưởng công chúa',      // danh xưng vui, hiện dưới tên
       quote: 'Cảm ơn anh đã đến, và ở lại thật lâu trong đời em.',
@@ -157,14 +157,11 @@ window.WEDDING_CONFIG = {
     subheading: 'Những khoảnh khắc của chúng mình',
     // Thêm/bớt ảnh thoải mái, lưới sẽ tự sắp xếp
     photos: [
-      { src: 'assets/images/gallery-1.jpg', caption: 'Khoảnh khắc 01' },
-      { src: 'assets/images/gallery-2.jpg', caption: 'Khoảnh khắc 02' },
-      { src: 'assets/images/gallery-3.jpg', caption: 'Khoảnh khắc 03' },
-      { src: 'assets/images/gallery-4.jpg', caption: 'Khoảnh khắc 04' },
-      { src: 'assets/images/gallery-5.jpg', caption: 'Khoảnh khắc 05' },
-      { src: 'assets/images/gallery-6.jpg', caption: 'Khoảnh khắc 06' },
-      { src: 'assets/images/gallery-7.jpg', caption: 'Khoảnh khắc 07' },
-      { src: 'assets/images/gallery-8.jpg', caption: 'Khoảnh khắc 08' }
+      { src: 'assets/images/album-1.jpg', caption: 'Nắm tay nhau trên bờ cát' },
+      { src: 'assets/images/album-2.jpg', caption: 'Tựa vào nhau' },
+      { src: 'assets/images/album-3.jpg', caption: 'Một tấm hình chụp vội' },
+      { src: 'assets/images/album-4.jpg', caption: 'Voan bay trong gió biển' },
+      { src: 'assets/images/album-5.jpg', caption: 'Cùng bước về phía trước' }
     ]
   },
 
