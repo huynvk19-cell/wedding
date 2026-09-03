@@ -141,206 +141,193 @@ button{font-family:inherit;cursor:pointer}
 .btn--light:hover{background:var(--cream);color:var(--deep)}
 
 /* ============================================================
-   1. BÌA THIỆP — tấm kính mờ kiểu "liquid glass"
-   Ảnh giữ nguyên độ sáng; chữ đọc được nhờ tấm kính phía sau
-   chứ không phải nhờ làm tối cả ảnh.
+   1. BÌA THIỆP — ảnh và chữ ở hai vùng riêng
+   Nền giấy màu cát, ảnh cưới là một tấm hình đặt trên đó.
+   Không có chữ nào nằm đè lên ảnh, ở mọi khổ màn hình.
    ============================================================ */
 .cover{
   position:fixed;inset:0;z-index:200;
-  background:var(--deep);
+  background:var(--cream);
   display:grid;place-items:center;
-  text-align:center;
-  padding:var(--pad);
-  transition:opacity .9s ease,visibility .9s ease;
+  padding:clamp(20px,4vw,48px);
+  overflow-y:auto;
+  transition:opacity .8s ease .40s, visibility .8s ease .40s;
 }
-/* Bấm mở thiệp: khối chữ trôi lên phía nền trời và trong suốt dần,
-   nền ảnh chờ nó đi khuất rồi mới mờ theo — thành một cảnh liền mạch. */
-.cover.is-open{
-  opacity:0;visibility:hidden;pointer-events:none;
-  transition:opacity .8s ease .52s, visibility .8s ease .52s;
-}
-.cover.is-open .cover__inner{
-  transform:translateY(-30vh) scale(.955);
-  opacity:0;
-  filter:blur(9px);
-}
-.cover.is-open .cover__bg{transform:scale(1.055)}
+.cover.is-open{opacity:0;visibility:hidden;pointer-events:none}
 
-/* Khối chữ ở màn hình đầu hiện lên sau, để ảnh cưới được nhìn trọn một nhịp */
-body.is-opened .hero__inner{
-  animation:heroIn 1.05s cubic-bezier(.22,.61,.36,1) .78s both;
-}
-@keyframes heroIn{
-  from{opacity:0;transform:translateY(30px) scale(.982)}
-  to{opacity:1;transform:none}
-}
-@media (prefers-reduced-motion:reduce){
-  body.is-opened .hero__inner{animation:none}
+.cover__card{
+  display:grid;
+  gap:clamp(26px,4vw,60px);
+  justify-items:center;align-items:center;
+  width:100%;max-width:940px;
 }
 
-.cover__bg{
-  position:absolute;inset:0;
-  background-size:cover;
-  background-position:center 34%;
-  opacity:1;
-  transition:transform 1.5s cubic-bezier(.22,.61,.36,1);
+/* --- Tấm ảnh --- */
+.cover__photo{
+  position:relative;margin:0;flex:none;
+  width:min(72vw, 38vh, 300px);
+  aspect-ratio:2/3;                      /* đúng khổ ảnh gốc, không cắt xén */
+  transition:
+    transform 1.25s cubic-bezier(.28,.66,.3,1),
+    opacity .52s ease-out;
 }
-/* Chỉ một lớp sáng rất nhẹ để rìa ảnh không chói, KHÔNG làm tối ảnh */
-.cover__veil{
-  position:absolute;inset:0;
-  background:
-    radial-gradient(120% 80% at 50% 50%, rgba(255,255,255,.10), rgba(255,255,255,0) 60%),
-    linear-gradient(180deg, rgba(255,255,255,.06), rgba(30,48,64,.14));
+.cover__photo img{
+  position:relative;z-index:1;
+  width:100%;height:100%;object-fit:cover;
+  border-radius:clamp(22px,4vw,34px);
+  box-shadow:0 42px 80px -36px rgba(20,34,46,.62);
 }
-.cover__inner{
-  position:relative;z-index:2;color:var(--deep);max-width:560px;width:100%;
+/* quầng sáng lấy màu từ chính bức ảnh, cho tấm hình nổi khỏi nền giấy */
+.cover__glow{
+  position:absolute;inset:-9% -7%;z-index:0;
+  background-size:cover;background-position:center;
+  filter:blur(42px) saturate(150%);
+  opacity:.55;border-radius:50%;
+}
+
+/* --- Khối chữ --- */
+.cover__text{
+  max-width:430px;text-align:center;
   transition:
     transform 1.15s cubic-bezier(.34,.68,.28,1),
     opacity .92s ease-out,
     filter 1.05s ease-out;
 }
-
-.cover__frame{
-  padding:clamp(34px,6.5vw,54px) clamp(24px,6vw,48px);
-  position:relative;
-  border-radius:clamp(30px,6vw,44px);
-  background:rgba(255,255,255,.68);
-  -webkit-backdrop-filter:blur(30px) saturate(190%);
-  backdrop-filter:blur(30px) saturate(190%);
-  border:1px solid rgba(255,255,255,.62);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.95),      /* vệt sáng mép trên — chất "kính" */
-    inset 0 -1px 0 rgba(255,255,255,.45),
-    0 30px 70px -26px rgba(16,32,46,.50),
-    0 2px 10px rgba(16,32,46,.08);
-  overflow:hidden;
-}
-/* Vệt loé chéo rất nhẹ chạy trên mặt kính */
-.cover__frame::before{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(128deg,
-    rgba(255,255,255,.42) 0%, rgba(255,255,255,.10) 26%,
-    rgba(255,255,255,0) 52%, rgba(255,255,255,.16) 100%);
-}
-.cover__frame > *{position:relative;z-index:1}
-
 .cover__eyebrow{
   font-size:.68rem;letter-spacing:.42em;text-transform:uppercase;
-  color:var(--bronze);margin:0 0 20px;font-weight:500;
+  color:var(--sand);margin:0 0 18px;font-weight:500;
 }
 .cover__names{
   font-family:var(--display);font-weight:400;
-  font-size:clamp(2rem,6.6vw,3.3rem);
-  line-height:1.16;margin:0;color:var(--deep);
+  font-size:clamp(2rem,6.4vw,3.15rem);
+  line-height:1.16;margin:0;color:var(--deep);text-wrap:balance;
 }
 .cover__amp{
   display:block;font-family:var(--script);
-  font-size:clamp(1.5rem,4.2vw,2rem);
-  color:var(--bronze);margin:4px 0;font-weight:600;
+  font-size:clamp(1.45rem,4vw,1.95rem);
+  color:var(--sand);margin:2px 0;font-weight:600;
+}
+.cover__meta{
+  margin:22px 0 0;padding-top:20px;position:relative;
+}
+.cover__meta::before{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:64px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--line) 30%,var(--line) 70%,transparent);
 }
 .cover__date{
   font-family:var(--serif);font-size:clamp(1rem,2.6vw,1.2rem);
-  letter-spacing:.3em;margin:22px 0 6px;color:var(--deep);
+  letter-spacing:.3em;margin:0 0 6px;color:var(--deep);
 }
 .cover__lunar{
   font-family:var(--serif);font-style:italic;
-  font-size:.95rem;color:var(--ink);margin:0;
+  font-size:.95rem;color:var(--ink-soft);margin:0;
 }
 .cover__guest{
-  margin:22px 0 0;font-family:var(--serif);font-size:1.05rem;color:var(--ink);
+  margin:20px 0 0;font-family:var(--serif);font-size:1.05rem;color:var(--ink-soft);
 }
-.cover__guest b{font-style:italic;color:var(--bronze);font-weight:600}
-.cover__cta{margin-top:28px}
-
-/* Nút trên nền kính: viên thuốc, cũng bằng kính */
-.cover__cta .btn{
-  border-radius:999px;
-  background:var(--deep);
-  border-color:var(--deep);
-  color:#fff;
-  box-shadow:0 10px 26px -10px rgba(16,32,46,.65);
-  animation:glow 2.8s ease-in-out infinite;
-}
-.cover__cta .btn:hover{
-  background:rgba(255,255,255,.55);color:var(--deep);animation:none;
-}
+.cover__guest b{font-style:italic;color:var(--sand);font-weight:600}
+.cover__cta{margin-top:26px}
+.cover__cta .btn{animation:glow 2.8s ease-in-out infinite}
+.cover__cta .btn:hover{animation:none}
 @keyframes glow{
-  0%,100%{box-shadow:0 10px 26px -10px rgba(16,32,46,.65), 0 0 0 0 rgba(255,255,255,.55)}
-  70%{box-shadow:0 10px 26px -10px rgba(16,32,46,.65), 0 0 0 14px rgba(255,255,255,0)}
+  0%,100%{box-shadow:0 0 0 0 rgba(42,66,87,.30)}
+  70%{box-shadow:0 0 0 15px rgba(42,66,87,0)}
 }
 
-/* Trình duyệt không hỗ trợ backdrop-filter: tăng độ đục để chữ vẫn đọc được */
-@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-  .cover__frame{background:rgba(255,255,255,.92)}
+/* Máy tính: ảnh một bên, chữ một bên */
+@media (min-width:900px){
+  .cover__card{
+    grid-template-columns:auto auto;   /* hai cột ôm sát nội dung */
+    justify-content:center;            /* nên cả khối nằm giữa màn hình */
+    justify-items:start;
+    gap:clamp(44px,5vw,72px);
+    width:auto;
+  }
+  .cover__photo{width:min(32vw,320px)}
+  .cover__text{text-align:left;max-width:420px}
+  .cover__meta::before{left:0;transform:none}
+  .cover__names{font-size:clamp(2.4rem,4vw,3.3rem)}
 }
+
+/* Điện thoại màn hình thấp: bóp lại cho vừa một màn, khỏi phải cuộn bìa */
+@media (max-height:720px) and (max-width:899px){
+  .cover{padding:12px}
+  .cover__photo{width:min(58vw, 34vh, 240px)}
+  .cover__card{gap:16px}
+  .cover__eyebrow{margin-bottom:12px}
+  .cover__meta{margin-top:16px;padding-top:14px}
+  .cover__cta{margin-top:18px}
+  .cover__names{font-size:clamp(1.7rem,5.6vw,2.2rem)}
+}
+
+/* Bấm mở thiệp: chữ trôi lên và tan, tấm ảnh lớn dần rồi cả trang mờ đi */
+.cover.is-open .cover__text{
+  transform:translateY(-26vh) scale(.96);
+  opacity:0;filter:blur(9px);
+}
+.cover.is-open .cover__photo{transform:scale(1.35);opacity:0}
 
 /* ============================================================
-   2. HERO
+   2. HERO — ảnh chiếm trọn khung nhìn, chữ nằm ở dải giấy bên dưới
    ============================================================ */
-.hero{
-  min-height:100svh;
-  display:grid;place-items:center;
-  position:relative;text-align:center;
-  padding:96px var(--pad);
+.hero{position:relative;background:var(--cream)}
+
+.hero__plate{
+  position:relative;
+  height:82svh;                 /* chừa một dải để thấy phần chữ, mời khách cuộn tiếp */
+  min-height:380px;
   overflow:hidden;
+  border-radius:0 0 clamp(30px,5vw,60px) clamp(30px,5vw,60px);
 }
 .hero__bg{
   position:absolute;inset:0;background-size:cover;
-  /* cùng khung và cùng tỉ lệ với ảnh bìa, để lúc chuyển cảnh hai ảnh
-     chồng khít lên nhau chứ không thấy bóng nhân đôi */
-  background-position:center 34%;
-  transform:scale(1.055);
+  background-position:center 42%;
+  transform:scale(1.02);
 }
-/* chỉ bắt đầu nhịp phóng chậm SAU khi thiệp đã mở và cảnh đã ổn định */
 body.is-opened .hero__bg{
-  animation:kenburns 26s ease-in-out 1.6s infinite alternate;
+  animation:kenburns 26s ease-in-out 1.4s infinite alternate;
 }
-@keyframes kenburns{from{transform:scale(1.055)}to{transform:scale(1.13)}}
+@keyframes kenburns{from{transform:scale(1.02)}to{transform:scale(1.11)}}
 @media (prefers-reduced-motion:reduce){
   body.is-opened .hero__bg{animation:none}
 }
-.hero::after{
-  content:'';position:absolute;inset:0;
-  /* rất nhẹ — chữ đọc được nhờ tấm kính bên dưới, không nhờ làm tối ảnh */
-  background:linear-gradient(180deg,rgba(255,255,255,.06) 0%,rgba(28,46,62,.16) 60%,rgba(22,38,52,.30) 100%);
+
+/* Vạch mảnh nhấp nháy ở đáy ảnh — gợi ý cuộn, không dùng chữ nên
+   không có gì đè lên ảnh cả */
+.hero__cue{
+  position:absolute;left:50%;bottom:26px;transform:translateX(-50%);
+  width:2px;height:48px;border-radius:2px;
+  /* vạch sẫm kèm quầng sáng: đọc được cả khi đáy ảnh sáng (cát)
+     lẫn khi đáy ảnh tối */
+  background:linear-gradient(180deg,rgba(42,66,87,0),rgba(42,66,87,.8));
+  box-shadow:0 0 8px rgba(255,255,255,.75);
+  animation:drop 2.2s ease-in-out infinite;
 }
-.hero__inner{
-  position:relative;z-index:2;color:var(--deep);
-  max-width:min(640px,100%);
-  padding:clamp(30px,5.5vw,50px) clamp(24px,5vw,46px);
-  border-radius:clamp(30px,6vw,46px);
-  background:rgba(255,255,255,.70);
-  -webkit-backdrop-filter:blur(28px) saturate(185%);
-  backdrop-filter:blur(28px) saturate(185%);
-  border:1px solid rgba(255,255,255,.58);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.9),
-    0 30px 70px -26px rgba(16,32,46,.45);
-}
-@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-  .hero__inner{background:rgba(255,255,255,.92)}
+@keyframes drop{0%,100%{transform:translateX(-50%) scaleY(.35);transform-origin:top}
+                50%{transform:translateX(-50%) scaleY(1);transform-origin:top}}
+
+.hero__band{
+  text-align:center;
+  padding:clamp(40px,6vw,66px) var(--pad) clamp(30px,5vw,48px);
 }
 .hero__eyebrow{
   font-size:.68rem;letter-spacing:.42em;text-transform:uppercase;
-  color:var(--bronze);margin:0 0 18px;font-weight:500;
+  color:var(--sand);margin:0 0 16px;font-weight:500;
 }
 .hero__names{
   font-family:var(--display);font-weight:400;
-  font-size:clamp(2.1rem,7vw,3.7rem);line-height:1.14;margin:0;
-  color:var(--deep);
+  font-size:clamp(2.2rem,7vw,3.9rem);line-height:1.14;margin:0;
+  color:var(--deep);text-wrap:balance;
 }
-.hero__amp{display:block;font-family:var(--script);font-size:.55em;color:var(--bronze);margin:4px 0;font-weight:600}
+.hero__amp{
+  display:block;font-family:var(--script);font-size:.5em;
+  color:var(--sand);margin:2px 0;font-weight:600;
+}
 .hero__date{
-  margin:24px 0 0;font-family:var(--serif);color:var(--deep);
+  margin:22px 0 0;font-family:var(--serif);color:var(--deep);
   font-size:clamp(1rem,3vw,1.25rem);letter-spacing:.32em;
 }
-.hero__scroll{
-  position:absolute;bottom:34px;left:50%;transform:translateX(-50%);
-  z-index:2;color:#fff;font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;
-  display:flex;flex-direction:column;align-items:center;gap:10px;opacity:.85;
-}
-.hero__scroll span{width:1px;height:44px;background:rgba(255,255,255,.7);animation:drop 2s ease-in-out infinite}
-@keyframes drop{0%,100%{transform:scaleY(.4);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
 
 /* ============================================================
    3. LỜI MỞ ĐẦU

@@ -52,6 +52,10 @@ File được chia thành 13 mục có chú thích tiếng Việt rõ ràng:
 3. **cover** — bìa thiệp, ngày cưới, ngày âm lịch
 4. **intro** — lời mở đầu
 5. **countdown** — ngày giờ để đếm ngược
+
+> **Mọi mốc giờ trong `config.js` là giờ Việt Nam (UTC+7).** Thiệp tự quy đổi
+> nên khách ở nước ngoài mở thiệp vẫn thấy đếm ngược và nút "Thêm vào lịch"
+> đúng thời điểm. Bạn cứ ghi giờ Việt Nam bình thường.
 6. **story** — các cột mốc tình yêu (thêm/bớt tuỳ ý)
 7. **events** — thông tin tiệc cưới + bản đồ
 8. **gallery** — danh sách ảnh album
@@ -73,7 +77,7 @@ cover: {
   lunarText: 'Nhằm ngày 06 tháng 08 năm Bính Ngọ'
 },
 countdown: {
-  targetDate: '2026-09-16T18:00:00'   // định dạng YYYY-MM-DDTHH:mm:ss
+  targetDate: '2026-09-16T17:00:00'   // định dạng YYYY-MM-DDTHH:mm:ss
 }
 ```
 

@@ -24,18 +24,23 @@
 <body class="is-locked">
 
 <!-- ============ BÌA THIỆP ============ -->
+<!-- Ảnh và chữ nằm ở hai vùng riêng biệt, không vùng nào đè lên vùng nào -->
 <div class="cover" id="cover">
-  <div class="cover__bg" id="coverBg"></div>
-  <div class="cover__veil"></div>
-  <div class="cover__inner">
-    <div class="cover__frame">
+  <div class="cover__card">
+    <figure class="cover__photo">
+      <span class="cover__glow" id="coverGlow" aria-hidden="true"></span>
+      <img id="coverImg" alt="">
+    </figure>
+    <div class="cover__text">
       <p class="cover__eyebrow" id="coverEyebrow"></p>
       <h1 class="cover__names" id="coverNames"></h1>
-      <p class="cover__date" id="coverDate"></p>
-      <p class="cover__lunar" id="coverLunar"></p>
+      <div class="cover__meta">
+        <p class="cover__date" id="coverDate"></p>
+        <p class="cover__lunar" id="coverLunar"></p>
+      </div>
       <p class="cover__guest" id="coverGuest" hidden></p>
       <div class="cover__cta">
-        <button class="btn btn--light" id="openBtn"></button>
+        <button class="btn" id="openBtn"></button>
       </div>
     </div>
   </div>
@@ -44,15 +49,17 @@
 <!-- ============ NỘI DUNG THIỆP ============ -->
 <main id="main">
 
-  <!-- HERO -->
+  <!-- HERO — ảnh chiếm trọn màn hình, chữ nằm ở dải giấy ngay bên dưới -->
   <header class="hero" id="sec-home">
-    <div class="hero__bg" id="heroBg"></div>
-    <div class="hero__inner">
+    <div class="hero__plate">
+      <div class="hero__bg" id="heroBg"></div>
+      <span class="hero__cue" aria-hidden="true"></span>
+    </div>
+    <div class="hero__band">
       <p class="hero__eyebrow" id="heroEyebrow"></p>
       <h1 class="hero__names" id="heroNames"></h1>
       <p class="hero__date" id="heroDate"></p>
     </div>
-    <div class="hero__scroll"><span></span>Kéo xuống</div>
   </header>
 
   <!-- LỜI MỞ ĐẦU -->

@@ -85,7 +85,7 @@ window.WEDDING_CONFIG = {
   countdown: {
     heading: 'Đếm ngược ngày hạnh phúc',
     // ĐỊNH DẠNG: 'YYYY-MM-DDTHH:mm:ss' (giờ Việt Nam)
-    targetDate: '2026-09-16T18:00:00',
+    targetDate: '2026-09-16T17:00:00',
     labels: { days: 'Ngày', hours: 'Giờ', minutes: 'Phút', seconds: 'Giây' },
     finishedText: 'Hôm nay là ngày chúng mình về chung một nhà ❤'
   },
@@ -130,7 +130,7 @@ window.WEDDING_CONFIG = {
       {
         name: 'Tiệc Cưới',
         side: 'Nhà hàng',
-        time: '18:00',
+        time: '17:00',
         date: 'Thứ Tư, 16 / 09 / 2026',
         lunar: 'Nhằm ngày 06 tháng 08 năm Bính Ngọ',
         venue: 'Nhà hàng Long Phụng 4',
@@ -145,8 +145,8 @@ window.WEDDING_CONFIG = {
       show: true,
       label: 'Thêm vào lịch của bạn',
       title: 'Lễ cưới Văn Huy & Ngọc Hiếu',
-      start: '2026-09-16T18:00:00',
-      end: '2026-09-16T21:00:00',
+      start: '2026-09-16T17:00:00',
+      end: '2026-09-16T20:00:00',
       location: 'Nhà hàng Long Phụng 4, đường vào cáp treo (bãi đất đỏ cũ), Phú Quốc'
     }
   },

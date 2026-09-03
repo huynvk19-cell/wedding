@@ -18,6 +18,15 @@
   };
   var text = function (id, v) { var el = document.getElementById(id); if (el) el.textContent = v || ''; };
 
+  /* Mọi mốc thời gian trong config.js là GIỜ VIỆT NAM (UTC+7).
+     Nếu không ghi rõ múi giờ, trình duyệt sẽ hiểu theo giờ máy của khách —
+     khách ở nước ngoài sẽ thấy đếm ngược và lịch sai giờ. */
+  var VN_OFFSET = '+07:00';
+  var parseVN = function (str) {
+    if (!str) return new Date(NaN);
+    return new Date(/([+-]\d{2}:?\d{2}|Z)$/.test(str) ? str : str + VN_OFFSET);
+  };
+
   /* ---------------------------------------------------------
      0. Theme + meta
      --------------------------------------------------------- */
@@ -67,8 +76,12 @@
      --------------------------------------------------------- */
   function buildCover() {
     var cv = C.cover || {};
-    var bg = $('#coverBg');
-    if (bg && cv.photo) bg.style.backgroundImage = 'url("' + cv.photo + '")';
+    if (cv.photo) {
+      $('#coverImg').src = cv.photo;
+      $('#coverImg').alt = pairNames();
+      /* quầng sáng dùng lại chính bức ảnh, làm nhoè phía sau tấm hình */
+      $('#coverGlow').style.backgroundImage = 'url("' + cv.photo + '")';
+    }
 
     text('coverEyebrow', cv.eyebrow);
     $('#coverNames').innerHTML = pairNamesHtml('cover__amp');
@@ -156,7 +169,7 @@
     var cd = C.countdown || {};
     text('cdHeading', cd.heading);
     var box = $('#countdown');
-    var target = new Date(cd.targetDate).getTime();
+    var target = parseVN(cd.targetDate).getTime();
 
     if (isNaN(target)) {
       box.innerHTML = '<p class="cd__done">Chưa đặt ngày cưới trong config.js</p>';
@@ -244,7 +257,7 @@
     var cal = e.calendar || {};
     if (cal.show) {
       var fmt = function (d) {
-        var t = new Date(d);
+        var t = parseVN(d);
         return isNaN(t) ? '' : t.toISOString().replace(/[-:]|\.\d{3}/g, '');
       };
       var url = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
