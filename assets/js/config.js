@@ -157,11 +157,11 @@ window.WEDDING_CONFIG = {
     subheading: 'Những khoảnh khắc của chúng mình',
     // Thêm/bớt ảnh thoải mái, lưới sẽ tự sắp xếp
     photos: [
-      { src: 'assets/images/album-1.jpg', caption: 'Nắm tay nhau trên bờ cát' },
-      { src: 'assets/images/album-2.jpg', caption: 'Tựa vào nhau' },
-      { src: 'assets/images/album-3.jpg', caption: 'Một tấm hình chụp vội' },
-      { src: 'assets/images/album-4.jpg', caption: 'Voan bay trong gió biển' },
-      { src: 'assets/images/album-5.jpg', caption: 'Cùng bước về phía trước' }
+      { src: 'assets/images/album-1.jpg', caption: 'Bên nhau, giữa trời biển Phú Quốc' },
+      { src: 'assets/images/album-2.jpg', caption: 'Anh dõi theo từng bước chân em' },
+      { src: 'assets/images/album-3.jpg', caption: 'Nhìn nhau, chỉ vậy thôi cũng đủ' },
+      { src: 'assets/images/album-4.jpg', caption: 'Một tấm hình chụp vội' },
+      { src: 'assets/images/album-5.jpg', caption: 'Voan bay trong gió biển' }
     ]
   },
 

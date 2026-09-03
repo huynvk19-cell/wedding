@@ -106,7 +106,9 @@ gallery: {
 **Ba quy tắc dễ sai:**
 
 - Mỗi dòng kết thúc bằng dấu phẩy `,` — **trừ dòng cuối cùng** thì không có dấu phẩy.
-- Tên file phải **khớp chính xác**, kể cả chữ hoa/thường và đuôi `.jpg` / `.png`.
+- Tên file phải **khớp chính xác**, kể cả chữ hoa/thường và đuôi file.
+  Điện thoại hay xuất ảnh với đuôi `.JPEG` hoặc `.JPG` viết hoa — phải đổi
+  thành `.jpg` chữ thường, nếu không thiệp sẽ không tìm thấy ảnh.
 - Không dùng dấu tiếng Việt và khoảng trắng trong tên file. Dùng `anh-cuoi-01.jpg`,
   đừng dùng `ảnh cưới 01.jpg`.
 
