@@ -466,6 +466,7 @@ body.is-opened .hero__bg{
 }
 .tl:last-child{margin-bottom:0}
 .tl__dot{
+  grid-column:2;grid-row:1;                     /* gán hẳn vào cột giữa, đúng trên vạch dọc */
   width:11px;height:11px;border-radius:999px;   /* tròn, đồng bộ với các chi tiết khác */
   background:var(--accent);
   margin:5px auto 0;position:relative;z-index:2;
@@ -792,11 +793,10 @@ body.is-opened .hero__bg{
 
   .timeline::before{left:14px}
   .tl{grid-template-columns:29px 1fr;gap:16px;align-items:start}
-  .tl__dot{margin:8px 0 0}
+  .tl__dot{grid-column:1;grid-row:1;margin:6px auto 0}
   .tl__spacer{display:none}
   .tl__body > p:not(.tl__date){margin-left:0;margin-right:0;max-width:none}
   .tl:nth-child(odd) .tl__body,.tl:nth-child(even) .tl__body{
     grid-column:2;grid-row:1;text-align:left;
   }
-  .tl__dot{grid-row:1}
 }
