@@ -114,14 +114,15 @@ window.WEDDING_CONFIG = {
               '“lỡ yêu mất rùii...”'
       },
       {
-        date: '03 . 08 . 2026',
+        date: '03 . 08 . 2024',
         title: 'Chuyến đi đầu tiên',
         text: 'Chuyến đi đầu tiên của hai đứa, và cũng là lần thứ hai chúng mình đến Vũng Tàu — nơi mọi thứ đã bắt đầu.'
       },
       {
         date: 'Tháng 05 . 2026',
         title: 'Lời cầu hôn',
-        text: 'Không pháo hoa, không đông người, một chiếc nhẫn.'
+        text: 'Không pháo hoa, không đông người, một chiếc nhẫn, ' +
+              'một câu hỏi và một cái gật đầu.'
       }
     ]
   },

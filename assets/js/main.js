@@ -92,8 +92,11 @@
     text('coverLunar', cv.lunarText);
     $('#openBtn').textContent = cv.openButton || 'Mở thiệp';
 
-    /* Lời chào riêng: link dạng  index.html?guest=Anh%20Tuấn  */
-    var guest = new URLSearchParams(location.search).get('guest');
+    /* Lời chào riêng cho từng khách. Hai đường:
+       - bản online: link dạng  index.html?guest=Anh%20Tuấn
+       - bản offline một file: tên khách được ghi sẵn vào window.__GUEST__
+         (file mở bằng cách bấm đúp thì không có phần ?guest= trên địa chỉ) */
+    var guest = window.__GUEST__ || new URLSearchParams(location.search).get('guest');
     if (guest) {
       guest = guest.replace(/[<>]/g, '').trim().slice(0, 60);
       if (guest) {

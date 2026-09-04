@@ -190,6 +190,65 @@ https://ten-cua-ban.github.io/wedding/?guest=Gia%20đình%20cô%20Ba
 
 Trên bìa thiệp sẽ hiện: *Thân mời **Anh Tuấn***
 
+## 📨 Gửi thiệp cho từng khách, mỗi người một tên
+
+Có hai cách, dùng cách nào cũng được — hoặc dùng cả hai.
+
+### Cách 1 — Gửi link (cần mạng, tiện nhất)
+
+Mở công cụ **`tools/tao-link.html`** — bấm đúp vào file đó, hoặc lên mạng vào
+`https://.../wedding/tools/tao-link.html`.
+
+1. Dán danh sách khách vào ô, **mỗi dòng một người**
+2. Bấm **Tạo link**
+3. Bấm **Chép** ở dòng nào thì được link riêng của người đó, dán thẳng vào Zalo
+
+Công cụ tự nhận địa chỉ thiệp, bạn không phải gõ. Nếu sau này mua tên miền
+riêng thì dán tên miền vào ô trên cùng.
+
+Link ra sẽ có dạng:
+
+```
+https://.../wedding/?guest=Anh%20Tuấn
+```
+
+Khách bấm vào, ngay trên bìa thiệp hiện dòng *Thân mời **Anh Tuấn***.
+
+Bạn cũng có thể tự gõ tay link mà không cần công cụ — chỉ việc thêm
+`?guest=Tên khách` vào cuối địa chỉ thiệp.
+
+### Cách 2 — Gửi file (không cần mạng)
+
+Dùng khi khách ở vùng sóng yếu, hoặc bạn muốn gửi hẳn một file để khách giữ.
+
+```bash
+# một khách
+python3 tools/tao-file-offline.py --khach "Anh Tuấn"
+
+# cả danh sách: mỗi dòng một tên trong khach.txt
+python3 tools/tao-file-offline.py --danh-sach khach.txt
+```
+
+File tạo ra nằm trong thư mục `ban-offline/`, mỗi khách một file khoảng
+**2 MB**, đã chứa sẵn toàn bộ ảnh và tên khách bên trong. Gửi file đó qua
+Zalo, Messenger hay email; người nhận bấm mở là xem được **kể cả khi không
+có mạng**.
+
+Lưu ý nhỏ: lúc không có mạng, phông chữ trang trí không tải được nên máy sẽ
+dùng phông thay thế — chữ hơi khác một chút nhưng bố cục và ảnh vẫn nguyên vẹn.
+
+### Nên chọn cách nào?
+
+| | Cách 1 — link | Cách 2 — file |
+|---|---|---|
+| Gửi qua Zalo | dán một dòng link | gửi file 2 MB |
+| Khách cần mạng | có | không |
+| Sửa thiệp sau khi gửi | khách thấy bản mới ngay | phải gửi lại file |
+| Nút xác nhận tham dự | dùng được | dùng được nếu khách có mạng |
+
+Thực tế nên dùng **Cách 1** cho hầu hết khách, và Cách 2 cho vài trường hợp
+đặc biệt.
+
 ### Nhận phản hồi RSVP về Google Form
 
 1. Tạo một Google Form với các câu hỏi: Họ tên, SĐT, Tham dự, Số người,
