@@ -230,12 +230,10 @@ window.WEDDING_CONFIG = {
     subheading: 'Gửi đôi lời chúc đến cô dâu chú rể',
     placeholder: 'Viết lời chúc của bạn...',
     submitText: 'Gửi lời chúc',
-    // Lời chúc mẫu hiển thị sẵn (bạn có thể xoá hết)
-    seed: [
-      { name: 'Gia đình Hoàng Anh', text: 'Chúc hai em trăm năm hạnh phúc, đầu bạc răng long!' },
-      { name: 'Ngọc Trâm', text: 'Cuối cùng cũng tới ngày này. Chúc hai đứa mãi thương nhau như hôm nay nhé!' },
-      { name: 'Team Marketing', text: 'Chúc anh chị hạnh phúc viên mãn, sớm có tin vui ạ!' }
-    ]
+    emptyText: 'Chưa có lời chúc nào — hãy là người đầu tiên nhé!',
+    // Lời chúc hiện sẵn trên thiệp. Để trống thì thiệp chỉ hiện dòng
+    // emptyText ở trên cho tới khi có người viết.
+    seed: []
   },
 
   /* ---------- 11. NHẠC NỀN ---------- */

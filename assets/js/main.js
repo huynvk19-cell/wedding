@@ -564,6 +564,11 @@
   function renderWishes() {
     var seed = (C.wishes && C.wishes.seed) || [];
     var all = seed.concat(loadStored());
+    if (!all.length) {
+      $('#wishList').innerHTML = '<p class="wish-empty">' +
+        esc((C.wishes && C.wishes.emptyText) || 'Chưa có lời chúc nào.') + '</p>';
+      return;
+    }
     $('#wishList').innerHTML = all.map(function (w) {
       return '<article class="wish">' +
         '<p class="wish__text">' + esc(w.text) + '</p>' +

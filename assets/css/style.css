@@ -752,6 +752,11 @@ body.is-opened .hero__bg{
 .wish__name{
   margin:0;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);
 }
+/* Chưa ai viết lời chúc thì hiện một dòng nhẹ, đỡ trống trơ trọi. */
+.wish-empty{
+  grid-column:1/-1;margin:0;text-align:center;color:var(--ink-soft);
+  font-family:var(--serif);font-style:italic;opacity:.75;
+}
 
 /* ============================================================
    10. FOOTER
