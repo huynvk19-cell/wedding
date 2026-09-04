@@ -272,8 +272,17 @@ button{font-family:inherit;cursor:pointer}
     gap:clamp(44px,5vw,72px);
     width:auto;
   }
-  .cover__photo{width:min(34vw,340px)}
-  .cover__text{text-align:left;max-width:420px}
+  /* Ảnh cao bằng đúng khối chữ, để chữ không thò ra ngoài khung ảnh.
+     Trước đây ảnh khoá cứng khổ 4:5 nên khi có thêm lời chào riêng, khối
+     chữ cao hơn ảnh và thò ra 19px cả trên lẫn dưới. */
+  .cover__photo{
+    width:min(34vw,340px);
+    align-self:stretch;                 /* cao theo hàng, tức theo khối chữ */
+    height:auto;
+    aspect-ratio:auto;
+    min-height:min(58vh,430px);         /* chữ ngắn thì ảnh vẫn đủ cao */
+  }
+  .cover__text{text-align:left;max-width:420px;align-self:center}
   .cover__meta::before{left:0;transform:none}
   .cover__names{font-size:clamp(2.4rem,4vw,3.3rem)}
 }
