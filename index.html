@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2A4257">
+
+<title>Thiệp cưới</title>
+<meta name="description" content="Thiệp cưới online">
+
+<!-- Chia sẻ Facebook / Zalo (nội dung được cập nhật từ config.js) -->
+<meta property="og:type" content="website">
+<meta property="og:title" id="ogTitle" content="Thiệp cưới">
+<meta property="og:description" id="ogDesc" content="Thiệp cưới online">
+<meta property="og:image" id="ogImage" content="">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Be+Vietnam+Pro:wght@300;400;500&family=Dancing+Script:wght@500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="is-locked">
+
+<!-- ============ BÌA THIỆP ============ -->
+<!-- Ảnh và chữ nằm ở hai vùng riêng biệt, không vùng nào đè lên vùng nào -->
+<div class="cover" id="cover">
+  <div class="cover__card">
+    <figure class="cover__photo">
+      <span class="cover__glow" id="coverGlow" aria-hidden="true"></span>
+      <img id="coverImg" alt="">
+    </figure>
+    <div class="cover__text">
+      <p class="cover__eyebrow" id="coverEyebrow"></p>
+      <h1 class="cover__names" id="coverNames"></h1>
+      <div class="cover__meta">
+        <p class="cover__date" id="coverDate"></p>
+        <p class="cover__lunar" id="coverLunar"></p>
+      </div>
+      <p class="cover__guest" id="coverGuest" hidden></p>
+      <div class="cover__cta">
+        <button class="btn" id="openBtn"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ NỘI DUNG THIỆP ============ -->
+<main id="main">
+
+  <!-- HERO — ảnh chiếm trọn màn hình, chữ nằm ở dải giấy ngay bên dưới -->
+  <header class="hero" id="sec-home">
+    <div class="hero__plate">
+      <div class="hero__bg" id="heroBg"></div>
+      <span class="hero__cue" aria-hidden="true"></span>
+    </div>
+    <div class="hero__band">
+      <p class="hero__eyebrow" id="heroEyebrow"></p>
+      <h1 class="hero__names" id="heroNames"></h1>
+      <p class="hero__date" id="heroDate"></p>
+    </div>
+  </header>
+
+  <!-- LỜI MỞ ĐẦU -->
+  <section class="section" id="sec-intro">
+    <div class="wrap center">
+      <p class="eyebrow reveal" id="introEyebrow"></p>
+      <div class="rule reveal"><i></i></div>
+      <p class="intro__lines reveal" data-delay="1" id="introLines"></p>
+      <p class="intro__msg reveal" data-delay="2" id="introMsg"></p>
+      <p class="intro__sign reveal" data-delay="3" id="introSign"></p>
+    </div>
+  </section>
+
+  <!-- CÔ DÂU & CHÚ RỂ -->
+  <section class="section section--tint" id="sec-couple">
+    <div class="wrap">
+      <div class="center">
+        <p class="eyebrow reveal">Cô dâu &amp; Chú rể</p>
+        <h2 class="title reveal">Hai chúng mình</h2>
+        <div class="rule reveal"><i></i></div>
+      </div>
+      <figure class="couple__photo reveal" id="couplePhoto"></figure>
+      <div class="couple" id="coupleWrap"></div>
+    </div>
+  </section>
+
+  <!-- ĐẾM NGƯỢC -->
+  <section class="section section--dark center" id="sec-countdown">
+    <div class="wrap">
+      <p class="eyebrow reveal">Save the date</p>
+      <h2 class="title reveal" id="cdHeading"></h2>
+      <div class="rule reveal"><i></i></div>
+      <div class="countdown reveal" data-delay="1" id="countdown"></div>
+    </div>
+  </section>
+
+  <!-- CHUYỆN CHÚNG MÌNH -->
+  <section class="section" id="sec-story">
+    <div class="wrap">
+      <div class="center">
+        <p class="eyebrow reveal">Our story</p>
+        <h2 class="title reveal" id="storyHeading"></h2>
+        <p class="subtitle reveal" id="storySub"></p>
+        <div class="rule reveal"><i></i></div>
+      </div>
+      <div class="timeline" id="timeline"></div>
+    </div>
+  </section>
+
+  <!-- SỰ KIỆN -->
+  <section class="section section--tint" id="sec-events">
+    <div class="wrap">
+      <div class="center">
+        <p class="eyebrow reveal">Wedding events</p>
+        <h2 class="title reveal" id="eventsHeading"></h2>
+        <p class="subtitle reveal" id="eventsSub"></p>
+        <div class="rule reveal"><i></i></div>
+      </div>
+      <div class="events" id="eventsWrap"></div>
+      <div class="events__calendar reveal" id="calendarWrap"></div>
+    </div>
+  </section>
+
+  <!-- ALBUM -->
+  <section class="section" id="sec-gallery">
+    <div class="wrap">
+      <div class="center">
+        <p class="eyebrow reveal">Gallery</p>
+        <h2 class="title reveal" id="galleryHeading"></h2>
+        <p class="subtitle reveal" id="gallerySub"></p>
+        <div class="rule reveal"><i></i></div>
+      </div>
+      <div class="cf reveal" id="cf">
+        <div class="cf__stage" id="cfStage" role="listbox" tabindex="0"
+             aria-label="Album cưới — dùng phím mũi tên trái phải để xem"></div>
+        <div class="cf__controls">
+          <button class="cf__nav" id="cfPrev" type="button" aria-label="Ảnh trước">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="cf__dots" id="cfDots"></div>
+          <button class="cf__nav" id="cfNext" type="button" aria-label="Ảnh sau">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <p class="cf__hint">Vuốt ngang hoặc bấm vào ảnh để xem lớn</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section class="section section--tint" id="sec-rsvp" hidden>
+    <div class="wrap center">
+      <p class="eyebrow reveal">R.S.V.P</p>
+      <h2 class="title reveal" id="rsvpHeading"></h2>
+      <p class="subtitle reveal" id="rsvpSub"></p>
+      <div class="rule reveal"><i></i></div>
+
+      <form class="form reveal" id="rsvpForm" novalidate>
+        <div class="form__row">
+          <div class="field">
+            <label for="rsvpName">Họ và tên</label>
+            <input type="text" id="rsvpName" name="name" required placeholder="Nguyễn Văn A">
+          </div>
+          <div class="field">
+            <label for="rsvpPhone">Số điện thoại</label>
+            <input type="tel" id="rsvpPhone" name="phone" placeholder="09xx xxx xxx">
+          </div>
+        </div>
+        <div class="form__row">
+          <div class="field">
+            <label for="rsvpAttend">Bạn sẽ tham dự chứ?</label>
+            <select id="rsvpAttend" name="attend"></select>
+          </div>
+          <div class="field">
+            <label for="rsvpSide">Bạn là khách mời của</label>
+            <select id="rsvpSide" name="side"></select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="rsvpWish">Lời nhắn cho cô dâu chú rể</label>
+          <textarea id="rsvpWish" name="wish" placeholder="Chúc hai bạn..."></textarea>
+        </div>
+        <button type="submit" class="btn form__submit">Gửi xác nhận</button>
+      </form>
+      <div class="form__success" id="rsvpSuccess"></div>
+    </div>
+  </section>
+
+  <!-- SỔ LƯU BÚT -->
+  <section class="section" id="sec-wishes" hidden>
+    <div class="wrap center">
+      <p class="eyebrow reveal">Guestbook</p>
+      <h2 class="title reveal" id="wishHeading"></h2>
+      <p class="subtitle reveal" id="wishSub"></p>
+      <div class="rule reveal"><i></i></div>
+
+      <form class="form reveal" id="wishForm" novalidate>
+        <div class="field">
+          <label for="wishName">Tên của bạn</label>
+          <input type="text" id="wishName" required placeholder="Tên hoặc biệt danh">
+        </div>
+        <div class="field">
+          <label for="wishText">Lời chúc</label>
+          <textarea id="wishText" required></textarea>
+        </div>
+        <button type="submit" class="btn form__submit" id="wishSubmit"></button>
+        <p class="form__note">Lời chúc được lưu trên trình duyệt của bạn và hiển thị ngay bên dưới.</p>
+      </form>
+
+      <div class="wishlist" id="wishList"></div>
+    </div>
+  </section>
+
+  <!-- LỜI KẾT -->
+  <footer class="footer" id="sec-footer">
+    <p class="eyebrow">Thank you</p>
+    <p class="footer__names" id="footerNames"></p>
+    <p class="footer__date" id="footerDate"></p>
+    <p class="footer__text" id="footerText"></p>
+    <p class="footer__credit">Made with love</p>
+  </footer>
+
+</main>
+
+<!-- ============ TIỆN ÍCH NỔI ============ -->
+<nav class="navdots" id="navdots" aria-label="Điều hướng nhanh"></nav>
+
+<button class="music-btn" id="musicBtn" aria-label="Bật/tắt nhạc nền">
+  <svg class="ico-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3v10.6A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
+  <svg class="ico-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3v14H7zm7 0h3v14h-3z"/></svg>
+</button>
+<audio id="bgm" loop preload="none"></audio>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Xem ảnh">
+  <button class="lightbox__btn lightbox__close" id="lbClose" aria-label="Đóng">✕</button>
+  <button class="lightbox__btn lightbox__prev" id="lbPrev" aria-label="Ảnh trước">‹</button>
+  <button class="lightbox__btn lightbox__next" id="lbNext" aria-label="Ảnh sau">›</button>
+  <div>
+    <img id="lbImg" alt="">
+  </div>
+</div>
+
+<div class="petals" id="petals" aria-hidden="true"></div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

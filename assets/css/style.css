@@ -1,0 +1,804 @@
+/* ============================================================
+   THIỆP CƯỚI — TÔNG XANH BIỂN
+   Tối giản, tông xanh biển sâu trên nền cát ngà —
+   bảng màu lấy từ ảnh cưới ở biển Phú Quốc
+   ============================================================ */
+
+:root{
+  /* Bảng màu lấy từ ảnh cưới ở biển Phú Quốc:
+     xanh biển sâu · xanh nước · cát ngà · vàng cát ấm */
+  --deep:#2A4257;        /* xanh biển sâu — chủ đạo, nền các mảng tối */
+  --accent:#3F657E;      /* xanh biển vừa — nhãn nhỏ, chi tiết nhấn */
+  --cream:#F4F1EA;       /* cát ngà — nền chính */
+  --cream-2:#E7E2D8;     /* cát đậm hơn — nền xen kẽ */
+  --ink:#232E36;
+  --ink-soft:#5B666E;
+  --gold:#CFAF74;        /* vàng cát SÁNG — chỉ dùng trên nền tối */
+  --sand:#7E6030;        /* vàng cát ĐẬM — chỉ dùng trên nền sáng */
+  --bronze:#524019;      /* đồng đậm — chỉ dùng TRÊN MẶT KÍNH (kính sáng nên cần đậm hơn) */
+  --line:rgba(42,66,87,.20);
+  --shadow:0 18px 50px -24px rgba(35,46,54,.42);
+
+  --serif:'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --display:'Playfair Display', Georgia, serif;
+  --sans:'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --script:'Dancing Script', 'Cormorant Garamond', cursive;
+
+  --maxw:1120px;
+  --pad:clamp(20px, 5vw, 48px);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation-duration:.001ms !important;transition-duration:.001ms !important}
+}
+
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body.is-locked{overflow:hidden;height:100vh}
+
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font-family:inherit;cursor:pointer}
+
+/* ---------- Tiện ích chung ---------- */
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
+.section{padding:clamp(64px,10vw,120px) 0;position:relative}
+
+/* Các mảng nền là khối bo tròn mềm nổi trên nền kem —
+   thay cho cách chia bố cục bằng đường kẻ ngang cứng. */
+.section--tint,
+.section--dark{
+  margin-inline:clamp(0px,2.2vw,26px);
+  border-radius:clamp(34px,6vw,72px);
+}
+.section--tint{background:var(--cream-2)}
+.section--dark{background:var(--deep);color:var(--cream)}
+
+/* Hai mảng bo tròn nằm sát nhau thì hút vào nhau một chút cho liền mạch */
+.section--tint + .section--dark,
+.section--dark + .section--tint,
+.section--tint + .section--tint{margin-top:clamp(-40px,-5vw,-16px)}
+
+.eyebrow{
+  font-family:var(--sans);
+  font-size:.72rem;
+  letter-spacing:.36em;
+  text-transform:uppercase;
+  color:var(--accent);
+  font-weight:500;
+  margin:0 0 14px;
+}
+.section--dark .eyebrow{color:var(--gold)}
+
+.title{
+  font-family:var(--display);
+  font-weight:400;
+  font-size:clamp(2rem,5.2vw,3.15rem);
+  line-height:1.18;
+  margin:0 0 16px;
+  color:var(--deep);
+}
+.section--dark .title{color:var(--cream)}
+
+.subtitle{
+  font-family:var(--serif);
+  font-size:clamp(1.05rem,2.4vw,1.28rem);
+  color:var(--ink-soft);
+  margin:0 auto;
+  max-width:620px;
+  font-style:italic;
+}
+.section--dark .subtitle{color:rgba(251,246,239,.72)}
+
+.center{text-align:center}
+
+/* Đường kẻ trang trí hình thoi */
+.rule{
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  margin:26px auto 46px;max-width:280px;
+}
+/* nét mảnh mờ dần ở hai đầu — mềm hơn một vạch kẻ đứt khoát */
+.rule::before,.rule::after{
+  content:'';height:1px;flex:1;
+}
+.rule::before{background:linear-gradient(90deg,transparent,var(--line))}
+.rule::after{background:linear-gradient(90deg,var(--line),transparent)}
+.rule i{
+  width:8px;height:8px;border-radius:999px;      /* tròn, không còn hình thoi nhọn */
+  background:var(--accent);display:block;flex:none;
+}
+.section--dark .rule::before{background:linear-gradient(90deg,transparent,rgba(244,241,234,.34))}
+.section--dark .rule::after{background:linear-gradient(90deg,rgba(244,241,234,.34),transparent)}
+.section--dark .rule i{background:var(--gold)}
+
+/* Nút */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:14px 34px;
+  border:1px solid var(--deep);
+  background:var(--deep);
+  color:var(--cream);
+  font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;
+  text-decoration:none;border-radius:999px;
+  transition:background .35s ease,color .35s ease,transform .35s ease;
+}
+.btn:hover{background:transparent;color:var(--deep);transform:translateY(-2px)}
+.btn--ghost{background:transparent;color:var(--deep)}
+.btn--ghost:hover{background:var(--deep);color:var(--cream)}
+.btn--light{border-color:var(--cream);background:transparent;color:var(--cream)}
+.btn--light:hover{background:var(--cream);color:var(--deep)}
+
+/* ============================================================
+   1. BÌA THIỆP — ảnh và chữ ở hai vùng riêng
+   Nền giấy màu cát, ảnh cưới là một tấm hình đặt trên đó.
+   Không có chữ nào nằm đè lên ảnh, ở mọi khổ màn hình.
+   ============================================================ */
+.cover{
+  position:fixed;inset:0;z-index:200;
+  background:var(--cream);
+  display:grid;place-items:center;
+  padding:clamp(20px,4vw,48px);
+  overflow-y:auto;
+  transition:opacity .8s ease .40s, visibility .8s ease .40s;
+}
+.cover.is-open{opacity:0;visibility:hidden;pointer-events:none}
+
+.cover__card{
+  display:grid;
+  gap:clamp(26px,4vw,60px);
+  justify-items:center;align-items:center;
+  width:100%;max-width:940px;
+}
+
+/* --- Tấm ảnh --- */
+.cover__photo{
+  position:relative;margin:0;flex:none;
+  width:min(76vw, 44vh, 330px);
+  aspect-ratio:4/5;                      /* khớp khổ ảnh cover-card.jpg */
+  transition:
+    transform 1.25s cubic-bezier(.28,.66,.3,1),
+    opacity .52s ease-out;
+}
+.cover__photo img{
+  position:relative;z-index:1;
+  width:100%;height:100%;object-fit:cover;
+  border-radius:clamp(22px,4vw,34px);
+  box-shadow:0 42px 80px -36px rgba(20,34,46,.62);
+}
+/* quầng sáng lấy màu từ chính bức ảnh, cho tấm hình nổi khỏi nền giấy */
+.cover__glow{
+  position:absolute;inset:-9% -7%;z-index:0;
+  background-size:cover;background-position:center;
+  filter:blur(42px) saturate(150%);
+  opacity:.55;border-radius:50%;
+}
+
+/* --- Khối chữ --- */
+.cover__text{
+  max-width:430px;text-align:center;
+  transition:
+    transform 1.15s cubic-bezier(.34,.68,.28,1),
+    opacity .92s ease-out,
+    filter 1.05s ease-out;
+}
+.cover__eyebrow{
+  font-size:.68rem;letter-spacing:.42em;text-transform:uppercase;
+  color:var(--sand);margin:0 0 18px;font-weight:500;
+}
+.cover__names{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(2rem,6.4vw,3.15rem);
+  line-height:1.16;margin:0;color:var(--deep);text-wrap:balance;
+}
+.cover__amp{
+  display:block;font-family:var(--script);
+  font-size:clamp(1.45rem,4vw,1.95rem);
+  color:var(--sand);margin:2px 0;font-weight:600;
+}
+.cover__meta{
+  margin:22px 0 0;padding-top:20px;position:relative;
+}
+.cover__meta::before{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:64px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--line) 30%,var(--line) 70%,transparent);
+}
+.cover__date{
+  font-family:var(--serif);font-size:clamp(1rem,2.6vw,1.2rem);
+  letter-spacing:.3em;margin:0 0 6px;color:var(--deep);
+}
+.cover__lunar{
+  font-family:var(--serif);font-style:italic;
+  font-size:.95rem;color:var(--ink-soft);margin:0;
+}
+.cover__guest{
+  margin:20px 0 0;font-family:var(--serif);font-size:1.05rem;color:var(--ink-soft);
+}
+.cover__guest b{font-style:italic;color:var(--sand);font-weight:600}
+.cover__cta{margin-top:26px}
+.cover__cta .btn{animation:glow 2.8s ease-in-out infinite}
+.cover__cta .btn:hover{animation:none}
+@keyframes glow{
+  0%,100%{box-shadow:0 0 0 0 rgba(42,66,87,.30)}
+  70%{box-shadow:0 0 0 15px rgba(42,66,87,0)}
+}
+
+/* Máy tính: ảnh một bên, chữ một bên */
+@media (min-width:900px){
+  .cover__card{
+    grid-template-columns:auto auto;   /* hai cột ôm sát nội dung */
+    justify-content:center;            /* nên cả khối nằm giữa màn hình */
+    justify-items:start;
+    gap:clamp(44px,5vw,72px);
+    width:auto;
+  }
+  .cover__photo{width:min(34vw,340px)}
+  .cover__text{text-align:left;max-width:420px}
+  .cover__meta::before{left:0;transform:none}
+  .cover__names{font-size:clamp(2.4rem,4vw,3.3rem)}
+}
+
+/* Điện thoại màn hình thấp: bóp lại cho vừa một màn, khỏi phải cuộn bìa */
+@media (max-height:720px) and (max-width:899px){
+  .cover{padding:12px}
+  .cover__photo{width:min(62vw, 40vh, 260px)}
+  .cover__card{gap:16px}
+  .cover__eyebrow{margin-bottom:12px}
+  .cover__meta{margin-top:16px;padding-top:14px}
+  .cover__cta{margin-top:18px}
+  .cover__names{font-size:clamp(1.7rem,5.6vw,2.2rem)}
+}
+
+/* Bấm mở thiệp: chữ trôi lên và tan, tấm ảnh lớn dần rồi cả trang mờ đi */
+.cover.is-open .cover__text{
+  transform:translateY(-26vh) scale(.96);
+  opacity:0;filter:blur(9px);
+}
+.cover.is-open .cover__photo{transform:scale(1.35);opacity:0}
+
+/* ============================================================
+   2. HERO — ảnh chiếm trọn khung nhìn, chữ nằm ở dải giấy bên dưới
+   ============================================================ */
+.hero{position:relative;background:var(--cream)}
+
+.hero__plate{
+  position:relative;
+  height:82svh;                 /* chừa một dải để thấy phần chữ, mời khách cuộn tiếp */
+  min-height:380px;
+  overflow:hidden;
+  border-radius:0 0 clamp(30px,5vw,60px) clamp(30px,5vw,60px);
+}
+.hero__bg{
+  position:absolute;inset:0;background-size:cover;
+  background-position:center 42%;
+  transform:scale(1.02);
+}
+body.is-opened .hero__bg{
+  animation:kenburns 26s ease-in-out 1.4s infinite alternate;
+}
+@keyframes kenburns{from{transform:scale(1.02)}to{transform:scale(1.11)}}
+@media (prefers-reduced-motion:reduce){
+  body.is-opened .hero__bg{animation:none}
+}
+
+/* Vạch mảnh nhấp nháy ở đáy ảnh — gợi ý cuộn, không dùng chữ nên
+   không có gì đè lên ảnh cả */
+.hero__cue{
+  position:absolute;left:50%;bottom:26px;transform:translateX(-50%);
+  width:2px;height:48px;border-radius:2px;
+  /* vạch sẫm kèm quầng sáng: đọc được cả khi đáy ảnh sáng (cát)
+     lẫn khi đáy ảnh tối */
+  background:linear-gradient(180deg,rgba(42,66,87,0),rgba(42,66,87,.8));
+  box-shadow:0 0 8px rgba(255,255,255,.75);
+  animation:drop 2.2s ease-in-out infinite;
+}
+@keyframes drop{0%,100%{transform:translateX(-50%) scaleY(.35);transform-origin:top}
+                50%{transform:translateX(-50%) scaleY(1);transform-origin:top}}
+
+.hero__band{
+  text-align:center;
+  padding:clamp(40px,6vw,66px) var(--pad) clamp(30px,5vw,48px);
+}
+.hero__eyebrow{
+  font-size:.68rem;letter-spacing:.42em;text-transform:uppercase;
+  color:var(--sand);margin:0 0 16px;font-weight:500;
+}
+.hero__names{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(2.2rem,7vw,3.9rem);line-height:1.14;margin:0;
+  color:var(--deep);text-wrap:balance;
+}
+.hero__amp{
+  display:block;font-family:var(--script);font-size:.5em;
+  color:var(--sand);margin:2px 0;font-weight:600;
+}
+.hero__date{
+  margin:22px 0 0;font-family:var(--serif);color:var(--deep);
+  font-size:clamp(1rem,3vw,1.25rem);letter-spacing:.32em;
+}
+
+/* ============================================================
+   3. LỜI MỞ ĐẦU
+   ============================================================ */
+.intro__lines{
+  font-family:var(--serif);font-style:italic;
+  font-size:clamp(1.25rem,3.4vw,1.75rem);
+  line-height:1.85;color:var(--deep);margin:0 0 30px;
+}
+.intro__msg{
+  max-width:660px;margin:0 auto 26px;color:var(--ink-soft);
+}
+.intro__sign{
+  font-family:var(--script);font-size:clamp(1.6rem,4vw,2.1rem);
+  color:var(--accent);margin:0;
+}
+
+/* ============================================================
+   4. CÔ DÂU & CHÚ RỂ
+   Bố cục thuần chữ, cân đối hai bên — không dùng hai ảnh chân dung
+   riêng nữa. Có thể thêm MỘT ảnh chung ở trên qua couple.photo.
+   ============================================================ */
+.couple__photo{
+  margin:0 auto clamp(44px,7vw,72px);
+  max-width:min(660px,100%);
+  position:relative;
+}
+.couple__photo img{
+  width:100%;height:auto;display:block;
+  border-radius:clamp(20px,4vw,32px);
+  box-shadow:var(--shadow);
+}
+/* khung mảnh lệch nhẹ — chi tiết trang trí duy nhất của mục này */
+.couple__photo::after{
+  content:'';position:absolute;inset:14px -14px -14px 14px;
+  border:1px solid var(--line);border-radius:clamp(20px,4vw,32px);z-index:-1;
+}
+
+.couple{
+  display:grid;
+  /* LUÔN hai cột ngăn bằng vạch dọc, kể cả trên điện thoại */
+  grid-template-columns:1fr auto 1fr;
+  gap:clamp(10px,3.4vw,64px);
+  align-items:stretch;
+  max-width:900px;margin:0 auto;
+}
+
+/* Vạch dọc mảnh với dấu & ở giữa */
+.couple__divider{
+  display:flex;flex-direction:column;align-items:center;gap:18px;
+}
+.couple__divider i{flex:1;width:1px;background:var(--line);display:block;min-height:28px}
+.couple__heart{
+  font-family:var(--script);font-size:clamp(1.3rem,5vw,2.6rem);
+  color:var(--sand);line-height:1;flex:none;
+}
+
+.person{text-align:center;display:flex;flex-direction:column}
+.person__role{
+  font-size:clamp(.55rem,2.3vw,.66rem);
+  letter-spacing:clamp(.14em,.9vw,.34em);text-transform:uppercase;
+  color:var(--accent);margin:0 0 10px;
+}
+.person__name{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(1.02rem,4.6vw,2.15rem);color:var(--deep);
+  margin:0 0 6px;line-height:1.24;text-wrap:balance;
+  /* chừa sẵn hai dòng: tên một bên dài một bên ngắn thì danh xưng
+     bên dưới vẫn thẳng hàng nhau */
+  min-height:2.48em;display:flex;align-items:flex-end;justify-content:center;
+}
+/* Chỗ xuống dòng trong tên — chỉ dùng khi cột hẹp; trên máy tính cột đủ
+   rộng nên tên nằm gọn một dòng, không cần ngắt. */
+.person__name .nb{display:none}
+@media (max-width:820px){
+  .person__name .nb{display:inline}
+}
+
+.person__title{
+  font-family:var(--script);font-size:clamp(.95rem,3.6vw,1.45rem);
+  color:var(--sand);margin:0 0 18px;line-height:1.3;
+  min-height:2.6em;                      /* chừa sẵn hai dòng như khối tên */
+  display:flex;align-items:flex-start;justify-content:center;
+}
+.person__parents{
+  border-top:0;padding-top:16px;position:relative;
+  margin-top:0;                          /* căn từ trên xuống: hai bên luôn bắt đầu cùng một dòng */
+  font-size:clamp(.8rem,3.1vw,.95rem);color:var(--ink-soft);
+}
+.person__parents::before{
+  content:'';position:absolute;top:0;left:12%;right:12%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--line) 22%,var(--line) 78%,transparent);
+}
+.person__parents b{
+  display:block;font-weight:500;color:var(--accent);
+  font-size:clamp(.54rem,2.2vw,.64rem);
+  letter-spacing:clamp(.12em,.8vw,.28em);text-transform:uppercase;margin-bottom:9px;
+}
+.person__parents span{display:block;line-height:1.7}
+.person__addr{font-size:.86rem;color:var(--ink-soft);margin-top:10px;font-style:italic}
+.person__social{display:flex;gap:12px;justify-content:center;margin-top:16px}
+.person__social a{
+  width:34px;height:34px;border:1px solid var(--line);border-radius:50%;
+  display:grid;place-items:center;color:var(--accent);text-decoration:none;
+  transition:.3s;
+}
+.person__social a:hover{background:var(--deep);color:var(--cream);border-color:var(--deep)}
+
+/* ============================================================
+   5. ĐẾM NGƯỢC
+   ============================================================ */
+.countdown{
+  display:flex;justify-content:center;gap:clamp(10px,3.5vw,34px);flex-wrap:wrap;
+}
+.cd__box{
+  min-width:clamp(72px,19vw,116px);
+  padding:clamp(18px,3vw,26px) 10px;
+  border:1px solid rgba(244,241,234,.26);
+  border-radius:22px;
+}
+.cd__num{
+  font-family:var(--display);font-size:clamp(1.8rem,6vw,2.9rem);
+  line-height:1;display:block;color:var(--cream);
+  font-variant-numeric:tabular-nums;
+}
+.cd__label{
+  font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--gold);margin-top:10px;display:block;
+}
+.cd__done{
+  font-family:var(--serif);font-style:italic;
+  font-size:clamp(1.2rem,3.6vw,1.7rem);color:var(--cream);
+}
+
+/* ============================================================
+   6. CHUYỆN CHÚNG MÌNH (timeline)
+   ============================================================ */
+.timeline{position:relative;max-width:900px;margin:0 auto}
+.timeline::before{
+  content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;
+  background:var(--line);transform:translateX(-50%);
+}
+.tl{
+  display:grid;grid-template-columns:1fr 60px 1fr;
+  align-items:start;                 /* chấm mốc thẳng hàng với dòng ngày tháng */
+  margin-bottom:clamp(38px,6vw,68px);
+}
+.tl:last-child{margin-bottom:0}
+.tl__dot{
+  grid-column:2;grid-row:1;                     /* gán hẳn vào cột giữa, đúng trên vạch dọc */
+  width:11px;height:11px;border-radius:999px;   /* tròn, đồng bộ với các chi tiết khác */
+  background:var(--accent);
+  margin:5px auto 0;position:relative;z-index:2;
+  outline:6px solid var(--cream);
+}
+.section--tint .tl__dot{outline-color:var(--cream-2)}
+/* Dòng thời gian thuần chữ: cột trống bên kia giữ cho hai bên cân nhau */
+.tl__spacer{min-height:1px}
+.tl__body .tl__date{
+  font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--accent);margin:0 0 8px;
+}
+.tl__body h3{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(1.25rem,3vw,1.6rem);color:var(--deep);margin:0 0 10px;
+}
+/* chỉ đoạn nội dung, KHÔNG áp cho dòng ngày tháng (cũng là thẻ p) */
+.tl__body > p:not(.tl__date){margin:0;color:var(--ink-soft);font-size:1rem;max-width:38ch}
+.tl:nth-child(odd)  .tl__body > p:not(.tl__date){margin-right:auto}
+.tl:nth-child(even) .tl__body > p:not(.tl__date){margin-left:auto}
+.tl:nth-child(odd) .tl__spacer{grid-column:1}
+.tl:nth-child(odd) .tl__body{grid-column:3;text-align:left}
+.tl:nth-child(even) .tl__body{grid-column:1;text-align:right}
+.tl:nth-child(even) .tl__spacer{grid-column:3}
+
+/* ============================================================
+   7. SỰ KIỆN
+   ============================================================ */
+.events{display:grid;gap:clamp(20px,3vw,30px);grid-template-columns:repeat(auto-fit,minmax(276px,1fr))}
+.event{
+  background:var(--cream);border:1px solid var(--line);
+  padding:clamp(26px,4vw,38px) clamp(20px,3vw,30px);
+  text-align:center;border-radius:clamp(20px,3vw,28px);
+  display:flex;flex-direction:column;
+  transition:transform .4s ease,box-shadow .4s ease;
+}
+.section--tint .event{background:#fff}
+.event:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.event__side{
+  font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--sand);margin:0 0 10px;
+}
+.event__name{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(1.35rem,3vw,1.7rem);color:var(--deep);margin:0 0 18px;
+}
+.event__time{
+  font-family:var(--display);font-size:2.5rem;line-height:1;
+  color:var(--accent);margin:0 0 6px;
+}
+.event__date{font-family:var(--serif);font-size:1.05rem;margin:0}
+.event__lunar{font-family:var(--serif);font-style:italic;font-size:.86rem;color:var(--ink-soft);margin:4px 0 18px}
+.event__venue{font-weight:500;margin:0 0 4px}
+.event__addr{font-size:.9rem;color:var(--ink-soft);margin:0 0 20px}
+.event__cta{margin-top:auto}
+/* Khi chỉ có một sự kiện, giữ thẻ ở khổ vừa phải và căn giữa */
+.event:only-child{max-width:440px;width:100%;justify-self:center}
+.event__map{
+  margin-top:18px;border:1px solid var(--line);border-radius:18px;overflow:hidden;line-height:0;
+}
+.event__map iframe{width:100%;height:200px;border:0}
+.events__calendar{margin-top:clamp(34px,5vw,50px);text-align:center}
+
+/* ============================================================
+   8. ALBUM — Coverflow 3D
+   ============================================================ */
+.cf{
+  position:relative;
+  /* các tấm ở xa nhô ra ngoài mép -> cắt theo chiều ngang để trang không
+     bị kéo ngang; clip không tạo vùng cuộn nên bóng phản chiếu vẫn còn */
+  overflow-x:clip;
+}
+@supports not (overflow-x:clip){
+  .cf{overflow-x:hidden}
+}
+.cf__stage{
+  --cf-h:400px;
+  position:relative;
+  height:clamp(380px,60vw,540px);
+  perspective:1500px;
+  perspective-origin:50% 44%;
+  transform-style:preserve-3d;
+  outline:none;
+  touch-action:pan-y;            /* vuốt ngang cho coverflow, dọc vẫn cuộn trang */
+  cursor:grab;
+}
+.cf__stage.is-dragging{cursor:grabbing}
+/* đang vuốt thì bỏ hiệu ứng chuyển động để ảnh bám sát ngón tay */
+.cf__stage.is-dragging .cf__item{transition:none}
+.cf__stage:focus-visible{
+  outline:2px solid var(--accent);outline-offset:8px;border-radius:28px;
+}
+
+.cf__item{
+  position:absolute;left:50%;top:42%;
+  /* CHIỀU CAO chung cho mọi tấm, bề ngang tự theo tỉ lệ gốc của từng ảnh —
+     nên ảnh ngang và ảnh dọc đứng cạnh nhau đều không bị cắt */
+  /* JS đặt bề ngang và chiều cao theo đúng tỉ lệ gốc của từng ảnh */
+  margin:0;padding:0;border:0;background:none;
+  transform:translate(-50%,-50%);
+  transition:transform .62s cubic-bezier(.22,.61,.36,1), opacity .45s ease;
+  cursor:pointer;will-change:transform;
+  -webkit-tap-highlight-color:transparent;
+  /* pan-y: cuộn dọc vẫn thuộc về trang, vuốt ngang thuộc về album */
+  touch-action:pan-y;
+}
+.cf__item img{
+  /* khung đã đúng tỉ lệ ảnh nên lấp đầy mà không cắt mất gì */
+  height:100%;width:100%;display:block;object-fit:cover;
+  border-radius:20px;
+  -webkit-user-drag:none;
+  box-shadow:0 24px 55px -20px rgba(20,34,46,.55);
+  /* bóng phản chiếu dưới ảnh — nét đặc trưng của coverflow */
+  -webkit-box-reflect:below 8px linear-gradient(transparent 76%, rgba(255,255,255,.18));
+  user-select:none;
+}
+.cf__item.is-active img{
+  box-shadow:0 34px 74px -22px rgba(20,34,46,.62);
+}
+.cf__item:focus-visible img{outline:2px solid var(--accent);outline-offset:6px}
+
+.cf__controls{
+  display:flex;align-items:center;justify-content:center;
+  gap:clamp(14px,3vw,24px);margin-top:clamp(44px,7vw,86px);
+}
+.cf__nav{
+  width:46px;height:46px;border-radius:999px;
+  border:1px solid var(--line);background:rgba(255,255,255,.6);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  color:var(--deep);display:grid;place-items:center;
+  transition:background .3s,transform .3s,border-color .3s;
+}
+.cf__nav svg{width:20px;height:20px}
+.cf__nav:hover{background:var(--deep);color:#fff;border-color:var(--deep);transform:scale(1.06)}
+.cf__nav:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.cf__dots{display:flex;gap:9px;align-items:center}
+.cf__dot{
+  width:8px;height:8px;border-radius:999px;padding:0;
+  border:1px solid var(--accent);background:transparent;
+  transition:.3s;
+}
+.cf__dot.is-active{background:var(--accent);transform:scale(1.5)}
+.cf__dot:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.cf__hint{
+  text-align:center;font-size:.78rem;color:var(--ink-soft);
+  margin:16px 0 0;opacity:.75;
+}
+
+@media (max-width:600px){
+  .cf__item img{border-radius:16px}
+}
+
+/* Lightbox */
+.lightbox{
+  position:fixed;inset:0;z-index:300;background:rgba(16,28,38,.95);
+  display:none;place-items:center;padding:clamp(16px,4vw,48px);
+}
+.lightbox.is-open{display:grid}
+.lightbox img{max-width:100%;max-height:78vh;object-fit:contain;border-radius:20px}
+.lightbox__btn{
+  position:absolute;background:none;border:1px solid rgba(251,246,239,.4);
+  color:var(--cream);width:46px;height:46px;border-radius:50%;
+  font-size:1.2rem;display:grid;place-items:center;transition:.3s;
+}
+.lightbox__btn:hover{background:var(--cream);color:var(--deep)}
+.lightbox__close{top:24px;right:24px}
+.lightbox__prev{left:clamp(10px,3vw,32px);top:50%;transform:translateY(-50%)}
+.lightbox__next{right:clamp(10px,3vw,32px);top:50%;transform:translateY(-50%)}
+
+/* ============================================================
+   9. RSVP + SỔ LƯU BÚT (form)
+   ============================================================ */
+.form{max-width:640px;margin:0 auto;display:grid;gap:18px}
+.form__row{display:grid;gap:18px;grid-template-columns:1fr 1fr}
+@media (max-width:640px){.form__row{grid-template-columns:1fr}}
+.field{display:grid;gap:7px;text-align:left}
+.field label{
+  font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--accent);font-weight:500;
+}
+.section--dark .field label{color:var(--gold)}
+.field input,.field select,.field textarea{
+  font-family:var(--sans);font-size:.98rem;color:var(--ink);
+  background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:13px 16px;width:100%;transition:border-color .3s,box-shadow .3s;
+}
+.field textarea{min-height:120px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{
+  outline:0;border-color:var(--accent);box-shadow:0 0 0 3px rgba(63,101,126,.16);
+}
+.form__submit{justify-self:center;margin-top:8px}
+.form__note{
+  font-size:.86rem;color:var(--ink-soft);text-align:center;font-style:italic;margin:0;
+}
+.form__success{
+  display:none;text-align:center;font-family:var(--serif);font-style:italic;
+  font-size:1.16rem;color:var(--deep);
+  border:1px solid var(--line);padding:28px;border-radius:22px;background:#fff;
+}
+.form__success.is-shown{display:block}
+.form.is-hidden{display:none}
+
+/* Danh sách lời chúc */
+.wishlist{
+  margin-top:clamp(34px,5vw,52px);
+  display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  max-width:960px;margin-inline:auto;
+}
+.wish{
+  background:#fff;border:1px solid var(--line);border-radius:22px;
+  padding:24px 26px;position:relative;
+}
+.wish::before{
+  content:'“';position:absolute;top:2px;left:16px;
+  font-family:var(--display);font-size:3.4rem;color:var(--line);line-height:1;
+}
+.wish__text{margin:14px 0 12px;color:var(--ink-soft);font-family:var(--serif);
+  font-size:1.06rem;font-style:italic}
+.wish__name{
+  margin:0;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);
+}
+
+/* ============================================================
+   10. FOOTER
+   ============================================================ */
+.footer{
+  background:var(--deep);color:var(--cream);text-align:center;
+  padding:clamp(72px,10vw,118px) var(--pad);
+  border-radius:clamp(34px,6vw,72px) clamp(34px,6vw,72px) 0 0;
+  margin-inline:clamp(0px,2.2vw,26px);
+  margin-top:clamp(-40px,-5vw,-16px);
+}
+.footer__names{
+  font-family:var(--script);font-size:clamp(2.2rem,7vw,3.4rem);
+  color:var(--cream);margin:0 0 10px;
+}
+.footer__date{
+  font-family:var(--serif);letter-spacing:.34em;font-size:1rem;
+  color:var(--gold);margin:0 0 26px;
+}
+.footer__text{color:rgba(251,246,239,.72);max-width:520px;margin:0 auto 24px}
+.footer__credit{
+  font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(251,246,239,.38);margin:36px 0 0;
+}
+
+/* ============================================================
+   11. NÚT NHẠC + CHẤM ĐIỀU HƯỚNG
+   ============================================================ */
+.music-btn{
+  position:fixed;left:20px;bottom:20px;z-index:150;
+  width:48px;height:48px;border-radius:50%;
+  background:var(--deep);border:1px solid var(--gold);
+  color:var(--cream);display:none;place-items:center;
+  box-shadow:var(--shadow);transition:transform .3s;
+}
+.music-btn.is-shown{display:grid}
+.music-btn:hover{transform:scale(1.08)}
+.music-btn svg{width:20px;height:20px}
+.music-btn .ico-pause{display:none}
+.music-btn.is-playing .ico-play{display:none}
+.music-btn.is-playing .ico-pause{display:block}
+.music-btn.is-playing{animation:spin 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.navdots{
+  position:fixed;right:18px;top:50%;transform:translateY(-50%);
+  z-index:150;display:none;flex-direction:column;gap:14px;
+}
+@media (min-width:1024px){.navdots.is-shown{display:flex}}
+.navdots a{
+  width:8px;height:8px;border-radius:50%;
+  border:1px solid var(--accent);background:transparent;
+  transition:.3s;position:relative;
+}
+.navdots a::after{
+  content:attr(data-label);
+  position:absolute;right:18px;top:50%;transform:translateY(-50%);
+  white-space:nowrap;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--deep);opacity:0;transition:.3s;pointer-events:none;
+}
+.navdots a:hover::after{opacity:1}
+.navdots a.is-active{background:var(--accent);transform:scale(1.35)}
+
+/* ============================================================
+   12. CÁNH HOA RƠI + HIỆU ỨNG XUẤT HIỆN
+   ============================================================ */
+.petals{position:fixed;inset:0;pointer-events:none;z-index:100;overflow:hidden}
+.petal{
+  position:absolute;top:-8vh;
+  width:10px;height:10px;border-radius:60% 0 60% 0;
+  background:var(--accent);opacity:.18;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  0%{transform:translate3d(0,-10vh,0) rotate(0)}
+  100%{transform:translate3d(var(--drift,40px),110vh,0) rotate(540deg)}
+}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease}
+.reveal.is-visible{opacity:1;transform:none}
+.reveal[data-delay="1"]{transition-delay:.12s}
+.reveal[data-delay="2"]{transition-delay:.24s}
+.reveal[data-delay="3"]{transition-delay:.36s}
+
+/* ============================================================
+   13. MOBILE
+   ============================================================ */
+@media (max-width:820px){
+  /* Hai cột vẫn giữ nguyên — chỉ bóp khoảng cách lại cho vừa màn hình */
+  .couple__divider{gap:12px}
+  .couple__photo{margin-bottom:34px}
+
+  .timeline::before{left:14px}
+  .tl{grid-template-columns:29px 1fr;gap:16px;align-items:start}
+  .tl__dot{grid-column:1;grid-row:1;margin:6px auto 0}
+  .tl__spacer{display:none}
+  .tl__body > p:not(.tl__date){margin-left:0;margin-right:0;max-width:none}
+  .tl:nth-child(odd) .tl__body,.tl:nth-child(even) .tl__body{
+    grid-column:2;grid-row:1;text-align:left;
+  }
+}

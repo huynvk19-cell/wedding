@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gửi thiệp cưới cho từng khách</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&family=Be+Vietnam+Pro:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--deep:#2A4257;--accent:#3F657E;--cream:#F4F1EA;--ink:#232E36;
+  --soft:#5B666E;--line:rgba(42,66,87,.2);--sand:#7E6030}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);
+  font-family:'Be Vietnam Pro',system-ui,sans-serif;font-size:16px;line-height:1.65}
+.wrap{max-width:620px;margin:0 auto;padding:clamp(22px,5vw,44px) clamp(16px,4vw,28px) 90px}
+h1{font-family:'Playfair Display',Georgia,serif;font-weight:400;
+  font-size:clamp(1.5rem,5.4vw,2.1rem);color:var(--deep);margin:0 0 6px;line-height:1.25}
+.sub{color:var(--soft);margin:0 0 26px}
+.card{background:#fff;border:1px solid var(--line);border-radius:20px;
+  padding:clamp(18px,4vw,26px);margin-bottom:18px}
+.card h2{font-family:'Playfair Display',Georgia,serif;font-weight:400;
+  font-size:1.25rem;color:var(--deep);margin:0 0 4px}
+.card .mo-ta{color:var(--soft);font-size:.92rem;margin:0 0 18px}
+label{display:block;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);font-weight:500;margin:0 0 8px}
+input{width:100%;font:inherit;color:var(--ink);background:var(--cream);
+  border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+input:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px rgba(63,101,126,.14)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font:inherit;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;
+  border-radius:999px;padding:14px 26px;cursor:pointer;border:1px solid var(--deep);
+  background:var(--deep);color:#fff;transition:.25s;text-decoration:none}
+.btn:hover{background:transparent;color:var(--deep)}
+.btn[disabled]{opacity:.45;cursor:default}
+.btn--phu{background:transparent;color:var(--deep)}
+.btn--phu:hover{background:var(--deep);color:#fff}
+.btn.ok{background:var(--sand);border-color:var(--sand);color:#fff}
+.hang{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.hang .btn{flex:1 1 auto;min-width:140px}
+.ket-qua{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);display:none}
+.ket-qua.hien{display:block}
+.link-o{background:var(--cream);border:1px solid var(--line);border-radius:12px;
+  padding:12px 14px;font-size:.82rem;color:var(--soft);word-break:break-all}
+.ghi-chu{font-size:.86rem;color:var(--soft);margin:14px 0 0}
+.canh-bao{background:#FFF6E5;border:1px solid #E5C77A;border-radius:14px;
+  padding:14px 16px;font-size:.88rem;color:#6B4F22;margin:0 0 18px}
+.buoc{counter-reset:b;list-style:none;padding:0;margin:0}
+.buoc li{counter-increment:b;position:relative;padding-left:34px;margin-bottom:10px;font-size:.94rem}
+.buoc li::before{content:counter(b);position:absolute;left:0;top:1px;
+  width:23px;height:23px;border-radius:999px;background:var(--deep);color:#fff;
+  font-size:.72rem;display:grid;place-items:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Gửi thiệp cưới cho từng khách</h1>
+  <p class="sub">Nhập tên khách, bấm một nút là xong. Không cần cài gì.</p>
+
+  <div class="card">
+    <label for="ten">Tên khách mời</label>
+    <input id="ten" type="text" placeholder="Anh Tuấn" autocomplete="off" spellcheck="false">
+    <p class="ghi-chu">Viết sao thì thiệp hiện y như vậy: “Gia đình cô Ba”, “Vợ chồng anh Nam chị Lan”…</p>
+  </div>
+
+  <div class="card">
+    <h2>Cách 1 — Gửi link</h2>
+    <p class="mo-ta">Dán một dòng link vào Zalo. Khách bấm là mở, cần có mạng.</p>
+    <label for="base">Địa chỉ thiệp trên mạng</label>
+    <input id="base" type="url" spellcheck="false" placeholder="https://... (dán địa chỉ thiệp của bạn)">
+    <div class="hang">
+      <button class="btn" id="chepLink">Chép link</button>
+      <button class="btn btn--phu" id="chiaSeLink">Gửi qua Zalo</button>
+    </div>
+    <div class="ket-qua" id="kqLink"><div class="link-o" id="oLink"></div></div>
+  </div>
+
+  <div class="card">
+    <h2>Cách 2 — Gửi file</h2>
+    <p class="mo-ta">Gửi hẳn một file cho khách. Mở được <b>kể cả khi không có mạng</b>.</p>
+    <div class="hang">
+      <button class="btn" id="chiaSeFile">Gửi qua Zalo</button>
+      <button class="btn btn--phu" id="taiFile">Tải file về máy</button>
+    </div>
+    <div class="ket-qua" id="kqFile"><p class="ghi-chu" id="tinFile"></p></div>
+    <p class="ghi-chu">File nặng khoảng 2 MB, đã chứa sẵn toàn bộ ảnh và tên khách.</p>
+  </div>
+
+  <div class="card">
+    <h2>Cách dùng</h2>
+    <ol class="buoc">
+      <li>Gõ tên khách vào ô trên cùng</li>
+      <li>Bấm <b>Gửi qua Zalo</b> ở cách bạn muốn dùng</li>
+      <li>Chọn người cần gửi trong danh sách Zalo hiện ra</li>
+      <li>Quay lại đây, xoá tên cũ, gõ tên khách tiếp theo</li>
+    </ol>
+    <p class="ghi-chu">Máy nào không hiện được nút chia sẻ thì dùng <b>Chép link</b> rồi tự dán vào Zalo, hoặc <b>Tải file về máy</b> rồi đính kèm.</p>
+  </div>
+</div>
+
+<script type="text/plain" id="mau-thiep"><!--MAU_THIEP--></script>
+
+<script>
+(function(){
+  var $ = function(s){ return document.querySelector(s); };
+  var KET = '[[__HET_SCRIPT__]]';
+  var CHO_TEN = '__TEN_KHACH_MOI__';
+
+  /* Địa chỉ thiệp: đoán từ vị trí trang công cụ, nhớ lại lựa chọn lần trước */
+  try {
+    var luu = localStorage.getItem('dia_chi_thiep');
+    $('#base').value = luu || new URL('../', location.href).href;
+  } catch(e){ $('#base').value = new URL('../', location.href).href; }
+  $('#base').addEventListener('input', function(){
+    try { localStorage.setItem('dia_chi_thiep', this.value); } catch(e){}
+  });
+
+  function ten(){ return $('#ten').value.trim(); }
+
+  function cannhac(nut, chu, lop){
+    var cu = nut.textContent;
+    nut.textContent = chu;
+    if (lop) nut.classList.add('ok');
+    setTimeout(function(){ nut.textContent = cu; nut.classList.remove('ok'); }, 2000);
+  }
+
+  function cheoBiet(){ alert('Bạn gõ tên khách vào ô trên cùng trước nhé.'); $('#ten').focus(); }
+
+  /* ---------- Cách 1: link ---------- */
+  function taoLink(){
+    var b = $('#base').value.trim();
+    if (!b) return '';
+    if (!/\/$/.test(b) && !/\.html?$/i.test(b)) b += '/';
+    return b + '?guest=' + encodeURIComponent(ten());
+  }
+
+  function hienLink(){
+    var l = taoLink();
+    if (!l) return '';
+    $('#oLink').textContent = l;
+    $('#kqLink').classList.add('hien');
+    return l;
+  }
+
+  function chep(text, nut){
+    var xong = function(){ cannhac(nut, 'Đã chép', true); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(xong).catch(xong);
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch(e){}
+      document.body.removeChild(ta); xong();
+    }
+  }
+
+  $('#chepLink').addEventListener('click', function(){
+    if (!ten()) return cheoBiet();
+    var l = hienLink();
+    if (!l) return alert('Bạn dán địa chỉ thiệp vào ô phía trên trước nhé.');
+    chep(l, this);
+  });
+
+  $('#chiaSeLink').addEventListener('click', function(){
+    if (!ten()) return cheoBiet();
+    var l = hienLink();
+    if (!l) return alert('Bạn dán địa chỉ thiệp vào ô phía trên trước nhé.');
+    if (navigator.share) {
+      navigator.share({ title: 'Thiệp cưới', text: 'Thân mời ' + ten(), url: l })
+        .catch(function(){});
+    } else {
+      chep(l, this);
+      alert('Máy này không mở được bảng chia sẻ. Link đã được chép, bạn dán vào Zalo nhé.');
+    }
+  });
+
+  /* ---------- Cách 2: file ---------- */
+  function khongDau(s){
+    s = s.normalize('NFD').replace(/[̀-ͯ]/g,'')
+         .replace(/đ/g,'d').replace(/Đ/g,'D');
+    return s.replace(/[^A-Za-z0-9]+/g,'-').replace(/^-|-$/g,'').toLowerCase() || 'khach';
+  }
+
+  function taoFile(){
+    var mau = document.getElementById('mau-thiep').textContent;
+    var html = mau.split(KET).join('<' + '/script>')
+                  .split(CHO_TEN).join(ten().replace(/\\/g,'\\\\').replace(/"/g,'\\"'));
+    var blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    return { blob: blob, ten: 'thiep-cuoi-' + khongDau(ten()) + '.html' };
+  }
+
+  function baoFile(f){
+    $('#tinFile').textContent = 'Đã tạo: ' + f.ten + ' (' + (f.blob.size/1024/1024).toFixed(1) + ' MB)';
+    $('#kqFile').classList.add('hien');
+  }
+
+  $('#taiFile').addEventListener('click', function(){
+    if (!ten()) return cheoBiet();
+    var f = taoFile(); baoFile(f);
+    var url = URL.createObjectURL(f.blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = f.ten;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+    cannhac(this, 'Đã tải', true);
+  });
+
+  $('#chiaSeFile').addEventListener('click', function(){
+    if (!ten()) return cheoBiet();
+    var nut = this;
+    var f = taoFile(); baoFile(f);
+    var file = new File([f.blob], f.ten, { type: 'text/html' });
+    if (navigator.canShare && navigator.canShare({ files: [file] }) && navigator.share) {
+      navigator.share({ files: [file], title: 'Thiệp cưới', text: 'Thân mời ' + ten() })
+        .catch(function(){});
+    } else {
+      $('#taiFile').click();
+      alert('Máy này không gửi file thẳng được. File đã tải về máy, bạn đính kèm vào Zalo nhé.');
+    }
+  });
+
+  $('#ten').addEventListener('input', function(){
+    $('#kqFile').classList.remove('hien');
+    if ($('#kqLink').classList.contains('hien')) hienLink();
+  });
+})();
+</script>
+</body>
+</html>
