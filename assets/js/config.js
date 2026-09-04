@@ -77,15 +77,17 @@ window.WEDDING_CONFIG = {
      Thêm khách: viết thêm một dòng vào danh sách bên dưới.
      Không phân biệt hoa thường, thừa dấu cách cũng không sao. */
   guests: [
-    /* Bạn bè */
-    'Đạt',
-    'Quốc',
-    'Cường',
-    'Nam',
-    'Nhật',
-    'Khiêm',
-    'Mau',
-    'Hoàng'
+    /* Bạn bè — từ xưng hô nằm luôn trong tên, thiệp hiện
+       "Thân mời / Bạn Đạt". Nhóm khác thì đổi từ xưng hô cho hợp:
+       'Cô Ba', 'Chú Tư', 'Anh Minh & chị Thu'... */
+    'Bạn Đạt',
+    'Bạn Quốc',
+    'Bạn Cường',
+    'Bạn Nam',
+    'Bạn Nhật',
+    'Bạn Khiêm',
+    'Bạn Mau',
+    'Bạn Hoàng'
   ],
 
   /* ---------- 4. LỜI MỞ ĐẦU ---------- */

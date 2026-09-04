@@ -184,11 +184,11 @@ Nếu chưa có file nhạc, nút nhạc sẽ **tự động ẩn** — thiệp 
 Thêm `?guest=` vào cuối link khi gửi cho từng người:
 
 ```
-https://ten-cua-ban.github.io/wedding/?guest=Đạt
-https://ten-cua-ban.github.io/wedding/?guest=Hoàng
+https://ten-cua-ban.github.io/wedding/?guest=Bạn Đạt
+https://ten-cua-ban.github.io/wedding/?guest=Bạn Hoàng
 ```
 
-Trên bìa thiệp sẽ hiện: *Thân mời **Đạt***
+Trên bìa thiệp sẽ hiện: *Thân mời **Bạn Đạt***
 
 ## 👥 Danh sách khách mời cố định
 
@@ -197,14 +197,17 @@ Mở `assets/js/config.js`, tìm mục **`guests`**:
 ```js
 guests: [
   /* Bạn bè */
-  'Đạt',
-  'Quốc',
-  'Cường'
+  'Bạn Đạt',
+  'Bạn Quốc',
+  'Bạn Cường'
 ],
 ```
 
 **Chỉ những tên trong danh sách này mới hiện lên thiệp.** Ai đó tự sửa link
 thành tên khác — kể cả chữ bậy — thiệp sẽ bỏ qua, coi như không có lời chào.
+
+Từ xưng hô viết luôn vào tên — 'Bạn Đạt', 'Cô Ba', 'Anh Minh & chị Thu' —
+vì mỗi nhóm khách một cách gọi khác nhau.
 
 Thêm khách: viết thêm một dòng, nhớ dấu phẩy ở cuối dòng trước.
 Không phân biệt hoa thường, thừa dấu cách cũng không sao.
@@ -223,7 +226,7 @@ Trang đó có ô **chọn khách từ danh sách** và hai cách gửi:
 ### Cách 1 — Gửi link
 
 Dán địa chỉ thiệp trên mạng vào ô, rồi bấm **Gửi qua Zalo** (hoặc **Chép link**).
-Khách bấm link, ngay trên bìa hiện dòng *Thân mời **Đạt***.
+Khách bấm link, ngay trên bìa hiện dòng *Thân mời **Bạn Đạt***.
 
 Cần thiệp đã được đưa lên mạng. Khách cũng cần có mạng để mở.
 

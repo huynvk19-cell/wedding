@@ -70,7 +70,11 @@ def main():
     # đổ danh sách khách cố định (lấy từ config.js) vào công cụ
     cfg_goc = (GOC/'assets/js/config.js').read_text(encoding='utf-8')
     khoi = re.search(r'guests:\s*\[(.*?)\]', cfg_goc, re.S)
-    ten_khach = re.findall(r"'((?:[^'\\]|\\.)*)'", khoi.group(1)) if khoi else []
+    # bỏ chú thích trước đã, không thì mấy cái tên nêu làm ví dụ trong
+    # chú thích cũng bị nhặt vào danh sách khách.
+    than = re.sub(r'/\*.*?\*/', '', khoi.group(1), flags=re.S) if khoi else ''
+    than = re.sub(r'//[^\n]*', '', than)
+    ten_khach = re.findall(r"'((?:[^'\\]|\\.)*)'", than)
     import json
     ra = re.sub(r'/\*DANH_SACH\*/.*?/\*HET\*/',
                 '/*DANH_SACH*/' + json.dumps(ten_khach, ensure_ascii=False) + '/*HET*/',
