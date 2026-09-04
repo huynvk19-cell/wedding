@@ -312,23 +312,40 @@
       if (!im.complete) im.addEventListener('load', function () { layout(); });
     });
 
-    function centerWidth() {
-      var el = items[Math.max(0, Math.min(items.length - 1, Math.round(cur + frac)))];
-      return (el && el.offsetWidth) || 200;
-    }
+    var unitPx = 200;                  /* quãng đường vuốt đổi một ảnh */
 
     function layout() {
       var sw = stage.clientWidth || 600;
       var sh = stage.clientHeight || 400;
-      /* chiều cao chung cho mọi tấm, chừa chỗ cho ảnh ngang không quá to */
+      /* chiều cao chung cho mọi tấm */
       var h = Math.min(sh * 0.92, sw * (sw < 560 ? 0.78 : 0.62));
       stage.style.setProperty('--cf-h', Math.round(h) + 'px');
-      /* ảnh ngang không được tràn khỏi khung */
-      stage.style.setProperty('--cf-maxw', Math.round(sw * 0.80) + 'px');
 
-      var wc = centerWidth();
-      var first = wc * 0.60;           /* ảnh kề cách tâm bao nhiêu */
-      var step  = wc * 0.28;           /* các ảnh xa hơn xếp chồng sát lại */
+      /* Khung của mỗi tấm đúng bằng tỉ lệ gốc của chính bức ảnh:
+         ảnh lấp đầy khung, không thừa khoảng trống, cũng không xén mất người.
+         Ảnh ngang chỉ bị thu nhỏ khi màn hình quá hẹp để chứa nó. */
+      var maxW = sw * 0.88;
+      var widths = items.map(function (el) {
+        var im = el.querySelector('img');
+        var r = (im && im.naturalWidth && im.naturalHeight)
+                ? im.naturalWidth / im.naturalHeight : 0.667;
+        var w = Math.min(r * h, maxW);
+        el.style.width  = Math.round(w) + 'px';
+        el.style.height = Math.round(w / r) + 'px';
+        return w;
+      });
+
+      /* Bề ngang của tấm đang ở giữa, nội suy LIÊN TỤC giữa hai tấm kề khi
+         đang vuốt. Trước đây làm tròn nên lúc tấm giữa đổi từ dọc sang ngang
+         thì con số nhảy một nấc, kéo theo cả dãy ảnh giật vị trí. */
+      var pos = Math.max(0, Math.min(items.length - 1, cur + frac));
+      var i0  = Math.floor(pos), t = pos - i0;
+      var wc  = widths[i0] + ((widths[i0 + 1] !== undefined ? widths[i0 + 1] : widths[i0]) - widths[i0]) * t;
+
+      var base  = h * 0.70;
+      var first = wc * 0.54 + base * 0.16;   /* ảnh ngang rộng thì giãn ra thêm */
+      var step  = base * 0.30;               /* các ảnh xa hơn xếp chồng sát lại */
+      unitPx = Math.max(60, base * 0.62);
 
       items.forEach(function (el, i) {
         var off  = i - cur - frac;
@@ -341,7 +358,11 @@
         var rot = -sign * near * 52;
         var sc  = Math.max(0.58, 1 - Math.min(abs, 3) * 0.11);
 
+        /* translateZ đẩy tấm giữa ra trước: trong không gian 3D, thứ tự vẽ do
+           độ sâu quyết định chứ không phải z-index, nếu không tấm kề bên sẽ
+           đè lên tấm giữa và che mất người trong ảnh. */
         el.style.transform = 'translate(-50%,-50%) translateX(' + x.toFixed(1) + 'px) ' +
+                             'translateZ(' + (-Math.min(abs, 4) * 90).toFixed(0) + 'px) ' +
                              'rotateY(' + rot.toFixed(1) + 'deg) scale(' + sc.toFixed(3) + ')';
         el.style.zIndex  = String(Math.round(100 - abs * 10));
         el.style.opacity = shown ? (abs <= 1 ? (1 - abs * 0.08).toFixed(2)
@@ -381,7 +402,7 @@
 
     stage.addEventListener('pointerdown', function (ev) {
       dragging = true; startX = ev.clientX; moved = false; frac = 0;
-      dragUnit = Math.max(60, centerWidth() * 0.6);   /* chốt một lần, giữ nguyên cả cú kéo */
+      dragUnit = unitPx;                              /* cố định, không đổi giữa cú kéo */
       /* bắt con trỏ để ngón tay/chuột đi ra ngoài khung vẫn theo được */
       try { stage.setPointerCapture(ev.pointerId); } catch (e) {}
       stage.classList.add('is-dragging');

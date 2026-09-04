@@ -561,7 +561,7 @@ body.is-opened .hero__bg{
   position:absolute;left:50%;top:42%;
   /* CHIỀU CAO chung cho mọi tấm, bề ngang tự theo tỉ lệ gốc của từng ảnh —
      nên ảnh ngang và ảnh dọc đứng cạnh nhau đều không bị cắt */
-  height:var(--cf-h);width:auto;
+  /* JS đặt bề ngang và chiều cao theo đúng tỉ lệ gốc của từng ảnh */
   margin:0;padding:0;border:0;background:none;
   transform:translate(-50%,-50%);
   transition:transform .62s cubic-bezier(.22,.61,.36,1), opacity .45s ease;
@@ -571,8 +571,8 @@ body.is-opened .hero__bg{
   touch-action:pan-y;
 }
 .cf__item img{
-  height:100%;width:auto;display:block;
-  max-width:var(--cf-maxw,86vw);object-fit:contain;
+  /* khung đã đúng tỉ lệ ảnh nên lấp đầy mà không cắt mất gì */
+  height:100%;width:100%;display:block;object-fit:cover;
   border-radius:20px;
   -webkit-user-drag:none;
   box-shadow:0 24px 55px -20px rgba(20,34,46,.55);
