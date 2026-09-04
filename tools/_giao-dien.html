@@ -24,9 +24,9 @@ h1{font-family:'Playfair Display',Georgia,serif;font-weight:400;
 .card .mo-ta{color:var(--soft);font-size:.92rem;margin:0 0 18px}
 label{display:block;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;
   color:var(--accent);font-weight:500;margin:0 0 8px}
-input{width:100%;font:inherit;color:var(--ink);background:var(--cream);
+input,select{width:100%;font:inherit;color:var(--ink);background:var(--cream);
   border:1px solid var(--line);border-radius:14px;padding:14px 16px}
-input:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px rgba(63,101,126,.14)}
+input:focus,select:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px rgba(63,101,126,.14)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
   font:inherit;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;
   border-radius:999px;padding:14px 26px;cursor:pointer;border:1px solid var(--deep);
@@ -58,9 +58,11 @@ input:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px rgba(63,10
   <p class="sub">Nhập tên khách, bấm một nút là xong. Không cần cài gì.</p>
 
   <div class="card">
-    <label for="ten">Tên khách mời</label>
-    <input id="ten" type="text" placeholder="Anh Tuấn" autocomplete="off" spellcheck="false">
-    <p class="ghi-chu">Viết sao thì thiệp hiện y như vậy: “Gia đình cô Ba”, “Vợ chồng anh Nam chị Lan”…</p>
+    <label for="ten">Chọn khách mời</label>
+    <select id="ten"></select>
+    <p class="ghi-chu">Danh sách này cố định trong thiệp. Người ngoài danh sách
+    tự sửa link thành tên khác thì thiệp bỏ qua, không hiện lời chào.
+    Muốn thêm khách thì báo người làm thiệp.</p>
   </div>
 
   <div class="card">
@@ -89,15 +91,16 @@ input:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px rgba(63,10
   <div class="card">
     <h2>Cách dùng</h2>
     <ol class="buoc">
-      <li>Gõ tên khách vào ô trên cùng</li>
+      <li>Chọn khách trong danh sách ở ô trên cùng</li>
       <li>Bấm <b>Gửi qua Zalo</b> ở cách bạn muốn dùng</li>
       <li>Chọn người cần gửi trong danh sách Zalo hiện ra</li>
-      <li>Quay lại đây, xoá tên cũ, gõ tên khách tiếp theo</li>
+      <li>Quay lại đây, chọn khách tiếp theo</li>
     </ol>
     <p class="ghi-chu">Máy nào không hiện được nút chia sẻ thì dùng <b>Chép link</b> rồi tự dán vào Zalo, hoặc <b>Tải file về máy</b> rồi đính kèm.</p>
   </div>
 </div>
 
+<script>var DANH_SACH_KHACH = /*DANH_SACH*/[]/*HET*/;</script>
 <script type="text/plain" id="mau-thiep"><!--MAU_THIEP--></script>
 
 <script>
@@ -115,6 +118,19 @@ input:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px rgba(63,10
     try { localStorage.setItem('dia_chi_thiep', this.value); } catch(e){}
   });
 
+  /* Đổ danh sách khách cố định vào ô chọn */
+  (function(){
+    var o = $('#ten');
+    if (!DANH_SACH_KHACH.length) {
+      o.innerHTML = '<option value="">(chưa có khách nào trong danh sách)</option>';
+      return;
+    }
+    o.innerHTML = '<option value="">— chọn khách —</option>' +
+      DANH_SACH_KHACH.map(function(t){
+        return '<option>' + t.replace(/&/g,'&amp;').replace(/</g,'&lt;') + '</option>';
+      }).join('');
+  })();
+
   function ten(){ return $('#ten').value.trim(); }
 
   function cannhac(nut, chu, lop){
@@ -124,7 +140,7 @@ input:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px rgba(63,10
     setTimeout(function(){ nut.textContent = cu; nut.classList.remove('ok'); }, 2000);
   }
 
-  function cheoBiet(){ alert('Bạn gõ tên khách vào ô trên cùng trước nhé.'); $('#ten').focus(); }
+  function cheoBiet(){ alert('Bạn chọn khách trong danh sách ở ô trên cùng trước nhé.'); $('#ten').focus(); }
 
   /* ---------- Cách 1: link ---------- */
   function taoLink(){
@@ -220,7 +236,7 @@ input:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px rgba(63,10
     }
   });
 
-  $('#ten').addEventListener('input', function(){
+  $('#ten').addEventListener('change', function(){
     $('#kqFile').classList.remove('hien');
     if ($('#kqLink').classList.contains('hien')) hienLink();
   });

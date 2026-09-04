@@ -65,9 +65,24 @@ window.WEDDING_CONFIG = {
     dateText: '16 . 09 . 2026',
     lunarText: 'Nhằm ngày 06 tháng 08 năm Bính Ngọ',
     openButton: 'Mở thiệp cưới',
-    // Lời chào riêng cho từng khách: gửi link kèm ?guest=Anh Tuấn
     guestGreeting: 'Thân mời'
   },
+
+  /* ---------- 3b. DANH SÁCH KHÁCH MỜI ----------
+     CHỈ những tên có trong danh sách này mới hiện lên thiệp.
+     Ai đó tự sửa link thành tên khác — kể cả chữ bậy — thiệp sẽ bỏ qua,
+     coi như không có lời chào riêng.
+
+     Cách gửi:  .../wedding/?guest=Anh Tuấn
+     Thêm khách: viết thêm một dòng vào danh sách bên dưới.
+     Không phân biệt hoa thường, thừa dấu cách cũng không sao. */
+  guests: [
+    'Anh Tuấn',
+    'Gia đình cô Ba',
+    'Vợ chồng anh Nam chị Lan',
+    'Cô Lan chú Hùng',
+    'Team Marketing'
+  ],
 
   /* ---------- 4. LỜI MỞ ĐẦU ---------- */
   intro: {

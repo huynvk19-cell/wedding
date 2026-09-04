@@ -66,6 +66,16 @@ def main():
     mau_an = mau.replace('</script>', KET_SCRIPT)
     giao_dien = (GOC/'tools'/'_giao-dien.html').read_text(encoding='utf-8')
     ra = giao_dien.replace('<!--MAU_THIEP-->', mau_an)
+
+    # đổ danh sách khách cố định (lấy từ config.js) vào công cụ
+    cfg_goc = (GOC/'assets/js/config.js').read_text(encoding='utf-8')
+    khoi = re.search(r'guests:\s*\[(.*?)\]', cfg_goc, re.S)
+    ten_khach = re.findall(r"'((?:[^'\\]|\\.)*)'", khoi.group(1)) if khoi else []
+    import json
+    ra = re.sub(r'/\*DANH_SACH\*/.*?/\*HET\*/',
+                '/*DANH_SACH*/' + json.dumps(ten_khach, ensure_ascii=False) + '/*HET*/',
+                ra, flags=re.S)
+    print('  danh sách khách: %d người' % len(ten_khach))
     DICH.write_text(ra, encoding='utf-8')
     print('%s  —  %.1f MB, đã nhúng %d ảnh'
           % (DICH.relative_to(GOC), DICH.stat().st_size/1024/1024, so_anh))
