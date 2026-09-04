@@ -137,7 +137,10 @@
     }
     return '<div class="person reveal" data-delay="' + delay + '">' +
       '<p class="person__role">' + esc(p.role) + '</p>' +
-      '<h3 class="person__name">' + esc(p.fullName) + '</h3>' +
+      '<h3 class="person__name">' +
+        /* thêm khoảng trắng trước chỗ ngắt: khi ẩn ngắt dòng trên máy tính,
+           hai vế vẫn cách nhau chứ không dính liền */
+        esc(p.fullName).replace(/\n/g, ' <br class="nb">') + '</h3>' +
       (p.title ? '<p class="person__title">' + esc(p.title) + '</p>' : '') +
       '<div class="person__parents"><b>Gia đình</b>' +
         (p.father ? '<span>' + esc(p.father) + '</span>' : '') +
@@ -285,12 +288,13 @@
     var photos = g.photos || [];
     if (!photos.length) { $('#cf').remove(); return; }
 
-    var stage = $('#cfStage'), capEl = $('#cfCaption'), dotsEl = $('#cfDots');
+    var stage = $('#cfStage'), dotsEl = $('#cfDots');
 
     stage.innerHTML = photos.map(function (p, i) {
+      var nhan = 'Ảnh cưới ' + (i + 1) + ' trong ' + photos.length;
       return '<button class="cf__item" type="button" data-i="' + i + '" role="option" ' +
-        'aria-label="' + esc(p.caption || ('Ảnh ' + (i + 1))) + '">' +
-        '<img src="' + esc(p.src) + '" alt="' + esc(p.caption || '') + '" draggable="false">' +
+        'aria-label="' + nhan + '">' +
+        '<img src="' + esc(p.src) + '" alt="' + nhan + '" draggable="false">' +
         '</button>';
     }).join('');
 
@@ -372,7 +376,6 @@
 
       var shownIdx = Math.max(0, Math.min(photos.length - 1, Math.round(cur + frac)));
       dots.forEach(function (d, i) { d.classList.toggle('is-active', i === shownIdx); });
-      capEl.textContent = (photos[shownIdx] && photos[shownIdx].caption) || '';
     }
 
     function go(i) {
@@ -434,13 +437,12 @@
     window.addEventListener('resize', function () { layout(); });
 
     /* --- Xem ảnh lớn --- */
-    var lb = $('#lightbox'), img = $('#lbImg'), cap = $('#lbCap'), lbI = 0;
+    var lb = $('#lightbox'), img = $('#lbImg'), lbI = 0;
 
     function show(i) {
       lbI = (i + photos.length) % photos.length;
       img.src = photos[lbI].src;
-      img.alt = photos[lbI].caption || '';
-      cap.textContent = photos[lbI].caption || '';
+      img.alt = 'Ảnh cưới ' + (lbI + 1) + ' trong ' + photos.length;
     }
     function openLb(i) {
       show(i); lb.classList.add('is-open'); document.body.classList.add('is-locked');

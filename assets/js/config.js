@@ -30,7 +30,9 @@ window.WEDDING_CONFIG = {
     photo: '',
     groom: {
       shortName: 'Văn Huy',
-      fullName: 'Nguyễn Văn Huy',
+      // Dấu \n là chỗ xuống dòng, CHỈ áp dụng trên điện thoại — để tên
+      // hai bên cùng hai dòng, bố cục cân đối.
+      fullName: 'Nguyễn\nVăn Huy',
       role: 'Chú rể',
       title: 'Đại hoàng tử',          // danh xưng vui, hiện dưới tên
       father: 'Ông Nguyễn Văn Lượng',
@@ -112,14 +114,14 @@ window.WEDDING_CONFIG = {
               '“lỡ yêu mất rùii...”'
       },
       {
-        date: 'Tháng 08 . 2024',
+        date: '03 . 08 . 2026',
         title: 'Chuyến đi đầu tiên',
         text: 'Chuyến đi đầu tiên của hai đứa, và cũng là lần thứ hai chúng mình đến Vũng Tàu — nơi mọi thứ đã bắt đầu.'
       },
       {
         date: 'Tháng 05 . 2026',
         title: 'Lời cầu hôn',
-        text: 'Không pháo hoa, không đông người — chỉ có một chiếc nhẫn, một câu hỏi và một cái gật đầu.'
+        text: 'Không pháo hoa, không đông người, một chiếc nhẫn.'
       }
     ]
   },
@@ -158,16 +160,18 @@ window.WEDDING_CONFIG = {
     heading: 'Album cưới',
     subheading: 'Những khoảnh khắc của chúng mình',
     // Thêm/bớt ảnh thoải mái, lưới sẽ tự sắp xếp
+    // Hai ảnh khổ ngang đặt ở ĐẦU và CUỐI dãy; ở giữa là các ảnh dọc.
+    // Album mở sẵn ở tấm chính giữa dãy.
     photos: [
-      { src: 'assets/images/album-1.jpg', caption: 'Bên nhau, giữa trời biển Phú Quốc' },
-      { src: 'assets/images/album-2.jpg', caption: 'Anh dõi theo từng bước chân em' },
-      { src: 'assets/images/album-3.jpg', caption: 'Nhìn nhau, chỉ vậy thôi cũng đủ' },
-      { src: 'assets/images/album-4.jpg', caption: 'Một tấm hình chụp vội' },
-      { src: 'assets/images/album-5.jpg', caption: 'Voan bay trong gió biển' },
-      { src: 'assets/images/album-6.jpg', caption: 'Anh giữ voan cho em' },
-      { src: 'assets/images/album-7.jpg', caption: 'Sau lớp voan mỏng' },
-      { src: 'assets/images/album-8.jpg', caption: 'Reo lên giữa trời biển' },
-      { src: 'assets/images/album-9.jpg', caption: 'Cùng đi về phía cuối bờ' }
+      { src: 'assets/images/album-6.jpg' },
+      { src: 'assets/images/album-1.jpg' },
+      { src: 'assets/images/album-2.jpg' },
+      { src: 'assets/images/album-3.jpg' },
+      { src: 'assets/images/album-4.jpg' },
+      { src: 'assets/images/album-5.jpg' },
+      { src: 'assets/images/album-7.jpg' },
+      { src: 'assets/images/album-8.jpg' },
+      { src: 'assets/images/album-9.jpg' }
     ]
   },
 
