@@ -223,10 +223,38 @@ button{font-family:inherit;cursor:pointer}
   font-family:var(--serif);font-style:italic;
   font-size:.95rem;color:var(--ink-soft);margin:0;
 }
+/* Lời chào riêng cho khách — đặt ngay đầu thiệp, chữ viết tay,
+   là thứ đập vào mắt đầu tiên khi khách mở link của mình. */
 .cover__guest{
-  margin:20px 0 0;font-family:var(--serif);font-size:1.05rem;color:var(--ink-soft);
+  margin:0 0 22px;padding:0 0 20px;position:relative;
 }
-.cover__guest b{font-style:italic;color:var(--sand);font-weight:600}
+.cover__guest::after{                      /* nét mảnh mờ dần, ngăn với phần dưới */
+  content:'';position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+  width:88px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--line) 28%,var(--line) 72%,transparent);
+}
+.cover__guest-loi{
+  display:block;
+  font-size:clamp(.6rem,2.4vw,.7rem);letter-spacing:.34em;text-transform:uppercase;
+  color:var(--accent);font-weight:500;margin-bottom:6px;
+}
+.cover__guest-ten{
+  display:block;
+  font-family:var(--script);font-weight:600;
+  font-size:clamp(1.7rem,6.4vw,2.5rem);
+  line-height:1.25;color:var(--bronze);
+  text-wrap:balance;
+}
+/* Có lời chào thì bóp nhẹ phần dưới cho cả khối vẫn gọn trong một màn */
+.cover.co-khach .cover__names{font-size:clamp(1.75rem,5.6vw,2.85rem)}
+.cover.co-khach .cover__eyebrow{margin-bottom:14px}
+.cover.co-khach .cover__meta{margin-top:18px;padding-top:16px}
+.cover.co-khach .cover__cta{margin-top:22px}
+
+@media (min-width:900px){
+  .cover__guest{text-align:left}
+  .cover__guest::after{left:0;transform:none}
+}
 .cover__cta{margin-top:26px}
 .cover__cta .btn{animation:glow 2.8s ease-in-out infinite}
 .cover__cta .btn:hover{animation:none}
@@ -259,6 +287,16 @@ button{font-family:inherit;cursor:pointer}
   .cover__meta{margin-top:16px;padding-top:14px}
   .cover__cta{margin-top:18px}
   .cover__names{font-size:clamp(1.7rem,5.6vw,2.2rem)}
+
+  /* Màn hình thấp mà lại có thêm lời chào riêng: bóp mạnh hơn nữa để nút
+     "Mở thiệp cưới" không bị đẩy xuống dưới mép màn hình. */
+  .cover.co-khach .cover__photo{width:min(48vw, 26vh, 200px)}
+  .cover.co-khach .cover__guest{margin-bottom:14px;padding-bottom:12px}
+  .cover.co-khach .cover__guest-ten{font-size:clamp(1.25rem,5.2vw,1.7rem)}
+  .cover.co-khach .cover__names{font-size:clamp(1.4rem,4.8vw,1.85rem)}
+  .cover.co-khach .cover__meta{margin-top:12px;padding-top:11px}
+  .cover.co-khach .cover__lunar{font-size:.84rem}
+  .cover.co-khach .cover__cta{margin-top:14px}
 }
 
 /* Bấm mở thiệp: chữ trôi lên và tan, tấm ảnh lớn dần rồi cả trang mờ đi */

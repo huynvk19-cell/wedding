@@ -24,9 +24,9 @@ h1{font-family:'Playfair Display',Georgia,serif;font-weight:400;
 .card .mo-ta{color:var(--soft);font-size:.92rem;margin:0 0 18px}
 label{display:block;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;
   color:var(--accent);font-weight:500;margin:0 0 8px}
-input{width:100%;font:inherit;color:var(--ink);background:var(--cream);
+input,select{width:100%;font:inherit;color:var(--ink);background:var(--cream);
   border:1px solid var(--line);border-radius:14px;padding:14px 16px}
-input:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px rgba(63,101,126,.14)}
+input:focus,select:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px rgba(63,101,126,.14)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
   font:inherit;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;
   border-radius:999px;padding:14px 26px;cursor:pointer;border:1px solid var(--deep);
@@ -58,9 +58,11 @@ input:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px rgba(63,10
   <p class="sub">Nhập tên khách, bấm một nút là xong. Không cần cài gì.</p>
 
   <div class="card">
-    <label for="ten">Tên khách mời</label>
-    <input id="ten" type="text" placeholder="Anh Tuấn" autocomplete="off" spellcheck="false">
-    <p class="ghi-chu">Viết sao thì thiệp hiện y như vậy: “Gia đình cô Ba”, “Vợ chồng anh Nam chị Lan”…</p>
+    <label for="ten">Chọn khách mời</label>
+    <select id="ten"></select>
+    <p class="ghi-chu">Danh sách này cố định trong thiệp. Người ngoài danh sách
+    tự sửa link thành tên khác thì thiệp bỏ qua, không hiện lời chào.
+    Muốn thêm khách thì báo người làm thiệp.</p>
   </div>
 
   <div class="card">
@@ -89,15 +91,16 @@ input:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px rgba(63,10
   <div class="card">
     <h2>Cách dùng</h2>
     <ol class="buoc">
-      <li>Gõ tên khách vào ô trên cùng</li>
+      <li>Chọn khách trong danh sách ở ô trên cùng</li>
       <li>Bấm <b>Gửi qua Zalo</b> ở cách bạn muốn dùng</li>
       <li>Chọn người cần gửi trong danh sách Zalo hiện ra</li>
-      <li>Quay lại đây, xoá tên cũ, gõ tên khách tiếp theo</li>
+      <li>Quay lại đây, chọn khách tiếp theo</li>
     </ol>
     <p class="ghi-chu">Máy nào không hiện được nút chia sẻ thì dùng <b>Chép link</b> rồi tự dán vào Zalo, hoặc <b>Tải file về máy</b> rồi đính kèm.</p>
   </div>
 </div>
 
+<script>var DANH_SACH_KHACH = /*DANH_SACH*/["Anh Tuấn", "Gia đình cô Ba", "Vợ chồng anh Nam chị Lan", "Cô Lan chú Hùng", "Team Marketing"]/*HET*/;</script>
 <script type="text/plain" id="mau-thiep"><!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -333,10 +336,38 @@ button{font-family:inherit;cursor:pointer}
   font-family:var(--serif);font-style:italic;
   font-size:.95rem;color:var(--ink-soft);margin:0;
 }
+/* Lời chào riêng cho khách — đặt ngay đầu thiệp, chữ viết tay,
+   là thứ đập vào mắt đầu tiên khi khách mở link của mình. */
 .cover__guest{
-  margin:20px 0 0;font-family:var(--serif);font-size:1.05rem;color:var(--ink-soft);
+  margin:0 0 22px;padding:0 0 20px;position:relative;
 }
-.cover__guest b{font-style:italic;color:var(--sand);font-weight:600}
+.cover__guest::after{                      /* nét mảnh mờ dần, ngăn với phần dưới */
+  content:'';position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+  width:88px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--line) 28%,var(--line) 72%,transparent);
+}
+.cover__guest-loi{
+  display:block;
+  font-size:clamp(.6rem,2.4vw,.7rem);letter-spacing:.34em;text-transform:uppercase;
+  color:var(--accent);font-weight:500;margin-bottom:6px;
+}
+.cover__guest-ten{
+  display:block;
+  font-family:var(--script);font-weight:600;
+  font-size:clamp(1.7rem,6.4vw,2.5rem);
+  line-height:1.25;color:var(--bronze);
+  text-wrap:balance;
+}
+/* Có lời chào thì bóp nhẹ phần dưới cho cả khối vẫn gọn trong một màn */
+.cover.co-khach .cover__names{font-size:clamp(1.75rem,5.6vw,2.85rem)}
+.cover.co-khach .cover__eyebrow{margin-bottom:14px}
+.cover.co-khach .cover__meta{margin-top:18px;padding-top:16px}
+.cover.co-khach .cover__cta{margin-top:22px}
+
+@media (min-width:900px){
+  .cover__guest{text-align:left}
+  .cover__guest::after{left:0;transform:none}
+}
 .cover__cta{margin-top:26px}
 .cover__cta .btn{animation:glow 2.8s ease-in-out infinite}
 .cover__cta .btn:hover{animation:none}
@@ -369,6 +400,16 @@ button{font-family:inherit;cursor:pointer}
   .cover__meta{margin-top:16px;padding-top:14px}
   .cover__cta{margin-top:18px}
   .cover__names{font-size:clamp(1.7rem,5.6vw,2.2rem)}
+
+  /* Màn hình thấp mà lại có thêm lời chào riêng: bóp mạnh hơn nữa để nút
+     "Mở thiệp cưới" không bị đẩy xuống dưới mép màn hình. */
+  .cover.co-khach .cover__photo{width:min(48vw, 26vh, 200px)}
+  .cover.co-khach .cover__guest{margin-bottom:14px;padding-bottom:12px}
+  .cover.co-khach .cover__guest-ten{font-size:clamp(1.25rem,5.2vw,1.7rem)}
+  .cover.co-khach .cover__names{font-size:clamp(1.4rem,4.8vw,1.85rem)}
+  .cover.co-khach .cover__meta{margin-top:12px;padding-top:11px}
+  .cover.co-khach .cover__lunar{font-size:.84rem}
+  .cover.co-khach .cover__cta{margin-top:14px}
 }
 
 /* Bấm mở thiệp: chữ trôi lên và tan, tấm ảnh lớn dần rồi cả trang mờ đi */
@@ -925,13 +966,16 @@ body.is-opened .hero__bg{
       <img id="coverImg" alt="">
     </figure>
     <div class="cover__text">
+      <div class="cover__guest" id="coverGuest" hidden>
+        <span class="cover__guest-loi" id="coverGuestLoi"></span>
+        <span class="cover__guest-ten" id="coverGuestTen"></span>
+      </div>
       <p class="cover__eyebrow" id="coverEyebrow"></p>
       <h1 class="cover__names" id="coverNames"></h1>
       <div class="cover__meta">
         <p class="cover__date" id="coverDate"></p>
         <p class="cover__lunar" id="coverLunar"></p>
       </div>
-      <p class="cover__guest" id="coverGuest" hidden></p>
       <div class="cover__cta">
         <button class="btn" id="openBtn"></button>
       </div>
@@ -1205,9 +1249,24 @@ window.WEDDING_CONFIG = {
     dateText: '16 . 09 . 2026',
     lunarText: 'Nhằm ngày 06 tháng 08 năm Bính Ngọ',
     openButton: 'Mở thiệp cưới',
-    // Lời chào riêng cho từng khách: gửi link kèm ?guest=Anh Tuấn
     guestGreeting: 'Thân mời'
   },
+
+  /* ---------- 3b. DANH SÁCH KHÁCH MỜI ----------
+     CHỈ những tên có trong danh sách này mới hiện lên thiệp.
+     Ai đó tự sửa link thành tên khác — kể cả chữ bậy — thiệp sẽ bỏ qua,
+     coi như không có lời chào riêng.
+
+     Cách gửi:  .../wedding/?guest=Anh Tuấn
+     Thêm khách: viết thêm một dòng vào danh sách bên dưới.
+     Không phân biệt hoa thường, thừa dấu cách cũng không sao. */
+  guests: [
+    'Anh Tuấn',
+    'Gia đình cô Ba',
+    'Vợ chồng anh Nam chị Lan',
+    'Cô Lan chú Hùng',
+    'Team Marketing'
+  ],
 
   /* ---------- 4. LỜI MỞ ĐẦU ---------- */
   intro: {
@@ -1488,19 +1547,36 @@ window.WEDDING_CONFIG = {
     text('coverLunar', cv.lunarText);
     $('#openBtn').textContent = cv.openButton || 'Mở thiệp';
 
-    /* Lời chào riêng cho từng khách. Hai đường:
-       - bản online: link dạng  index.html?guest=Anh%20Tuấn
-       - bản offline một file: tên khách được ghi sẵn vào window.__GUEST__
-         (file mở bằng cách bấm đúp thì không có phần ?guest= trên địa chỉ) */
-    var guest = window.__GUEST__ || new URLSearchParams(location.search).get('guest');
-    if (guest) {
-      guest = guest.replace(/[<>]/g, '').trim().slice(0, 60);
-      if (guest) {
-        var el = $('#coverGuest');
-        el.innerHTML = esc(cv.guestGreeting || 'Thân mời') + ' <b>' + esc(guest) + '</b>';
-        el.hidden = false;
-      }
+    /* Lời chào riêng cho từng khách.
+       - bản online:  .../?guest=Anh Tuấn
+       - bản offline: tên ghi sẵn trong window.__GUEST__
+
+       CHỈ tên nằm trong C.guests mới được hiện. Ai sửa link thành tên khác
+       thì bỏ qua, để không ai biến thiệp thành nội dung tuỳ ý được. */
+    var xin = window.__GUEST__ || new URLSearchParams(location.search).get('guest');
+    var ten = timTrongDanhSach(xin);
+    if (ten) {
+      $('#coverGuestLoi').textContent = cv.guestGreeting || 'Thân mời';
+      $('#coverGuestTen').textContent = ten;
+      $('#coverGuest').hidden = false;
+      document.getElementById('cover').classList.add('co-khach');
     }
+  }
+
+  /* So tên khách với danh sách, bỏ qua hoa thường và dấu cách thừa.
+     Trả về đúng tên như đã ghi trong danh sách, hoặc '' nếu không có. */
+  function timTrongDanhSach(xin) {
+    if (!xin) return '';
+    var chuan = function (t) {
+      return String(t).replace(/\s+/g, ' ').trim().toLowerCase();
+    };
+    var can = chuan(xin);
+    if (!can) return '';
+    var ds = C.guests || [];
+    for (var i = 0; i < ds.length; i++) {
+      if (chuan(ds[i]) === can) return ds[i];
+    }
+    return '';
   }
 
   function buildHero() {
@@ -2153,6 +2229,19 @@ window.WEDDING_CONFIG = {
     try { localStorage.setItem('dia_chi_thiep', this.value); } catch(e){}
   });
 
+  /* Đổ danh sách khách cố định vào ô chọn */
+  (function(){
+    var o = $('#ten');
+    if (!DANH_SACH_KHACH.length) {
+      o.innerHTML = '<option value="">(chưa có khách nào trong danh sách)</option>';
+      return;
+    }
+    o.innerHTML = '<option value="">— chọn khách —</option>' +
+      DANH_SACH_KHACH.map(function(t){
+        return '<option>' + t.replace(/&/g,'&amp;').replace(/</g,'&lt;') + '</option>';
+      }).join('');
+  })();
+
   function ten(){ return $('#ten').value.trim(); }
 
   function cannhac(nut, chu, lop){
@@ -2162,7 +2251,7 @@ window.WEDDING_CONFIG = {
     setTimeout(function(){ nut.textContent = cu; nut.classList.remove('ok'); }, 2000);
   }
 
-  function cheoBiet(){ alert('Bạn gõ tên khách vào ô trên cùng trước nhé.'); $('#ten').focus(); }
+  function cheoBiet(){ alert('Bạn chọn khách trong danh sách ở ô trên cùng trước nhé.'); $('#ten').focus(); }
 
   /* ---------- Cách 1: link ---------- */
   function taoLink(){
@@ -2258,7 +2347,7 @@ window.WEDDING_CONFIG = {
     }
   });
 
-  $('#ten').addEventListener('input', function(){
+  $('#ten').addEventListener('change', function(){
     $('#kqFile').classList.remove('hien');
     if ($('#kqLink').classList.contains('hien')) hienLink();
   });

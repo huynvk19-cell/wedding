@@ -92,19 +92,36 @@
     text('coverLunar', cv.lunarText);
     $('#openBtn').textContent = cv.openButton || 'Mở thiệp';
 
-    /* Lời chào riêng cho từng khách. Hai đường:
-       - bản online: link dạng  index.html?guest=Anh%20Tuấn
-       - bản offline một file: tên khách được ghi sẵn vào window.__GUEST__
-         (file mở bằng cách bấm đúp thì không có phần ?guest= trên địa chỉ) */
-    var guest = window.__GUEST__ || new URLSearchParams(location.search).get('guest');
-    if (guest) {
-      guest = guest.replace(/[<>]/g, '').trim().slice(0, 60);
-      if (guest) {
-        var el = $('#coverGuest');
-        el.innerHTML = esc(cv.guestGreeting || 'Thân mời') + ' <b>' + esc(guest) + '</b>';
-        el.hidden = false;
-      }
+    /* Lời chào riêng cho từng khách.
+       - bản online:  .../?guest=Anh Tuấn
+       - bản offline: tên ghi sẵn trong window.__GUEST__
+
+       CHỈ tên nằm trong C.guests mới được hiện. Ai sửa link thành tên khác
+       thì bỏ qua, để không ai biến thiệp thành nội dung tuỳ ý được. */
+    var xin = window.__GUEST__ || new URLSearchParams(location.search).get('guest');
+    var ten = timTrongDanhSach(xin);
+    if (ten) {
+      $('#coverGuestLoi').textContent = cv.guestGreeting || 'Thân mời';
+      $('#coverGuestTen').textContent = ten;
+      $('#coverGuest').hidden = false;
+      document.getElementById('cover').classList.add('co-khach');
     }
+  }
+
+  /* So tên khách với danh sách, bỏ qua hoa thường và dấu cách thừa.
+     Trả về đúng tên như đã ghi trong danh sách, hoặc '' nếu không có. */
+  function timTrongDanhSach(xin) {
+    if (!xin) return '';
+    var chuan = function (t) {
+      return String(t).replace(/\s+/g, ' ').trim().toLowerCase();
+    };
+    var can = chuan(xin);
+    if (!can) return '';
+    var ds = C.guests || [];
+    for (var i = 0; i < ds.length; i++) {
+      if (chuan(ds[i]) === can) return ds[i];
+    }
+    return '';
   }
 
   function buildHero() {

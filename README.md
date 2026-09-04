@@ -190,13 +190,34 @@ https://ten-cua-ban.github.io/wedding/?guest=Gia%20đình%20cô%20Ba
 
 Trên bìa thiệp sẽ hiện: *Thân mời **Anh Tuấn***
 
+## 👥 Danh sách khách mời cố định
+
+Mở `assets/js/config.js`, tìm mục **`guests`**:
+
+```js
+guests: [
+  'Anh Tuấn',
+  'Gia đình cô Ba',
+  'Vợ chồng anh Nam chị Lan'
+],
+```
+
+**Chỉ những tên trong danh sách này mới hiện lên thiệp.** Ai đó tự sửa link
+thành tên khác — kể cả chữ bậy — thiệp sẽ bỏ qua, coi như không có lời chào.
+
+Thêm khách: viết thêm một dòng, nhớ dấu phẩy ở cuối dòng trước.
+Không phân biệt hoa thường, thừa dấu cách cũng không sao.
+
+Sau khi sửa danh sách, chạy lại `python3 tools/dung-cong-cu.py` để công cụ
+gửi thiệp cập nhật theo.
+
 ## 📨 Gửi thiệp cho từng khách, mỗi người một tên
 
 Mở file **`tools/gui-thiep.html`** — bấm đúp vào nó, hoặc gửi nó vào Zalo cho
 chính mình rồi mở trên điện thoại. **Không cần cài gì, không cần gõ lệnh,
 không cần mạng.**
 
-Trang đó có một ô nhập tên khách và hai cách gửi:
+Trang đó có ô **chọn khách từ danh sách** và hai cách gửi:
 
 ### Cách 1 — Gửi link
 
