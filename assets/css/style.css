@@ -617,7 +617,9 @@ body.is-opened .hero__bg{
   margin:0;padding:0;border:0;background:none;
   transform:translate(-50%,-50%);
   transition:transform .62s cubic-bezier(.22,.61,.36,1), opacity .45s ease;
-  cursor:pointer;will-change:transform;
+  cursor:pointer;
+  /* KHÔNG dùng will-change ở đây: nó ép trình duyệt giữ 9 lớp đồ hoạ
+     riêng trên GPU cùng lúc, đủ làm Safari trên iPad sập vì hết bộ nhớ. */
   -webkit-tap-highlight-color:transparent;
   /* pan-y: cuộn dọc vẫn thuộc về trang, vuốt ngang thuộc về album */
   touch-action:pan-y;
@@ -628,9 +630,12 @@ body.is-opened .hero__bg{
   border-radius:20px;
   -webkit-user-drag:none;
   box-shadow:0 24px 55px -20px rgba(20,34,46,.55);
-  /* bóng phản chiếu dưới ảnh — nét đặc trưng của coverflow */
-  -webkit-box-reflect:below 8px linear-gradient(transparent 76%, rgba(255,255,255,.18));
   user-select:none;
+}
+/* Bóng phản chiếu CHỈ đặt cho tấm đang ở giữa. Đặt cho cả 9 tấm thì mỗi tấm
+   tốn thêm một lớp đồ hoạ nữa, gấp đôi bộ nhớ và làm máy yếu bị sập. */
+.cf__item.is-active img{
+  -webkit-box-reflect:below 8px linear-gradient(transparent 76%, rgba(255,255,255,.18));
 }
 .cf__item.is-active img{
   box-shadow:0 34px 74px -22px rgba(20,34,46,.62);
@@ -643,8 +648,7 @@ body.is-opened .hero__bg{
 }
 .cf__nav{
   width:46px;height:46px;border-radius:999px;
-  border:1px solid var(--line);background:rgba(255,255,255,.6);
-  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border:1px solid var(--line);background:rgba(255,255,255,.88);
   color:var(--deep);display:grid;place-items:center;
   transition:background .3s,transform .3s,border-color .3s;
 }

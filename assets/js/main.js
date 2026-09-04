@@ -314,7 +314,7 @@
       var nhan = 'Ảnh cưới ' + (i + 1) + ' trong ' + photos.length;
       return '<button class="cf__item" type="button" data-i="' + i + '" role="option" ' +
         'aria-label="' + nhan + '">' +
-        '<img src="' + esc(p.src) + '" alt="' + nhan + '" draggable="false">' +
+        '<img src="' + esc(p.src) + '" alt="' + nhan + '" draggable="false" decoding="async">' +
         '</button>';
     }).join('');
 
@@ -389,6 +389,9 @@
         el.style.opacity = shown ? (abs <= 1 ? (1 - abs * 0.08).toFixed(2)
                                              : Math.max(0, 0.92 - (abs - 1) * 0.3).toFixed(2)) : '0';
         el.style.pointerEvents = shown ? 'auto' : 'none';
+        /* Tấm ở ngoài tầm nhìn: ẩn hẳn để trình duyệt khỏi phải vẽ và giữ
+           lớp đồ hoạ cho nó — giảm mạnh bộ nhớ trên máy yếu. */
+        el.style.visibility = shown ? 'visible' : 'hidden';
         el.classList.toggle('is-active', abs < 0.5);
         el.setAttribute('aria-selected', abs < 0.5 ? 'true' : 'false');
         el.tabIndex = abs < 0.5 ? 0 : -1;
