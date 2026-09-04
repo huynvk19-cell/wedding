@@ -206,8 +206,8 @@ window.WEDDING_CONFIG = {
     //   'none'   : chỉ hiện lời cảm ơn, không gửi đi đâu (mặc định, dùng để xem thử)
     //   'form'   : gửi vào Google Form (điền formAction + các entry.xxx bên dưới)
     //   'script' : gửi vào Google Apps Script / API riêng (điền endpoint)
-    mode: 'none',
-    formAction: '',           // https://docs.google.com/forms/d/e/XXX/formResponse
+    mode: 'none',            // đổi thành 'form' khi đã điền xong các mã entry bên dưới
+    formAction: 'https://docs.google.com/forms/d/e/1FAIpQLSd-aSnjP70NbSuyRidz0-nwDwCcqqwxNVLixIBxeqNQcAFfaQ/formResponse',
     fields: {                 // mã entry lấy từ Google Form
       name: 'entry.111111',
       phone: 'entry.222222',
