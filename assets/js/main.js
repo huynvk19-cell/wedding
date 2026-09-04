@@ -139,7 +139,6 @@
       '<p class="person__role">' + esc(p.role) + '</p>' +
       '<h3 class="person__name">' + esc(p.fullName) + '</h3>' +
       (p.title ? '<p class="person__title">' + esc(p.title) + '</p>' : '') +
-      (p.quote ? '<p class="person__quote">“' + esc(p.quote) + '”</p>' : '') +
       '<div class="person__parents"><b>Gia đình</b>' +
         (p.father ? '<span>' + esc(p.father) + '</span>' : '') +
         (p.mother ? '<span>' + esc(p.mother) + '</span>' : '') +

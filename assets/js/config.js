@@ -33,7 +33,6 @@ window.WEDDING_CONFIG = {
       fullName: 'Nguyễn Văn Huy',
       role: 'Chú rể',
       title: 'Đại hoàng tử',          // danh xưng vui, hiện dưới tên
-      quote: 'Anh sẽ nắm tay em, đi hết những mùa còn lại của cuộc đời.',
       father: 'Ông Nguyễn Văn Lượng',
       mother: 'Bà Nguyễn Thị Bé',
       // Để '' nếu không muốn hiện nút mạng xã hội
@@ -45,7 +44,6 @@ window.WEDDING_CONFIG = {
       fullName: 'Nguyễn Thị Ngọc Hiếu',
       role: 'Cô dâu',
       title: 'Trưởng công chúa',      // danh xưng vui, hiện dưới tên
-      quote: 'Cảm ơn anh đã đến, và ở lại thật lâu trong đời em.',
       father: 'Ông Nguyễn Công Nhân',
       mother: 'Bà Nguyễn Thị Ngọc Ánh',
       facebook: '',
