@@ -529,29 +529,38 @@
         if (data.wish && C.wishes && C.wishes.show) addWish(data.name, data.wish);
       };
 
-      if (r.mode === 'form' && r.formAction) {
-        var fd = new FormData();
-        Object.keys(r.fields || {}).forEach(function (k) {
-          if (r.fields[k] && data[k] != null) fd.append(r.fields[k], data[k]);
-        });
-        fetch(r.formAction, { method: 'POST', mode: 'no-cors', body: fd })
-          .then(done).catch(done);
-      } else if (r.mode === 'script' && r.endpoint) {
-        fetch(r.endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        }).then(done).catch(done);
-      } else {
-        done();
-      }
+      guiDiXa(data, done);
     });
+  }
+
+  /* Gửi một bản ghi lên nơi chứa dữ liệu (Google Biểu mẫu hoặc API riêng).
+     Dùng chung cho cả xác nhận tham dự lẫn sổ lưu bút. Không cấu hình gì
+     thì chạy thẳng xong() để thiệp vẫn mượt khi xem thử. */
+  function guiDiXa(data, xong) {
+    var r = C.rsvp || {};
+    if (r.mode === 'form' && r.formAction) {
+      var fd = new FormData();
+      Object.keys(r.fields || {}).forEach(function (k) {
+        if (r.fields[k] && data[k] != null) fd.append(r.fields[k], data[k]);
+      });
+      fetch(r.formAction, { method: 'POST', mode: 'no-cors', body: fd })
+        .then(xong).catch(xong);
+    } else if (r.mode === 'script' && r.endpoint) {
+      fetch(r.endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      }).then(xong).catch(xong);
+    } else {
+      xong();
+    }
   }
 
   /* ---------------------------------------------------------
      9. Sổ lưu bút (lưu trên localStorage của khách)
      --------------------------------------------------------- */
   var STORE_KEY = 'wedding_wishes_v1';
+  var loiChucXa = [];   /* lời chúc đã gom về repo, nạp bằng tải về bên dưới */
 
   function loadStored() {
     try { return JSON.parse(localStorage.getItem(STORE_KEY)) || []; }
@@ -563,7 +572,16 @@
   }
   function renderWishes() {
     var seed = (C.wishes && C.wishes.seed) || [];
-    var all = seed.concat(loadStored());
+    /* Bỏ trùng: lời chúc khách vừa viết nằm ở máy họ, lát sau gom về repo
+       lại xuất hiện lần nữa — cùng tên cùng nội dung thì chỉ giữ một. */
+    var da = {}, all = [];
+    seed.concat(loiChucXa).concat(loadStored()).forEach(function (w) {
+      if (!w || !w.text) return;
+      var khoa = (w.name || '') + '\u0000' + w.text;
+      if (da[khoa]) return;
+      da[khoa] = 1; all.push(w);
+    });
+    all.reverse();          /* mới nhất lên đầu */
     if (!all.length) {
       $('#wishList').innerHTML = '<p class="wish-empty">' +
         esc((C.wishes && C.wishes.emptyText) || 'Chưa có lời chúc nào.') + '</p>';
@@ -592,12 +610,28 @@
     $('#wishSubmit').textContent = w.submitText || 'Gửi lời chúc';
     renderWishes();
 
+    /* Lời chúc mọi người đã gửi, gom sẵn về repo. Mở thiệp từ file rời
+       (không qua mạng) thì tải về hỏng — kệ, thiệp vẫn chạy bình thường. */
+    if (w.source) {
+      fetch(w.source, { cache: 'no-store' })
+        .then(function (res) { return res.ok ? res.json() : []; })
+        .then(function (ds) {
+          if (Array.isArray(ds) && ds.length) { loiChucXa = ds; renderWishes(); }
+        })
+        .catch(function () {});
+    }
+
+    var nut = $('#wishSubmit');
     $('#wishForm').addEventListener('submit', function (ev) {
       ev.preventDefault();
       var n = $('#wishName').value.trim(), t = $('#wishText').value.trim();
       if (!n || !t) return;
-      addWish(n, t);
-      ev.target.reset();
+      nut.disabled = true;
+      guiDiXa({ name: n, phone: '', attend: '', side: '', wish: t }, function () {
+        nut.disabled = false;
+        addWish(n, t);
+        ev.target.reset();
+      });
     });
   }
 

@@ -231,6 +231,10 @@ window.WEDDING_CONFIG = {
     placeholder: 'Viết lời chúc của bạn...',
     submitText: 'Gửi lời chúc',
     emptyText: 'Chưa có lời chúc nào — hãy là người đầu tiên nhé!',
+    // File chứa lời chúc mọi người đã gửi. Máy tự gom về đây mỗi 15 phút
+    // (xem .github/workflows/gom-loi-chuc.yml). Để trống thì thiệp chỉ
+    // hiện lời chúc lưu trên máy của chính người đọc.
+    source: 'du-lieu/loi-chuc.json',
     // Lời chúc hiện sẵn trên thiệp. Để trống thì thiệp chỉ hiện dòng
     // emptyText ở trên cho tới khi có người viết.
     seed: []
