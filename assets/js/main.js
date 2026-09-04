@@ -220,9 +220,7 @@
     text('storySub', s.subheading);
     $('#timeline').innerHTML = (s.items || []).map(function (it) {
       return '<article class="tl reveal">' +
-        '<div class="tl__photo">' +
-          (it.photo ? '<img src="' + esc(it.photo) + '" alt="' + esc(it.title) + '" loading="lazy">' : '') +
-        '</div>' +
+        '<div class="tl__spacer" aria-hidden="true"></div>' +
         '<div class="tl__dot"></div>' +
         '<div class="tl__body">' +
           '<p class="tl__date">' + esc(it.date) + '</p>' +

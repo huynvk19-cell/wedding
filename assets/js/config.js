@@ -93,7 +93,9 @@ window.WEDDING_CONFIG = {
     finishedText: 'Hôm nay là ngày chúng mình về chung một nhà ❤'
   },
 
-  /* ---------- 6. CHUYỆN CHÚNG MÌNH ---------- */
+  /* ---------- 6. CHUYỆN CHÚNG MÌNH ----------
+     Mỗi cột mốc chỉ gồm thời gian, tiêu đề và nội dung — không dùng ảnh.
+     Thêm hoặc bớt cột mốc thoải mái, dòng thời gian tự sắp lại. */
   story: {
     heading: 'Chuyện chúng mình',
     subheading: 'Một hành trình nhỏ, kể bằng vài cột mốc',
@@ -102,28 +104,24 @@ window.WEDDING_CONFIG = {
         date: '08 . 03 . 2024',
         title: 'Lần đầu gặp nhau',
         text: 'Bầu trời đêm Vũng Tàu... Một chút biển, một chút gió, một chút duyên, ' +
-              'hai người lạ vô tình gặp gỡ — để rồi sau đó không còn từ lạ.',
-        photo: 'assets/images/story-1.jpg'
+              'hai người lạ vô tình gặp gỡ — để rồi sau đó không còn từ lạ.'
       },
       {
         date: '21 . 03 . 2024',
         title: 'Chính thức yêu nhau',
         text: 'Chẳng biết từ lúc nào những cuộc trò chuyện trở thành điều mong đợi, ' +
               'những lần gặp nhau trở thành niềm vui. Và một ngày, chúng mình nhận ra ' +
-              '“lỡ yêu mất rùii...”',
-        photo: 'assets/images/story-2.jpg'
+              '“lỡ yêu mất rùii...”'
       },
       {
         date: 'Tháng 08 . 2024',
         title: 'Chuyến đi đầu tiên',
-        text: 'Chuyến đi đầu tiên của hai đứa, và cũng là lần thứ hai chúng mình đến Vũng Tàu — nơi mọi thứ đã bắt đầu.',
-        photo: 'assets/images/story-3.jpg'
+        text: 'Chuyến đi đầu tiên của hai đứa, và cũng là lần thứ hai chúng mình đến Vũng Tàu — nơi mọi thứ đã bắt đầu.'
       },
       {
-        date: 'Tháng 05 . 2024',
+        date: 'Tháng 05 . 2026',
         title: 'Lời cầu hôn',
-        text: 'Không pháo hoa, không đông người — chỉ có một chiếc nhẫn, một câu hỏi và một cái gật đầu.',
-        photo: 'assets/images/story-4.jpg'
+        text: 'Không pháo hoa, không đông người — chỉ có một chiếc nhẫn, một câu hỏi và một cái gật đầu.'
       }
     ]
   },

@@ -30,7 +30,6 @@ thật, giữ nguyên tên file** là thiệp tự động cập nhật, không 
 |---|---|---|
 | `cover.jpg` | Ảnh nền màn hình đầu (toàn cảnh) | **dọc**, 1600 × 2400 |
 | `cover-card.jpg` | Ảnh trong khung ở màn hình bìa — cắt cao hơn ngang eo | **dọc 4:5**, 1100 × 1375 |
-| `story-1.jpg` → `story-4.jpg` | Ảnh các cột mốc trong "Chuyện chúng mình" | ngang, 1000 × 750 |
 | `album-1.jpg` → `album-9.jpg` | Album cưới Coverflow (thêm/bớt tuỳ ý) | ảnh **ngang hay dọc đều được** |
 | `share.jpg` | Ảnh hiện ra khi dán link lên Facebook/Zalo | 1200 × 630 |
 
@@ -146,11 +145,11 @@ cover: {
   photo:     'assets/images/anh-bia.jpg',        // ảnh nền toàn cảnh
   cardPhoto: 'assets/images/anh-bia-cat.jpg'     // ảnh trong khung bìa; để '' thì dùng lại photo
 }
-story: { items: [ { photo: 'assets/images/ky-niem-01.jpg' } ] }
 ```
 
-Riêng **Chuyện chúng mình** thì thêm/bớt được cột mốc: mỗi cột mốc là một khối
-`{ date, title, text, photo }` trong `story.items`.
+Riêng **Chuyện chúng mình** không dùng ảnh — chỉ có mốc thời gian và nội dung.
+Thêm hoặc bớt cột mốc thoải mái, mỗi cột mốc là một khối `{ date, title, text }`
+trong `story.items`, dòng thời gian tự sắp lại so le hai bên.
 
 ### Bước 3 — Thêm nhạc nền (không bắt buộc)
 

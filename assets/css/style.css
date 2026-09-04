@@ -461,20 +461,19 @@ body.is-opened .hero__bg{
 }
 .tl{
   display:grid;grid-template-columns:1fr 60px 1fr;
-  align-items:center;margin-bottom:clamp(34px,6vw,64px);
+  align-items:start;                 /* chấm mốc thẳng hàng với dòng ngày tháng */
+  margin-bottom:clamp(38px,6vw,68px);
 }
 .tl:last-child{margin-bottom:0}
 .tl__dot{
   width:11px;height:11px;border-radius:999px;   /* tròn, đồng bộ với các chi tiết khác */
   background:var(--accent);
-  margin:0 auto;position:relative;z-index:2;
+  margin:5px auto 0;position:relative;z-index:2;
   outline:6px solid var(--cream);
 }
 .section--tint .tl__dot{outline-color:var(--cream-2)}
-.tl__photo img{
-  width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:20px;
-  box-shadow:var(--shadow);
-}
+/* Dòng thời gian thuần chữ: cột trống bên kia giữ cho hai bên cân nhau */
+.tl__spacer{min-height:1px}
 .tl__body .tl__date{
   font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;
   color:var(--accent);margin:0 0 8px;
@@ -483,11 +482,14 @@ body.is-opened .hero__bg{
   font-family:var(--display);font-weight:400;
   font-size:clamp(1.25rem,3vw,1.6rem);color:var(--deep);margin:0 0 10px;
 }
-.tl__body p{margin:0;color:var(--ink-soft);font-size:.96rem}
-.tl:nth-child(odd) .tl__photo{grid-column:1;text-align:right}
+/* chỉ đoạn nội dung, KHÔNG áp cho dòng ngày tháng (cũng là thẻ p) */
+.tl__body > p:not(.tl__date){margin:0;color:var(--ink-soft);font-size:1rem;max-width:38ch}
+.tl:nth-child(odd)  .tl__body > p:not(.tl__date){margin-right:auto}
+.tl:nth-child(even) .tl__body > p:not(.tl__date){margin-left:auto}
+.tl:nth-child(odd) .tl__spacer{grid-column:1}
 .tl:nth-child(odd) .tl__body{grid-column:3;text-align:left}
 .tl:nth-child(even) .tl__body{grid-column:1;text-align:right}
-.tl:nth-child(even) .tl__photo{grid-column:3}
+.tl:nth-child(even) .tl__spacer{grid-column:3}
 
 /* ============================================================
    7. SỰ KIỆN
@@ -791,9 +793,8 @@ body.is-opened .hero__bg{
   .timeline::before{left:14px}
   .tl{grid-template-columns:29px 1fr;gap:16px;align-items:start}
   .tl__dot{margin:8px 0 0}
-  .tl:nth-child(odd) .tl__photo,.tl:nth-child(even) .tl__photo{
-    grid-column:2;grid-row:2;text-align:left;margin-top:14px;
-  }
+  .tl__spacer{display:none}
+  .tl__body > p:not(.tl__date){margin-left:0;margin-right:0;max-width:none}
   .tl:nth-child(odd) .tl__body,.tl:nth-child(even) .tl__body{
     grid-column:2;grid-row:1;text-align:left;
   }
