@@ -539,11 +539,13 @@
   function guiDiXa(data, xong) {
     var r = C.rsvp || {};
     if (r.mode === 'form' && r.formAction) {
-      var fd = new FormData();
+      /* Gửi kiểu urlencoded chứ không phải FormData: Google Biểu mẫu nhận
+         cả hai, nhưng kiểu này là kiểu chính biểu mẫu của họ vẫn dùng. */
+      var o = new URLSearchParams();
       Object.keys(r.fields || {}).forEach(function (k) {
-        if (r.fields[k] && data[k] != null) fd.append(r.fields[k], data[k]);
+        if (r.fields[k] && data[k] != null) o.append(r.fields[k], data[k]);
       });
-      fetch(r.formAction, { method: 'POST', mode: 'no-cors', body: fd })
+      fetch(r.formAction, { method: 'POST', mode: 'no-cors', body: o })
         .then(xong).catch(xong);
     } else if (r.mode === 'script' && r.endpoint) {
       fetch(r.endpoint, {
