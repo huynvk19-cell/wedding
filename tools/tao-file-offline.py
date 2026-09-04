@@ -8,7 +8,7 @@ Cách dùng (chạy từ thư mục gốc của dự án):
   python3 tools/tao-file-offline.py
       -> tạo  ban-offline/thiep-cuoi.html   (không có tên khách)
 
-  python3 tools/tao-file-offline.py --khach "Anh Tuấn"
+  python3 tools/tao-file-offline.py --khach "Đạt"
       -> tạo  ban-offline/thiep-cuoi-anh-tuan.html
 
   python3 tools/tao-file-offline.py --danh-sach khach.txt

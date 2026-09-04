@@ -77,11 +77,15 @@ window.WEDDING_CONFIG = {
      Thêm khách: viết thêm một dòng vào danh sách bên dưới.
      Không phân biệt hoa thường, thừa dấu cách cũng không sao. */
   guests: [
-    'Anh Tuấn',
-    'Gia đình cô Ba',
-    'Vợ chồng anh Nam chị Lan',
-    'Cô Lan chú Hùng',
-    'Team Marketing'
+    /* Bạn bè */
+    'Đạt',
+    'Quốc',
+    'Cường',
+    'Nam',
+    'Nhật',
+    'Khiêm',
+    'Mau',
+    'Hoàng'
   ],
 
   /* ---------- 4. LỜI MỞ ĐẦU ---------- */
