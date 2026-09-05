@@ -235,6 +235,7 @@ window.WEDDING_CONFIG = {
     subheading: 'Gửi đôi lời chúc đến cô dâu chú rể',
     placeholder: 'Viết lời chúc của bạn...',
     submitText: 'Gửi lời chúc',
+    note: 'Lời chúc sẽ được gửi tới cô dâu chú rể.',
     emptyText: 'Chưa có lời chúc nào — hãy là người đầu tiên nhé!',
     // Địa chỉ đọc lời chúc của mọi khách, để ai vào cũng đọc được của nhau.
     // Lấy từ Apps Script — xem tools/apps-script/HUONG-DAN.md.
