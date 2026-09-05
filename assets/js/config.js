@@ -85,7 +85,7 @@ window.WEDDING_CONFIG = {
     /* Bạn bè — từ xưng hô nằm luôn trong tên, thiệp hiện
        "Thân mời / Bạn Đạt". Nhóm khác thì đổi từ xưng hô cho hợp:
        'Cô Ba', 'Chú Tư', 'Anh Minh & chị Thu'... */
-    'Bạn Đạt',
+    'Gia đình bạn Đạt',
     'Bạn Quốc',
     'Bạn Cường',
     'Bạn Nam',
