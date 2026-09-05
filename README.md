@@ -271,77 +271,39 @@ Muốn tạo hàng loạt file cùng lúc từ một danh sách thì dùng:
 python3 tools/tao-file-offline.py --danh-sach khach.txt
 ```
 
-### Nhận lời chúc và xác nhận tham dự về thẳng repo
+### Phản hồi của khách chạy đi đâu
 
-Trang thiệp chạy trên máy khách nên **nó không tự ghi vào repo được** — muốn
-ghi thì phải nhét mật khẩu GitHub vào trang, mà trang thì ai xem mã nguồn
-cũng đọc được. Nên dữ liệu đi vòng một nhịp qua Google, rồi máy tự gom về:
+Khách bấm gửi ở mục *Xác nhận tham dự* hoặc viết ở *Sổ lưu bút* — cả hai đều
+chạy về **Google Biểu mẫu "Thiệp cưới"**. Xem phản hồi: mở biểu mẫu, tab
+**Câu trả lời**.
 
-```
-Khách bấm gửi  →  Google Biểu mẫu  →  Trang tính Google
-                                            ↓  (15 phút một lần)
-                                     du-lieu/loi-chuc.json   ← thiệp đọc file này
-                                     du-lieu/loi-chuc.md     ← đọc bằng mắt
-                                     du-lieu/xac-nhan.md     ← bảng ai đến ai không
-```
-
-Toàn bộ miễn phí. Làm một lần, mất khoảng 10 phút.
-
-**1. Tạo biểu mẫu.** Vào [forms.google.com](https://forms.google.com), tạo
-biểu mẫu mới với đúng 5 câu hỏi (tên câu hỏi đặt sao cũng được, miễn có
-những chữ in đậm bên dưới — máy gom dò theo đó):
-
-| Câu hỏi | Kiểu |
-| --- | --- |
-| Họ và **tên** của bạn | Trả lời ngắn |
-| Số **điện thoại** | Trả lời ngắn |
-| Bạn có **tham dự** được không? | Trắc nghiệm |
-| Bạn là **khách của** ai? | Trắc nghiệm |
-| **Lời chúc** gửi cô dâu chú rể | Đoạn văn bản |
-
-**2. Lấy mã của từng ô.** Bấm **Gửi** → chọn biểu tượng `< >` → chép link
-biểu mẫu, mở link đó, bấm chuột phải → **Xem nguồn trang**, tìm các chuỗi
-`entry.123456789`. Mỗi câu hỏi một chuỗi, theo đúng thứ tự trên. Điền vào
-`config.js`:
+Đã nối sẵn trong `config.js`, không phải làm gì thêm:
 
 ```js
 rsvp: {
   mode: 'form',
-  formAction: 'https://docs.google.com/forms/d/e/XXXXX/formResponse',
+  formAction: 'https://docs.google.com/forms/d/e/1FAIpQLSd-.../formResponse',
   fields: {
-    name:   'entry.111111',
-    phone:  'entry.222222',
-    attend: 'entry.333333',
-    side:   'entry.555555',
-    wish:   'entry.666666'
+    name:   'entry.1113735082',   // Tên
+    phone:  'entry.152445501',    // Điện thoại
+    attend: 'entry.643892986',    // Tham dự
+    side:   'entry.2043935380',   // Khách của ai
+    wish:   'entry.424843775'     // Lời chúc
   }
 }
 ```
 
-**3. Mở trang tính ra ngoài.** Trong biểu mẫu, tab **Câu trả lời** → biểu
-tượng trang tính xanh để tạo trang tính. Trong trang tính đó: **Tệp** →
-**Chia sẻ** → **Xuất bản lên web** → định dạng **.csv** → **Xuất bản**.
-Chép link hiện ra, dán vào file `du-lieu/nguon-google-sheet.txt`.
+Đổi sang biểu mẫu khác thì thay `formAction` và 5 mã `entry`. Lấy mã: mở
+biểu mẫu ở chế độ sửa → dấu **⋮** → **Lấy đường liên kết được điền sẵn** →
+gõ chữ đánh dấu vào từng ô → **Get link** → **Copy link**. Link chép được
+chứa sẵn mã của cả 5 ô.
 
-> Link này ai có cũng đọc được nội dung phản hồi. Đừng hỏi những thứ riêng
-> tư hơn tên, số điện thoại và lời chúc.
+Để `mode: 'none'` nếu muốn tắt, biểu mẫu vẫn hiện lời cảm ơn nhưng không gửi
+đi đâu.
 
-**4. Cho máy quyền ghi.** Trong repo: **Settings** → **Actions** →
-**General** → mục *Workflow permissions* → chọn **Read and write
-permissions** → **Save**. Không bật cái này thì máy gom được dữ liệu nhưng
-không lưu lại được.
-
-**5. Chạy thử.** Tab **Actions** → *Gom lời chúc về repo* → **Run workflow**.
-Xong thì mở `du-lieu/loi-chuc.md` xem có gì chưa.
-
-Từ đó về sau tự chạy 15 phút một lần. Khách viết lời chúc thì thấy ngay trên
-máy mình, các khách khác thấy sau chậm nhất 15 phút.
-
-Muốn gom ngay lập tức mà không chờ: `python3 tools/gom-loi-chuc.py`.
-
-**Không muốn dính đến Google?** Để `mode: 'none'` như hiện tại — biểu mẫu
-vẫn hiện lời cảm ơn cho đẹp nhưng không có dữ liệu nào chạy về đâu cả, và
-lời chúc chỉ nằm trên máy của chính người viết.
+**Lời chúc thì khách chỉ thấy của chính mình**, vì thiệp là trang tĩnh, không
+có chỗ chứa chung. Muốn mọi khách cùng đọc lời chúc của nhau thì phải có một
+nơi chứa dữ liệu ở giữa — việc đó bỏ, không làm.
 
 ### Nhúng bản đồ vào thiệp
 
@@ -396,19 +358,12 @@ là xong, có link ngay.
 │   │   └── main.js         logic (không cần sửa)
 │   ├── images/             ⬅️ CHÉP ẢNH VÀO ĐÂY
 │   └── music/              ⬅️ CHÉP FILE MP3 VÀO ĐÂY
-├── du-lieu/                phản hồi của khách, máy tự ghi vào
-│   ├── nguon-google-sheet.txt  ⬅️ DÁN LINK TRANG TÍNH VÀO ĐÂY
-│   ├── loi-chuc.json       thiệp đọc file này
-│   ├── loi-chuc.md         sổ lưu bút, đọc bằng mắt
-│   └── xac-nhan.md         bảng ai đến ai không
 └── tools/
     ├── gui-thiep.html      công cụ gửi thiệp cho từng khách
-    ├── dung-cong-cu.py     dựng lại file trên sau mỗi lần sửa thiệp
-    └── gom-loi-chuc.py     kéo phản hồi từ trang tính về du-lieu/
+    └── dung-cong-cu.py     dựng lại file trên sau mỗi lần sửa thiệp
 ```
 
 ## Lưu ý
 
-- Chưa nối Google Biểu mẫu thì sổ lưu bút chỉ lưu trên trình duyệt của chính
-  người viết — bạn không nhận được gì và khách này không đọc được lời chúc của
-  khách kia. Xem mục *Nhận lời chúc và xác nhận tham dự về thẳng repo* ở trên.
+- Lời chúc chạy về Google Biểu mẫu, nhưng trên thiệp thì mỗi khách chỉ thấy lời
+  chúc của chính mình (lưu bằng `localStorage` trên máy họ).

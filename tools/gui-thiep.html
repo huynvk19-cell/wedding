@@ -1433,10 +1433,6 @@ window.WEDDING_CONFIG = {
     placeholder: 'Viết lời chúc của bạn...',
     submitText: 'Gửi lời chúc',
     emptyText: 'Chưa có lời chúc nào — hãy là người đầu tiên nhé!',
-    // File chứa lời chúc mọi người đã gửi. Máy tự gom về đây mỗi 15 phút
-    // (xem .github/workflows/gom-loi-chuc.yml). Để trống thì thiệp chỉ
-    // hiện lời chúc lưu trên máy của chính người đọc.
-    source: 'du-lieu/loi-chuc.json',
     // Lời chúc hiện sẵn trên thiệp. Để trống thì thiệp chỉ hiện dòng
     // emptyText ở trên cho tới khi có người viết.
     seed: []
@@ -2043,7 +2039,6 @@ window.WEDDING_CONFIG = {
      9. Sổ lưu bút (lưu trên localStorage của khách)
      --------------------------------------------------------- */
   var STORE_KEY = 'wedding_wishes_v1';
-  var loiChucXa = [];   /* lời chúc đã gom về repo, nạp bằng tải về bên dưới */
 
   function loadStored() {
     try { return JSON.parse(localStorage.getItem(STORE_KEY)) || []; }
@@ -2055,10 +2050,9 @@ window.WEDDING_CONFIG = {
   }
   function renderWishes() {
     var seed = (C.wishes && C.wishes.seed) || [];
-    /* Bỏ trùng: lời chúc khách vừa viết nằm ở máy họ, lát sau gom về repo
-       lại xuất hiện lần nữa — cùng tên cùng nội dung thì chỉ giữ một. */
+    /* Cùng tên cùng nội dung thì chỉ giữ một. */
     var da = {}, all = [];
-    seed.concat(loiChucXa).concat(loadStored()).forEach(function (w) {
+    seed.concat(loadStored()).forEach(function (w) {
       if (!w || !w.text) return;
       var khoa = (w.name || '') + '\u0000' + w.text;
       if (da[khoa]) return;
@@ -2092,17 +2086,6 @@ window.WEDDING_CONFIG = {
     $('#wishText').placeholder = w.placeholder || '';
     $('#wishSubmit').textContent = w.submitText || 'Gửi lời chúc';
     renderWishes();
-
-    /* Lời chúc mọi người đã gửi, gom sẵn về repo. Mở thiệp từ file rời
-       (không qua mạng) thì tải về hỏng — kệ, thiệp vẫn chạy bình thường. */
-    if (w.source) {
-      fetch(w.source, { cache: 'no-store' })
-        .then(function (res) { return res.ok ? res.json() : []; })
-        .then(function (ds) {
-          if (Array.isArray(ds) && ds.length) { loiChucXa = ds; renderWishes(); }
-        })
-        .catch(function () {});
-    }
 
     var nut = $('#wishSubmit');
     $('#wishForm').addEventListener('submit', function (ev) {

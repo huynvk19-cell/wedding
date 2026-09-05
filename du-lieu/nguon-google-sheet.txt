@@ -1,8 +1,0 @@
-# Dán vào đây đường link CSV của trang tính Google chứa phản hồi.
-# Lấy link: mở trang tính -> Tệp -> Chia sẻ -> Xuất bản lên web
-#           -> chọn đúng trang -> định dạng "Giá trị được phân tách bằng dấu phẩy (.csv)"
-#           -> Xuất bản -> chép link hiện ra.
-# Link đúng có dạng:
-#   https://docs.google.com/spreadsheets/d/e/2PACX-xxxxxxxx/pub?gid=0&single=true&output=csv
-#
-# Chưa dán gì thì máy gom dữ liệu chỉ bỏ qua, không báo lỗi.
