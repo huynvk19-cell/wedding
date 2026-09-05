@@ -231,6 +231,10 @@ window.WEDDING_CONFIG = {
     placeholder: 'Viết lời chúc của bạn...',
     submitText: 'Gửi lời chúc',
     emptyText: 'Chưa có lời chúc nào — hãy là người đầu tiên nhé!',
+    // Địa chỉ đọc lời chúc của mọi khách, để ai vào cũng đọc được của nhau.
+    // Lấy từ Apps Script — xem tools/apps-script/HUONG-DAN.md.
+    // Để trống thì mỗi khách chỉ thấy lời chúc của chính mình.
+    source: '',
     // Lời chúc hiện sẵn trên thiệp. Để trống thì thiệp chỉ hiện dòng
     // emptyText ở trên cho tới khi có người viết.
     seed: []

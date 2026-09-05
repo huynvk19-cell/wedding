@@ -301,9 +301,26 @@ chứa sẵn mã của cả 5 ô.
 Để `mode: 'none'` nếu muốn tắt, biểu mẫu vẫn hiện lời cảm ơn nhưng không gửi
 đi đâu.
 
-**Lời chúc thì khách chỉ thấy của chính mình**, vì thiệp là trang tĩnh, không
-có chỗ chứa chung. Muốn mọi khách cùng đọc lời chúc của nhau thì phải có một
-nơi chứa dữ liệu ở giữa — việc đó bỏ, không làm.
+### Báo về máy khi có người phản hồi
+
+Mở biểu mẫu, tab **Câu trả lời**, bấm dấu **⋮**, bật **Nhận thông báo qua
+email cho câu trả lời mới**. Có người xác nhận là Google gửi mail ngay.
+
+### Cho mọi khách cùng đọc lời chúc của nhau
+
+Cần một địa chỉ để thiệp hỏi "đã có những lời chúc nào". Dựng bằng Apps
+Script, miễn phí, làm một lần khoảng 5 phút — xem
+[`tools/apps-script/HUONG-DAN.md`](tools/apps-script/HUONG-DAN.md).
+
+Xong thì dán địa chỉ đó vào `config.js`:
+
+```js
+wishes: {
+  source: 'https://script.google.com/macros/s/AKfycb..../exec',
+}
+```
+
+Để trống dòng `source` thì mỗi khách chỉ thấy lời chúc của chính mình.
 
 ### Nhúng bản đồ vào thiệp
 
@@ -360,10 +377,11 @@ là xong, có link ngay.
 │   └── music/              ⬅️ CHÉP FILE MP3 VÀO ĐÂY
 └── tools/
     ├── gui-thiep.html      công cụ gửi thiệp cho từng khách
-    └── dung-cong-cu.py     dựng lại file trên sau mỗi lần sửa thiệp
+    ├── dung-cong-cu.py     dựng lại file trên sau mỗi lần sửa thiệp
+    └── apps-script/        đoạn mã để mọi khách cùng đọc lời chúc của nhau
 ```
 
 ## Lưu ý
 
-- Lời chúc chạy về Google Biểu mẫu, nhưng trên thiệp thì mỗi khách chỉ thấy lời
-  chúc của chính mình (lưu bằng `localStorage` trên máy họ).
+- Chưa dựng Apps Script thì mỗi khách chỉ thấy lời chúc của chính mình (lưu bằng
+  `localStorage` trên máy họ). Lời chúc vẫn về tới biểu mẫu đầy đủ.

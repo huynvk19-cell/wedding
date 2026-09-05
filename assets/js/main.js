@@ -562,6 +562,7 @@
      9. Sổ lưu bút (lưu trên localStorage của khách)
      --------------------------------------------------------- */
   var STORE_KEY = 'wedding_wishes_v1';
+  var loiChucChung = [];   /* lời chúc của mọi khách, lấy từ nơi chứa chung */
 
   function loadStored() {
     try { return JSON.parse(localStorage.getItem(STORE_KEY)) || []; }
@@ -573,9 +574,10 @@
   }
   function renderWishes() {
     var seed = (C.wishes && C.wishes.seed) || [];
-    /* Cùng tên cùng nội dung thì chỉ giữ một. */
+    /* Lời chúc khách vừa viết nằm ở máy họ, lát sau lấy về từ nơi chứa
+       chung lại thấy lần nữa — cùng tên cùng nội dung thì chỉ giữ một. */
     var da = {}, all = [];
-    seed.concat(loadStored()).forEach(function (w) {
+    seed.concat(loiChucChung).concat(loadStored()).forEach(function (w) {
       if (!w || !w.text) return;
       var khoa = (w.name || '') + '\u0000' + w.text;
       if (da[khoa]) return;
@@ -610,6 +612,8 @@
     $('#wishSubmit').textContent = w.submitText || 'Gửi lời chúc';
     renderWishes();
 
+    napLoiChucChung();
+
     var nut = $('#wishSubmit');
     $('#wishForm').addEventListener('submit', function (ev) {
       ev.preventDefault();
@@ -620,8 +624,27 @@
         nut.disabled = false;
         addWish(n, t);
         ev.target.reset();
+        /* Chờ Google ghi xong rồi lấy lại, để khách thấy lời chúc của mình
+           nằm chung với mọi người chứ không chỉ nằm trên máy mình. */
+        setTimeout(napLoiChucChung, 4000);
       });
     });
+  }
+
+  /* Lấy lời chúc của mọi khách về. Mở thiệp từ file rời không có mạng thì
+     hỏng — kệ, thiệp vẫn chạy, chỉ là chỉ thấy lời chúc của chính mình. */
+  function napLoiChucChung() {
+    var w = C.wishes || {};
+    if (!w.source) return;
+    fetch(w.source, { cache: 'no-store' })
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (ds) {
+        if (ds && !Array.isArray(ds)) ds = ds.loiChuc || ds.wishes || [];
+        if (!Array.isArray(ds)) return;
+        loiChucChung = ds.filter(function (w) { return w && w.text; });
+        renderWishes();
+      })
+      .catch(function () {});
   }
 
   /* ---------------------------------------------------------
