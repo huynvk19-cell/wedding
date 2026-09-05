@@ -128,6 +128,13 @@
     var cv = C.cover || {};
     var bg = $('#heroBg');
     if (bg) bg.style.backgroundImage = 'url("' + (cv.photo || '') + '")';
+    var dau = $('#heroStamp');
+    if (dau && (cv.heroText || cv.heroText2)) {
+      dau.innerHTML =
+        (cv.heroText  ? '<span class="hero__stamp-1">' + esc(cv.heroText)  + '</span>' : '') +
+        (cv.heroText2 ? '<span class="hero__stamp-2">' + esc(cv.heroText2) + '</span>' : '');
+      dau.hidden = false;
+    }
     text('heroEyebrow', 'Chúng mình sắp kết hôn');
     $('#heroNames').innerHTML = pairNamesHtml('hero__amp');
     text('heroDate', cv.dateText);
@@ -190,6 +197,49 @@
   /* ---------------------------------------------------------
      4. Đếm ngược
      --------------------------------------------------------- */
+  var TEN_THANG = ['Tháng Một', 'Tháng Hai', 'Tháng Ba', 'Tháng Tư',
+                   'Tháng Năm', 'Tháng Sáu', 'Tháng Bảy', 'Tháng Tám',
+                   'Tháng Chín', 'Tháng Mười', 'Tháng Mười Một', 'Tháng Mười Hai'];
+  var TEN_THU = ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'CN'];
+
+  /* Tờ lịch tháng cưới, khoanh trái tim vào đúng ngày.
+
+     Đọc thẳng số năm/tháng/ngày từ chuỗi trong config chứ không qua đối
+     tượng Date: giờ cưới là giờ Việt Nam, mà khách ở Hawaii chẳng hạn thì
+     máy họ quy ra ngày hôm trước, khoanh trái tim vào nhầm ô. Tính ngày
+     trong tuần bằng Date.UTC — không dính múi giờ của khách. */
+  function buildLich() {
+    var hop = $('#lich');
+    if (!hop) return;
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec((C.countdown || {}).targetDate || '');
+    if (!m) { hop.hidden = true; return; }
+    var nam = +m[1], thang = +m[2], ngay = +m[3];
+
+    var thuDau = (new Date(Date.UTC(nam, thang - 1, 1)).getUTCDay() + 6) % 7;
+    var soNgay = new Date(Date.UTC(nam, thang, 0)).getUTCDate();
+
+    var o = [];
+    for (var i = 0; i < thuDau; i++) o.push('<td></td>');
+    for (var d = 1; d <= soNgay; d++) {
+      o.push(d === ngay
+        ? '<td class="lich__cuoi"><span>' +
+          '<svg class="lich__tim" aria-hidden="true"><use href="#trai-tim"/></svg>' +
+          '<b>' + d + '</b></span></td>'
+        : '<td>' + d + '</td>');
+    }
+    while (o.length % 7) o.push('<td></td>');
+
+    var hang = [];
+    for (var i = 0; i < o.length; i += 7) hang.push('<tr>' + o.slice(i, i + 7).join('') + '</tr>');
+
+    hop.innerHTML =
+      '<p class="lich__nam">' + nam + '</p>' +
+      '<p class="lich__thang">' + esc(TEN_THANG[thang - 1]) + '</p>' +
+      '<table class="lich__bang"><thead><tr>' +
+        TEN_THU.map(function (t) { return '<th>' + t + '</th>'; }).join('') +
+      '</tr></thead><tbody>' + hang.join('') + '</tbody></table>';
+  }
+
   function buildCountdown() {
     var cd = C.countdown || {};
     text('cdHeading', cd.heading);
@@ -697,6 +747,27 @@
   /* ---------------------------------------------------------
      12. Chấm điều hướng
      --------------------------------------------------------- */
+  /* Rải hoa lá: cụm lá nhỏ vào giữa mỗi đường kẻ ngăn chương, nhánh lớn
+     nằm ở hai góc đối nhau của vài chương cho đỡ trống. Toàn bộ là hình
+     trang trí nên máy đọc màn hình bỏ qua hết. */
+  function buildHoaLa() {
+    $$('.rule i').forEach(function (el) {
+      el.innerHTML = '<svg class="rule__la" aria-hidden="true"><use href="#la-cum"/></svg>';
+    });
+    ['#sec-intro', '#sec-couple', '#sec-events', '#sec-rsvp', '#sec-wishes',
+     '.cover__card'].forEach(function (sel) {
+      var el = $(sel);
+      if (!el) return;
+      ['tren', 'duoi'].forEach(function (goc) {
+        var s = document.createElement('span');
+        s.className = 'deco deco--' + goc;
+        s.setAttribute('aria-hidden', 'true');
+        s.innerHTML = '<svg><use href="#la-goc"/></svg>';
+        el.appendChild(s);
+      });
+    });
+  }
+
   function buildNavDots() {
     if (!(C.theme || {}).navDots) return;
     var items = [
@@ -795,6 +866,7 @@
   buildHero();
   buildIntro();
   buildCouple();
+  buildLich();
   buildCountdown();
   buildStory();
   buildEvents();
@@ -803,6 +875,7 @@
   buildWishes();
   buildFooter();
   buildMusic();
+  buildHoaLa();
   buildNavDots();
   buildPetals();
   initReveal();

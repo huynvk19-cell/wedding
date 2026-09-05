@@ -65,7 +65,12 @@ window.WEDDING_CONFIG = {
     dateText: '16 . 09 . 2026',
     lunarText: 'Nhằm ngày 06 tháng 08 năm Bính Ngọ',
     openButton: 'Mở thiệp cưới',
-    guestGreeting: 'Thân mời'
+    guestGreeting: 'Thân mời',
+    // Chữ trắng nằm trên ảnh lớn, ngay sau khi mở thiệp. Hai dòng: dòng
+    // trên chữ viết tay, dòng dưới chữ in giãn rộng.
+    // Cưới xong muốn đổi thì sửa thành 'Just' / 'MARRIED'.
+    heroText: 'Save the',
+    heroText2: 'DATE'
   },
 
   /* ---------- 3b. DANH SÁCH KHÁCH MỜI ----------
