@@ -660,6 +660,7 @@
     text('wishSub', w.subheading);
     $('#wishText').placeholder = w.placeholder || '';
     $('#wishSubmit').textContent = w.submitText || 'Gửi lời chúc';
+    text('wishNote', w.note);
     renderWishes();
 
     napLoiChucChung();
