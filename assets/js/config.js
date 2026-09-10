@@ -92,7 +92,17 @@ window.WEDDING_CONFIG = {
     'Bạn Nhật',
     'Bạn Khiêm',
     'Bạn Mau',
-    'Bạn Hoàng'
+    'Bạn Hoàng',
+
+    /* Anh chị em */
+    'Anh Long',
+    'Chị Oanh',
+    'Bạn Thọ',
+    'Anh Trung',
+    'Anh Dũng',
+    'Em Khoa',
+    'Chị Hậu',
+    'Chị Quyên'
   ],
 
   /* ---------- 4. LỜI MỞ ĐẦU ---------- */
