@@ -102,7 +102,9 @@ window.WEDDING_CONFIG = {
     'Anh Dũng',
     'Em Khoa',
     'Chị Hậu',
-    'Chị Quyên'
+    'Chị Quyên',
+    'Anh An',
+    'Anh Bạn'
   ],
 
   /* ---------- 4. LỜI MỞ ĐẦU ---------- */
